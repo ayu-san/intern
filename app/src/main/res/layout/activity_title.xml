@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDCD6C">
+
+    <Button
+        android:id="@+id/startbutton"
+        android:layout_width="259dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="194dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="255dp"
+        android:background="#FFFCFC"
+        android:backgroundTint="#050404"
+        android:text="@string/startgame"
+        android:textColor="#039BE5"
+        android:textSize="30sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:strokeColor="#000000"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="297dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="#0277BD"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toTopOf="@+id/startbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>
