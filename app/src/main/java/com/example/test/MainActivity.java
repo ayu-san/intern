@@ -22,13 +22,16 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    //定数を定義
+    final float OFFSET_POINT = 70.0f;
     //オブジェクト
-    private ImageView character;
+    //private ImageView player.m_Texture;
     private int test;
     //private ImageView enemy;
     Enemy enemy;
+    Player player;
 
+    private boolean isCollision = false;
     private float startX, startY;
     private long touchDownTime = 0;
     private int enemyCollisionCount = 0;
@@ -66,13 +69,15 @@ public class MainActivity extends AppCompatActivity {
         screenHeight = displayMetrics.heightPixels;
 
         //オブジェクト取得
-        character = findViewById(R.id.character);
-        character.setX(screenWidth / 3.2f);
-        character.setY(screenHeight / 1.5f);
+        player = new Player();
+        player.m_Texture = findViewById(R.id.character);
+        player.m_Texture.setX(screenWidth /  2.0f - player.m_Texture.getWidth()/2);
+        player.m_Texture.setY(screenHeight / 1.5f);
 
         enemy = new Enemy();
         enemy.m_PosX = screenWidth / 3.2f;
         enemy.m_PosY = screenHeight / 4;
+        enemy.SetSpeed(10.0f,10.0f);
 
         //enemy = findViewById(R.id.enemy);
         //enemy.setX(screenWidth / 3.2f);
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }, 0, 20);
 
         TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
-        character.setOnTouchListener(new View.OnTouchListener() {
+        player.m_Texture.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        character.clearColorFilter();
+                        player.m_Texture.clearColorFilter();
                         isCollisionHandled = false;
                         // 長押しの時間を計算
                         long currentTime2 = System.currentTimeMillis();
@@ -153,31 +158,39 @@ public class MainActivity extends AppCompatActivity {
                         //double angleRadians = Math.atan2(deltaY,deltaX);
                         //double angleDegrees = Math.toDegrees(angleRadians);
 
-                        //character.setRotation((float)angleDegrees);
+                        //player.m_Texture.setRotation((float)angleDegrees);
 
                         //X軸方向の制限（画面端）
-                        float newX = character.getTranslationX() + moveX2;
+                        float newX = player.m_Texture.getTranslationX() + moveX2;
+                        //if (isCollision)
+                        {
+                            //newX = player.m_Texture.getTranslationX();
+                        }
                         if(newX < -50){
                             newX = -50;
-                        } else if (newX > screenWidth - character.getWidth() + 50) {
-                            newX = screenWidth - character.getWidth() + 50;
+                        } else if (newX > screenWidth - player.m_Texture.getWidth() + 50) {
+                            newX = screenWidth - player.m_Texture.getWidth() + 50;
                         }
 
                         //Y軸方向の制限（画面端）
-                        float newY = character.getTranslationY() + moveY2;
+                        float newY = player.m_Texture.getTranslationY() + moveY2;
+                        //if (isCollision)
+                        {
+                           // newY  = player.m_Texture.getTranslationY();
+                        }
                         if(newY < -150){
                             newY = -150;
-                        } else if (newY > screenHeight - character.getHeight()) {
-                            newY = screenHeight - character.getHeight();
+                        } else if (newY > screenHeight - player.m_Texture.getHeight()) {
+                            newY = screenHeight - player.m_Texture.getHeight();
                         }
 
                         //X軸方向の移動アニメーション
-                        ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(character, "translationX", newX);
+                        ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationX", newX);
                         moveXAnimator.setDuration(animationDuration); //アニメーションの時間を設定
                         moveXAnimator.start(); //アニメーション開始
 
                         //Y軸方向の移動アニメーション
-                        ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(character, "translationY", newY);
+                        ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationY", newY);
                         moveYAnimator.setDuration(animationDuration); //アニメーションの時間を設定
                         moveYAnimator.start(); //アニメーション開始
                         break;
@@ -192,13 +205,13 @@ public class MainActivity extends AppCompatActivity {
     private void changeColorBasedOnTouchLength(double touchLength) {
         if (touchLength < 1000) {
             // 短いタッチ：色を赤に変更
-            character.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            player.m_Texture.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
         } else if (touchLength < 2000) {
             // 中程度のタッチ：色を青に変更
-            character.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+            player.m_Texture.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
         } else {
             // 長いタッチ：色を緑に変更
-            character.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+            player.m_Texture.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
         }
     }
 
@@ -215,11 +228,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class Enemy {
-        private ImageView m_Texture = findViewById(R.id.enemy);
-        private float m_PosX;
-        private float m_PosY;
+    class Enemy extends GameObject
+    {
     }
+
+    class GameObject
+    {
+        protected ImageView m_Texture = findViewById(R.id.enemy);
+        protected float m_PosX;
+        protected float m_PosY;
+
+        protected float m_SpeedX;
+        protected float m_SpeedY;
+
+        public void SetSpeed(float x,float y)
+        {
+            m_SpeedX = x;
+            m_SpeedY = y;
+        }
+
+    }
+
+    class Player extends GameObject
+    {
+    }
+
 
     private void startTimer() {
         runnable = new Runnable() {
@@ -238,23 +271,22 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable); // タイマーを停止
     }
 
-
     // プレイヤーキャラクターと敵キャラクターの当たり判定を検出
     private boolean checkCollisionWithEnemy() {
         // プレイヤーキャラクターの矩形領域を取得
         Rect playerRect = new Rect(
-                (int) character.getX(),
-                (int) character.getY(),
-                (int) (character.getX() + character.getWidth() - 150),
-                (int) (character.getY() + character.getHeight() - 150)
+                (int) player.m_Texture.getX(),
+                (int) player.m_Texture.getY(),
+                (int) (player.m_Texture.getX() + player.m_Texture.getWidth()),
+                (int) (player.m_Texture.getY() + player.m_Texture.getHeight())
         );
 
         // 敵キャラクターの矩形領域を取得（敵の座標とサイズに合わせて調整が必要）
         Rect enemyRect = new Rect(
                 (int) enemy.m_Texture.getX(),
                 (int) enemy.m_Texture.getY(),
-                (int) (enemy.m_Texture.getX() + enemy.m_Texture.getWidth() - 150),
-                (int) (enemy.m_Texture.getY() + enemy.m_Texture.getHeight() - 150)
+                (int) (enemy.m_Texture.getX() + enemy.m_Texture.getWidth()),
+                (int) (enemy.m_Texture.getY() + enemy.m_Texture.getHeight())
         );
 
 // プレイヤーキャラクターと敵キャラクターの矩形領域が重なっているか判定
@@ -265,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
                 // 一度当たったことをマーク
                 isCollisionHandled = true;
 
-                enemy.m_Texture.setX(character.getX());
-                enemy.m_Texture.setY(character.getY());
+                enemy.m_Texture.setX(player.m_Texture.getX());
+                enemy.m_Texture.setY(player.m_Texture.getY());
 
                 // 敵に当たった回数をインクリメント
                 enemyCollisionCount++;
@@ -282,26 +314,61 @@ public class MainActivity extends AppCompatActivity {
     {
         changePos();
         hitcheck();
+        collisionTest();
     }
 
     private void changePos()
     {
-        enemy.m_PosX += 10.0f;
+        //enemy.m_PosX += enemy.m_SpeedX;
+        //enemy.m_PosY += enemy.m_SpeedY;
 
         enemy.m_Texture.setX(enemy.m_PosX);
         enemy.m_Texture.setY(enemy.m_PosY);
+
+        //player.m_Texture.setX(player.m_PosX);
     }
 
     private void hitcheck()
     {
-        if(enemy.m_PosX + enemy.m_Texture.getWidth()/2 > screenWidth)
+        //右
+        if(enemy.m_PosX + enemy.m_Texture.getWidth() > screenWidth + OFFSET_POINT)
         {
-            enemy.m_PosX = 0;
+            enemy.m_SpeedX *= -1;
         }
+
+        //左
+        if(enemy.m_PosX < 0 - OFFSET_POINT)
+        {
+            enemy.m_SpeedX *= -1;
+        }
+
+        //上
+        if(enemy.m_PosY < 0) {
+            enemy.m_SpeedY *= -1;
+        }
+
+        //下
+        if(enemy.m_PosY + enemy.m_Texture.getHeight() > screenHeight)
+        {
+            enemy.m_SpeedY *= -1;
+        }
+
     }
 
-
-
+    private void collisionTest()
+    {
+        //右判定
+        //エネミー左
+        if(player.m_Texture.getX()< enemy.m_PosX + enemy.m_Texture.getWidth()
+        && player.m_Texture.getY() < enemy.m_PosY + enemy.m_Texture.getHeight()
+        && enemy.m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight())
+        {
+            //enemy.m_SpeedX *= -1;
+            enemy.m_PosX += -100.0f;
+            player.m_Texture.setX(player.m_Texture.getX() + 100.0f);
+            isCollision = true;
+        }
+    }
 
 
 

@@ -6,36 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <ImageView
         android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:src="@drawable/background_image"
-        android:scaleType="centerCrop" />
-
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <ImageView
         android:id="@+id/character"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/character_image"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="441dp" />
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="443dp" />
 
     <ImageView
         android:id="@+id/enemy"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/enemy"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="112dp" />
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="110dp" />
 
     <TextView
         android:id="@+id/enemy_collision_count"
