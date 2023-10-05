@@ -17,20 +17,27 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity {
 
     //オブジェクト
     private ImageView character;
     private int test;
-    private ImageView enemy;
+    //private ImageView enemy;
+    Enemy enemy;
+
     private float startX, startY;
     private long touchDownTime = 0;
     private int enemyCollisionCount = 0;
     private boolean isCollisionHandled = false;
     private static final int animationDuration = 500; //ミリ単位のアニメーション時間
-
+    private Timer timer = new Timer();
     private Handler handler = new Handler();
+    private  int screenWidth;
+    private  int screenHeight;
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -55,21 +62,34 @@ public class MainActivity extends AppCompatActivity {
         WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         display.getMetrics(displayMetrics);
-        int screenWidth = displayMetrics.widthPixels;
-        int screenHeight = displayMetrics.heightPixels;
+        screenWidth = displayMetrics.widthPixels;
+        screenHeight = displayMetrics.heightPixels;
 
         //オブジェクト取得
         character = findViewById(R.id.character);
         character.setX(screenWidth / 3.2f);
         character.setY(screenHeight / 1.5f);
 
-        enemy = findViewById(R.id.enemy);
-        enemy.setX(screenWidth / 3.2f);
-        enemy.setY(screenHeight / 4);
+        enemy = new Enemy();
+        enemy.m_PosX = screenWidth / 3.2f;
+        enemy.m_PosY = screenHeight / 4;
+
+        //enemy = findViewById(R.id.enemy);
+        //enemy.setX(screenWidth / 3.2f);
+        //enemy.setY(screenHeight / 4);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Update();
+                    }
+                });
+            }
+        }, 0, 20);
 
         TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
-
-
         character.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -195,6 +215,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    class Enemy {
+        private ImageView m_Texture = findViewById(R.id.enemy);
+        private float m_PosX;
+        private float m_PosY;
+    }
+
     private void startTimer() {
         runnable = new Runnable() {
             @Override
@@ -225,10 +251,10 @@ public class MainActivity extends AppCompatActivity {
 
         // 敵キャラクターの矩形領域を取得（敵の座標とサイズに合わせて調整が必要）
         Rect enemyRect = new Rect(
-                (int) enemy.getX(),
-                (int) enemy.getY(),
-                (int) (enemy.getX() + enemy.getWidth() - 150),
-                (int) (enemy.getY() + enemy.getHeight() - 150)
+                (int) enemy.m_Texture.getX(),
+                (int) enemy.m_Texture.getY(),
+                (int) (enemy.m_Texture.getX() + enemy.m_Texture.getWidth() - 150),
+                (int) (enemy.m_Texture.getY() + enemy.m_Texture.getHeight() - 150)
         );
 
 // プレイヤーキャラクターと敵キャラクターの矩形領域が重なっているか判定
@@ -239,8 +265,8 @@ public class MainActivity extends AppCompatActivity {
                 // 一度当たったことをマーク
                 isCollisionHandled = true;
 
-                enemy.setX(character.getX());
-                enemy.setY(character.getY());
+                enemy.m_Texture.setX(character.getX());
+                enemy.m_Texture.setY(character.getY());
 
                 // 敵に当たった回数をインクリメント
                 enemyCollisionCount++;
@@ -251,6 +277,31 @@ public class MainActivity extends AppCompatActivity {
 
         return false; // 仮の戻り値
     }
+
+    public void Update()
+    {
+        changePos();
+        hitcheck();
+    }
+
+    private void changePos()
+    {
+        enemy.m_PosX += 10.0f;
+
+        enemy.m_Texture.setX(enemy.m_PosX);
+        enemy.m_Texture.setY(enemy.m_PosY);
+    }
+
+    private void hitcheck()
+    {
+        if(enemy.m_PosX + enemy.m_Texture.getWidth()/2 > screenWidth)
+        {
+            enemy.m_PosX = 0;
+        }
+    }
+
+
+
 
 
 
