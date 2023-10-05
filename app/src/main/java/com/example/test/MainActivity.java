@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     //オブジェクト
     private ImageView character;
+    private int test;
     private ImageView enemy;
     private float startX, startY;
     private long touchDownTime = 0;
