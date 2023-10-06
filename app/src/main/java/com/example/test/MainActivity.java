@@ -2,7 +2,6 @@ package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.AnimatorSet;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+import com.example.test.GameObject;
 public class MainActivity extends AppCompatActivity {
     //定数を定義
     final float OFFSET_POINT = 70.0f;
@@ -73,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
         player.m_Texture = findViewById(R.id.character);
         player.m_Texture.setX(screenWidth /  2.0f - player.m_Texture.getWidth()/2);
         player.m_Texture.setY(screenHeight / 1.5f);
+        player.SetMove(0.0f,0.0f);
 
         enemy = new Enemy();
         enemy.m_PosX = screenWidth / 3.2f;
         enemy.m_PosY = screenHeight / 4;
-        enemy.SetSpeed(10.0f,10.0f);
+        enemy.SetMove(10.0f,10.0f);
 
         //enemy = findViewById(R.id.enemy);
         //enemy.setX(screenWidth / 3.2f);
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 20);
+        }, 0, 16);
 
         TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
         player.m_Texture.setOnTouchListener(new View.OnTouchListener() {
@@ -163,37 +163,37 @@ public class MainActivity extends AppCompatActivity {
                         //X軸方向の制限（画面端）
                         float newX = player.m_Texture.getTranslationX() + moveX2;
                         //if (isCollision)
-                        {
-                            //newX = player.m_Texture.getTranslationX();
-                        }
-                        if(newX < -50){
-                            newX = -50;
-                        } else if (newX > screenWidth - player.m_Texture.getWidth() + 50) {
-                            newX = screenWidth - player.m_Texture.getWidth() + 50;
-                        }
+                    {
+                        //newX = player.m_Texture.getTranslationX();
+                    }
+                    if(newX < -50){
+                        newX = -50;
+                    } else if (newX > screenWidth - player.m_Texture.getWidth() + 50) {
+                        newX = screenWidth - player.m_Texture.getWidth() + 50;
+                    }
 
-                        //Y軸方向の制限（画面端）
-                        float newY = player.m_Texture.getTranslationY() + moveY2;
-                        //if (isCollision)
-                        {
-                           // newY  = player.m_Texture.getTranslationY();
-                        }
-                        if(newY < -150){
-                            newY = -150;
-                        } else if (newY > screenHeight - player.m_Texture.getHeight()) {
-                            newY = screenHeight - player.m_Texture.getHeight();
-                        }
+                    //Y軸方向の制限（画面端）
+                    float newY = player.m_Texture.getTranslationY() + moveY2;
+                    //if (isCollision)
+                    {
+                        // newY  = player.m_Texture.getTranslationY();
+                    }
+                    if(newY < -150){
+                        newY = -150;
+                    } else if (newY > screenHeight - player.m_Texture.getHeight()) {
+                        newY = screenHeight - player.m_Texture.getHeight();
+                    }
 
-                        //X軸方向の移動アニメーション
-                        ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationX", newX);
-                        moveXAnimator.setDuration(animationDuration); //アニメーションの時間を設定
-                        moveXAnimator.start(); //アニメーション開始
+                    //X軸方向の移動アニメーション
+                    ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationX", newX);
+                    moveXAnimator.setDuration(animationDuration); //アニメーションの時間を設定
+                    moveXAnimator.start(); //アニメーション開始
 
-                        //Y軸方向の移動アニメーション
-                        ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationY", newY);
-                        moveYAnimator.setDuration(animationDuration); //アニメーションの時間を設定
-                        moveYAnimator.start(); //アニメーション開始
-                        break;
+                    //Y軸方向の移動アニメーション
+                    ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationY", newY);
+                    moveYAnimator.setDuration(animationDuration); //アニメーションの時間を設定
+                    moveYAnimator.start(); //アニメーション開始
+                    break;
                 }
                 return true;
             }
@@ -228,31 +228,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class Enemy extends GameObject
+    static class Enemy extends GameObject
     {
     }
 
+    /*
     class GameObject
     {
         protected ImageView m_Texture = findViewById(R.id.enemy);
         protected float m_PosX;
         protected float m_PosY;
 
-        protected float m_SpeedX;
-        protected float m_SpeedY;
+        protected float m_MoveX;
+        protected float m_MoveY;
 
-        public void SetSpeed(float x,float y)
+        public void SetMove(float x, float y)
         {
-            m_SpeedX = x;
-            m_SpeedY = y;
+            m_MoveX = x;
+            m_MoveY = y;
         }
 
     }
+    *
+     */
 
-    class Player extends GameObject
+    static class Player extends GameObject
     {
     }
-
 
     private void startTimer() {
         runnable = new Runnable() {
@@ -319,8 +321,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void changePos()
     {
-        //enemy.m_PosX += enemy.m_SpeedX;
-        //enemy.m_PosY += enemy.m_SpeedY;
+        /*
+        float x  = player.m_Texture.getX() - enemy.m_Texture.getX();
+        float y  = player.m_Texture.getY() - enemy.m_Texture.getY();
+
+        enemy.m_MoveX = x * 0.01f;
+        enemy.m_MoveY = y * 0.01f;
+         */
+        enemy.m_MoveX = player.m_Texture.getX() - enemy.m_Texture.getX();
+        enemy.m_MoveY = player.m_Texture.getY() - enemy.m_Texture.getY();
+        //ベクトルを正規化
+        normalizeVector(enemy, enemy.m_MoveX,enemy.m_MoveY);
+
+        enemy.m_MoveX *= 3.0f;
+        enemy.m_MoveY *= 3.0f;
+
+        enemy.m_PosX += enemy.m_MoveX;
+        enemy.m_PosY += enemy.m_MoveY;
 
         enemy.m_Texture.setX(enemy.m_PosX);
         enemy.m_Texture.setY(enemy.m_PosY);
@@ -333,24 +350,24 @@ public class MainActivity extends AppCompatActivity {
         //右
         if(enemy.m_PosX + enemy.m_Texture.getWidth() > screenWidth + OFFSET_POINT)
         {
-            enemy.m_SpeedX *= -1;
+            enemy.m_MoveX *= -1;
         }
 
         //左
         if(enemy.m_PosX < 0 - OFFSET_POINT)
         {
-            enemy.m_SpeedX *= -1;
+            enemy.m_MoveX *= -1;
         }
 
         //上
         if(enemy.m_PosY < 0) {
-            enemy.m_SpeedY *= -1;
+            enemy.m_MoveY *= -1;
         }
 
         //下
         if(enemy.m_PosY + enemy.m_Texture.getHeight() > screenHeight)
         {
-            enemy.m_SpeedY *= -1;
+            enemy.m_MoveY *= -1;
         }
 
     }
@@ -360,8 +377,8 @@ public class MainActivity extends AppCompatActivity {
         //右判定
         //エネミー左
         if(player.m_Texture.getX()< enemy.m_PosX + enemy.m_Texture.getWidth()
-        && player.m_Texture.getY() < enemy.m_PosY + enemy.m_Texture.getHeight()
-        && enemy.m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight())
+                && player.m_Texture.getY() < enemy.m_PosY + enemy.m_Texture.getHeight()
+                && enemy.m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight())
         {
             //enemy.m_SpeedX *= -1;
             enemy.m_PosX += -100.0f;
@@ -369,6 +386,19 @@ public class MainActivity extends AppCompatActivity {
             isCollision = true;
         }
     }
+
+    private float calculateLength(float x, float y)
+    {
+        return (float) Math.sqrt(x * x + y * y);
+    }
+
+    private void normalizeVector(GameObject gameobject, float x,float y)
+    {
+        double length = calculateLength(x, y); //ベクトルの長さを計算
+        gameobject.m_MoveX /= length;
+        gameobject.m_MoveY /= length;
+    }
+
 
 
 
