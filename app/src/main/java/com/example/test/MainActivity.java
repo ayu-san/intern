@@ -27,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
     //private ImageView player.m_Texture;
     private int test;
     //private ImageView enemy;
-    Enemy enemy;
-    Player player;
+
+    private  GameObject player;
+    private  GameObject enemy;
 
     private boolean isCollision = false;
     private float startX, startY;
@@ -68,15 +69,17 @@ public class MainActivity extends AppCompatActivity {
         screenHeight = displayMetrics.heightPixels;
 
         //オブジェクト取得
-        player = new Player();
+        player = new GameObject();
         player.m_Texture = findViewById(R.id.character);
         player.m_Texture.setX(screenWidth /  2.0f - player.m_Texture.getWidth()/2);
         player.m_Texture.setY(screenHeight / 1.5f);
         player.SetMove(0.0f,0.0f);
 
-        enemy = new Enemy();
-        enemy.m_PosX = screenWidth / 3.2f;
-        enemy.m_PosY = screenHeight / 4;
+
+        enemy = new GameObject();
+        enemy.m_Texture = findViewById(R.id.enemy);
+        enemy.m_Texture.setX(screenWidth / 3.2f);
+        enemy.m_Texture.setY(screenHeight / 4);
         enemy.SetMove(10.0f,10.0f);
 
         //enemy = findViewById(R.id.enemy);
