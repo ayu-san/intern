@@ -22,16 +22,27 @@
 
     <ImageView
         android:id="@+id/sheep"
-        android:layout_width="951dp"
-        android:layout_height="575dp"
+        android:layout_width="512dp"
+        android:layout_height="401dp"
         android:rotation="-21"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.251"
+        app:layout_constraintVertical_bias="0.59"
         app:srcCompat="@drawable/character_image" />
+
+    <ImageView
+        android:id="@+id/titlelogo"
+        android:layout_width="0dp"
+        android:layout_height="352dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/startbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/titlelogo" />
 
     <Button
         android:id="@+id/asobibutton"
@@ -122,16 +133,5 @@
         app:strokeColor="#FF5722"
         app:strokeWidth="6dp"
         tools:ignore="MissingConstraints,DuplicateClickableBoundsCheck" />
-
-    <ImageView
-        android:id="@+id/titlelogo"
-        android:layout_width="0dp"
-        android:layout_height="352dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/startbutton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/titlelogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
