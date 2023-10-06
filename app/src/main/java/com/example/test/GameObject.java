@@ -3,6 +3,7 @@ package com.example.test;
 import android.widget.ImageView;
 
 public class GameObject {
+
         protected ImageView m_Texture;
         protected float m_PosX;
         protected float m_PosY;
