@@ -12,19 +12,24 @@ import android.widget.SeekBar;
 
 public class TitleActivity extends AppCompatActivity {
 
+    private Button startButton;
+    private Button settingButton;
+    private Button asobiButton;
+    private Button cregitButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-        Button startButton = findViewById(R.id.startbutton);
-        Button settingButton = findViewById(R.id.settingbutton);
-        Button asobiButton = findViewById(R.id.asobibutton);
-        Button cregitButton = findViewById(R.id.cregitbutton);
+        startButton = findViewById(R.id.startbutton);
+        settingButton = findViewById(R.id.settingbutton);
+        asobiButton = findViewById(R.id.asobibutton);
+        cregitButton = findViewById(R.id.cregitbutton);
 
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SelectActivity.class));
         });
 
         //設定ボタンを押したとき

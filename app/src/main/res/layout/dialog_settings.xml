@@ -16,7 +16,7 @@
         android:padding="8dp"
         android:text="設定"
         android:textAlignment="center"
-        android:textColor="#9C9C9C"
+        android:textColor="#919191"
         android:textSize="34sp"
         android:textStyle="bold" />
 
