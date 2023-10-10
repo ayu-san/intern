@@ -107,6 +107,12 @@ public class TitleActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        showPauseDialog();
+    }
+
     public void closeDialog(View view) {
         // ダイアログを閉じる
         if (view != null) {
@@ -115,5 +121,17 @@ public class TitleActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         }
+    }
+
+    public void showPauseDialog(){
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_pause,null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
