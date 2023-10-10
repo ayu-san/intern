@@ -8,6 +8,7 @@ import android.media.SoundPool;
 public class SoundPlayer {
     private static SoundPool soundPool;
     private static int testSE;
+    private static int testSE2;
     private Context context;
 
 
@@ -25,9 +26,12 @@ public class SoundPlayer {
 
         //サウンドのロード
         testSE = soundPool.load(context, R.raw.setest, 1);
+        testSE2 = soundPool.load(context, R.raw.setest2, 1);
     }
 
+    public void release(){soundPool.release();}//soundPoolの解放
     public void setTestSE(){soundPool.play(testSE,1.0f, 1.0f, 1, 0, 1.0f);}
+    public void setTestSE2(){soundPool.play(testSE2,1.0f, 1.0f, 1, 0, 1.0f);}
 
 
 }
