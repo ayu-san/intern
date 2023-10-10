@@ -18,6 +18,7 @@ public class SelectActivity extends AppCompatActivity {
     private Button hardbutton;
     private ImageButton backbutton;
     private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences2;
 
     private boolean isConditionNormal = false;
     private boolean isConditionHard = false;
@@ -28,8 +29,13 @@ public class SelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
 
+        //sharedPreferencesの初期化
+        sharedPreferences = getSharedPreferences("isConditionNormal",MODE_PRIVATE);
+        sharedPreferences2 = getSharedPreferences("isConditionHard",MODE_PRIVATE);
+
+        //sharedPreferencesの設定
         //isConditionNormal = sharedPreferences.getBoolean("isConditionNormal",false);
-        //isConditionHard = sharedPreferences.getBoolean("isConditionHard",false);
+        //isConditionHard = sharedPreferences2.getBoolean("isConditionHard",false);
 
         eazybutton = findViewById(R.id.eazy);
         normalbutton = findViewById(R.id.normal);
@@ -93,9 +99,9 @@ public class SelectActivity extends AppCompatActivity {
         hardbutton.setEnabled(true);
 
         // 条件が満たされたことをSharedPreferencesに保存
-        //SharedPreferences.Editor editor = sharedPreferences.edit();
-        //editor.putBoolean("isConditionHard", true);
-        //editor.apply();
+        //SharedPreferences.Editor editor2 = sharedPreferences2.edit();
+        //editor2.putBoolean("isConditionHard", true);
+        //editor2.apply();
     }
 
 }
