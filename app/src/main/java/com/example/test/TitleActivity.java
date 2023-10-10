@@ -45,6 +45,36 @@ public class TitleActivity extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
+            //ポーズ画面ダイアログを設定したときの例
+            /*
+            //リトライ
+            // ダイアログ内のボタンにクリックリスナーを設定
+            Button retry = dialogView.findViewById(R.id.retry);
+            retry.setOnClickListener((View view)->{
+                // ボタンが押されたときの処理
+                startActivity(new Intent(this, TitleActivity.class));
+                alertDialog.dismiss(); // ダイアログを閉じる
+            });
+
+            //ステージ選択へ
+            // ダイアログ内のボタンにクリックリスナーを設定
+            Button gotoStageSelect = dialogView.findViewById(R.id.gotoStageSelect);
+            gotoStageSelect.setOnClickListener((View view)->{
+                // ボタンが押されたときの処理
+                startActivity(new Intent(this, SelectActivity.class));
+                alertDialog.dismiss(); // ダイアログを閉じる
+            });
+
+            //タイトルへ
+            // ダイアログ内のボタンにクリックリスナーを設定
+            Button gotoTitle = dialogView.findViewById(R.id.gotoTitle);
+            gotoTitle.setOnClickListener((View view)->{
+                // ボタンが押されたときの処理
+                startActivity(new Intent(this, TitleActivity.class));
+                alertDialog.dismiss(); // ダイアログを閉じる
+            });
+            */
+
         });
 
         //遊び方ボタンを押したとき
