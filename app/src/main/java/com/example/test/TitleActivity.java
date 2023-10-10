@@ -2,6 +2,8 @@ package com.example.test;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaParser;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +18,7 @@ public class TitleActivity extends AppCompatActivity {
     private Button settingButton;
     private Button asobiButton;
     private Button cregitButton;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +29,17 @@ public class TitleActivity extends AppCompatActivity {
         settingButton = findViewById(R.id.settingbutton);
         asobiButton = findViewById(R.id.asobibutton);
         cregitButton = findViewById(R.id.cregitbutton);
+        mediaPlayer = MediaPlayer.create(this,R.raw.setest);
 
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    mediaPlayer.release();
+                }
+            });
             startActivity(new Intent(this, SelectActivity.class));
         });
 
@@ -106,6 +117,7 @@ public class TitleActivity extends AppCompatActivity {
         });
 
     }
+    // ボタンクリック音を再生するメソッド
 
     @Override
     protected void onPause(){
