@@ -1,16 +1,13 @@
 package com.example.test;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.MediaParser;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.SeekBar;
 
 public class TitleActivity extends AppCompatActivity {
 
@@ -18,7 +15,8 @@ public class TitleActivity extends AppCompatActivity {
     private Button settingButton;
     private Button asobiButton;
     private Button cregitButton;
-    private MediaPlayer mediaPlayer;
+
+    private SoundPlayer soundPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +27,12 @@ public class TitleActivity extends AppCompatActivity {
         settingButton = findViewById(R.id.settingbutton);
         asobiButton = findViewById(R.id.asobibutton);
         cregitButton = findViewById(R.id.cregitbutton);
-        mediaPlayer = MediaPlayer.create(this,R.raw.setest);
+
+        soundPlayer = new SoundPlayer(this);
 
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
-            mediaPlayer.start();
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    mediaPlayer.release();
-                }
-            });
+            soundPlayer.setTestSE();
             startActivity(new Intent(this, SelectActivity.class));
         });
 
