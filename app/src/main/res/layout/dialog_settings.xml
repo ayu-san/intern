@@ -39,7 +39,7 @@
         android:progress="50" />
 
     <TextView
-        android:id="@+id/SEextView"
+        android:id="@+id/SETextView"
         android:layout_width="81dp"
         android:layout_height="wrap_content"
         android:text="SE"
