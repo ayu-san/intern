@@ -8,12 +8,16 @@
 
     <ImageView
         android:id="@+id/backgroundImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_image"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="1283dp"
+        android:layout_height="1005dp"
+        android:layout_marginBottom="111dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.272"
+        app:srcCompat="@drawable/background_image" />
 
     <ImageView
         android:id="@+id/character"
@@ -39,8 +43,8 @@
 
     <TextView
         android:id="@+id/enemy_collision_count"
-        android:layout_width="410dp"
-        android:layout_height="76dp"
+        android:layout_width="412dp"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:text="敵に当たった回数: 0"
         android:textAlignment="center"
@@ -52,5 +56,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
+
+    <ProgressBar
+        android:id="@+id/level"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:max="100"
+        android:progress="50"
+        android:progressBackgroundTint="#020202"
+        android:progressTint="#FFE500"
+        android:scaleY="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enemy_collision_count" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
