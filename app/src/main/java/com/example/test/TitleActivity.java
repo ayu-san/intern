@@ -3,7 +3,11 @@ package com.example.test;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +19,7 @@ public class TitleActivity extends AppCompatActivity {
     private Button settingButton;
     private Button asobiButton;
     private Button cregitButton;
+    private ImageView titlLogo;
 
     private SoundPlayer soundPlayer;
     private boolean shouldShowPauseDialog = true;
@@ -28,6 +33,10 @@ public class TitleActivity extends AppCompatActivity {
         settingButton = findViewById(R.id.settingbutton);
         asobiButton = findViewById(R.id.asobibutton);
         cregitButton = findViewById(R.id.cregitbutton);
+
+        titlLogo = findViewById(R.id.titlelogo);
+        Animation floatAnimation  = AnimationUtils.loadAnimation(this,R.anim.scale_up_down);
+        titlLogo.startAnimation(floatAnimation);
 
         soundPlayer = new SoundPlayer(this);
 
