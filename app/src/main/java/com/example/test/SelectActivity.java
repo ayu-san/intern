@@ -82,6 +82,11 @@ public class SelectActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        // 戻るボタンのデフォルトの動作を無効化（何もしない）
+    }
+
     // 条件が満たされた場合に呼び出すメソッド
     private void onConditionNormal() {
         isConditionNormal = true;
