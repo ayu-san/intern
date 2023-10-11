@@ -21,7 +21,7 @@ public class MyApplication extends Application{
     }
 
     public static float getBGMVolume() {
-        return sharedPreferences.getFloat(BGM_VOLUME, 1.0f); // デフォルト値は最大音量
+        return sharedPreferences.getFloat(BGM_VOLUME, 0.8f); // デフォルト値は8割
     }
 
     public static void setBGMVolume(float volume) {
@@ -29,7 +29,7 @@ public class MyApplication extends Application{
     }
 
     public static float getSEVolume() {
-        return sharedPreferences.getFloat(SE_VOLUME, 1.0f); // デフォルト値は最大音量
+        return sharedPreferences.getFloat(SE_VOLUME, 0.8f); // デフォルト値は8割
     }
 
     public static void setSEVolume(float volume) {

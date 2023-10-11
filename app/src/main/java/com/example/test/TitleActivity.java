@@ -33,13 +33,18 @@ public class TitleActivity extends AppCompatActivity {
 
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
+
             soundPlayer.setTestSE();
+
             shouldShowPauseDialog = false;
             startActivity(new Intent(this, SelectActivity.class));
         });
 
         //設定ボタンを押したとき
         settingButton.setOnClickListener((View v)->{
+
+            soundPlayer.setTestSE();
+
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_settings,null);
 
@@ -96,6 +101,9 @@ public class TitleActivity extends AppCompatActivity {
 
         //遊び方ボタンを押したとき
         asobiButton.setOnClickListener((View v)->{
+
+            soundPlayer.setTestSE();
+
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_asobi,null);
 
@@ -110,6 +118,9 @@ public class TitleActivity extends AppCompatActivity {
 
         //クレジットボタンを押したとき
         cregitButton.setOnClickListener((View v)->{
+
+            soundPlayer.setTestSE2();
+
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_cregit,null);
 
