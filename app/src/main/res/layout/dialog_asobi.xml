@@ -14,7 +14,7 @@
         android:padding="8dp"
         android:text="遊び方"
         android:textAlignment="center"
-        android:textColor="#FF1565C0"
+        android:textColor="#6DCF46"
         android:textSize="34sp"
         android:textStyle="bold" />
 
