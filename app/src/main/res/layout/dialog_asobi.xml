@@ -24,14 +24,15 @@
         android:layout_height="309dp"
         app:srcCompat="@drawable/background_image" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:text="画面外タップで戻る"
+    <Button
+        android:id="@+id/closeButtonAsobi"
+        android:layout_width="156dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="12dp"
+        android:backgroundTint="#9FE185"
+        android:text="戻る"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold" />
 

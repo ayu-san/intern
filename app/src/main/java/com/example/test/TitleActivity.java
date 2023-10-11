@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,6 +62,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //AlertDialogを表示
             AlertDialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
             alertDialog.show();
 
             SeekBar seekBarBGM = dialogView.findViewById(R.id.BGMseekBar);
@@ -106,6 +106,12 @@ public class TitleActivity extends AppCompatActivity {
                 }
             });
 
+            //戻る
+            Button closeButton = dialogView.findViewById(R.id.closeButtonSetting);
+            closeButton.setOnClickListener((View view)->{
+                alertDialog.dismiss(); // ダイアログを閉じる
+            });
+
         });
 
         //遊び方ボタンを押したとき
@@ -122,7 +128,15 @@ public class TitleActivity extends AppCompatActivity {
 
             //AlertDialogを表示
             AlertDialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
             alertDialog.show();
+
+            //戻る
+            Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
+            closeButton.setOnClickListener((View view)->{
+                alertDialog.dismiss(); // ダイアログを閉じる
+            });
+
         });
 
         //クレジットボタンを押したとき
@@ -139,7 +153,15 @@ public class TitleActivity extends AppCompatActivity {
 
             //AlertDialogを表示
             AlertDialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
             alertDialog.show();
+
+            //戻る
+            Button closeButton = dialogView.findViewById(R.id.closeButtonCregit);
+            closeButton.setOnClickListener((View view)->{
+                alertDialog.dismiss(); // ダイアログを閉じる
+            });
+
         });
 
     }
@@ -178,6 +200,7 @@ public class TitleActivity extends AppCompatActivity {
 
         //AlertDialogを表示
         AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
         alertDialog.show();
 
         //BGM.SE設定
@@ -253,6 +276,11 @@ public class TitleActivity extends AppCompatActivity {
             alertDialog.dismiss(); // ダイアログを閉じる
         });
 
+        //戻る
+        Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
+        closeButton.setOnClickListener((View view)->{
+            alertDialog.dismiss(); // ダイアログを閉じる
+        });
 
     }
 }
