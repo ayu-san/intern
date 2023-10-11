@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/BGMtextViewPause"
-        android:layout_width="97dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:text="BGM"
         android:textAlignment="center"
