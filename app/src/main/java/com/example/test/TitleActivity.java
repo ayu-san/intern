@@ -21,8 +21,6 @@ public class TitleActivity extends AppCompatActivity {
     private ImageView titlLogo;
 
     private SoundPlayer soundPlayer;
-    private boolean shouldShowPauseDialog = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +42,6 @@ public class TitleActivity extends AppCompatActivity {
 
             soundPlayer.setTestSE();
 
-            shouldShowPauseDialog = false;
             startActivity(new Intent(this, SelectActivity.class));
         });
 
@@ -168,14 +165,6 @@ public class TitleActivity extends AppCompatActivity {
     // ボタンクリック音を再生するメソッド
 
     @Override
-    protected void onPause(){
-        super.onPause();
-        if (shouldShowPauseDialog) {
-            showPauseDialog();
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
     }
@@ -190,97 +179,4 @@ public class TitleActivity extends AppCompatActivity {
         }
     }
 
-    public void showPauseDialog() {
-        shouldShowPauseDialog = true;
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_pause, null);
-
-        //ダイアログビューの設定
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-
-        //AlertDialogを表示
-        AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
-        alertDialog.show();
-
-        //BGM.SE設定
-        SeekBar seekBarbgm = dialogView.findViewById(R.id.BGMseekBarPause);
-        SeekBar seekBarse = dialogView.findViewById(R.id.SEseekBarPause);
-
-        // シークバーの初期値を設定
-        seekBarbgm.setProgress((int) (MyApplication.getBGMVolume() * 100));
-        seekBarse.setProgress((int) (MyApplication.getSEVolume() * 100));
-
-        seekBarbgm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //BGMの音量設定
-                float bgmvolume = progress / 100.0f;
-                MyApplication.setBGMVolume(bgmvolume);
-                soundPlayer.setBGMVolume(bgmvolume);
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        seekBarse.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //BGMの音量設定
-                float sevolume = progress / 100.0f;
-                MyApplication.setSEVolume(sevolume);
-                soundPlayer.setSEVolume(sevolume);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        //リトライ
-        // ダイアログ内のボタンにクリックリスナーを設定
-        Button retry = dialogView.findViewById(R.id.retry);
-        retry.setOnClickListener((View view) -> {
-            // ボタンが押されたときの処理
-            startActivity(new Intent(this, TitleActivity.class));
-            alertDialog.dismiss(); // ダイアログを閉じる
-        });
-
-        //ステージ選択へ
-        // ダイアログ内のボタンにクリックリスナーを設定
-        Button gotoStageSelect = dialogView.findViewById(R.id.gotoStageSelect);
-        gotoStageSelect.setOnClickListener((View view) -> {
-            // ボタンが押されたときの処理
-            startActivity(new Intent(this, SelectActivity.class));
-            alertDialog.dismiss(); // ダイアログを閉じる
-        });
-
-        //タイトルへ
-        // ダイアログ内のボタンにクリックリスナーを設定
-        Button gotoTitle = dialogView.findViewById(R.id.gotoTitle);
-        gotoTitle.setOnClickListener((View view) -> {
-            // ボタンが押されたときの処理
-            startActivity(new Intent(this, TitleActivity.class));
-            alertDialog.dismiss(); // ダイアログを閉じる
-        });
-
-        //戻る
-        Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
-        closeButton.setOnClickListener((View view)->{
-            alertDialog.dismiss(); // ダイアログを閉じる
-        });
-
-    }
 }

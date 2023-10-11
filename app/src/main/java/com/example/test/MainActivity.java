@@ -1,7 +1,9 @@
 package com.example.test;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -9,11 +11,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.animation.ObjectAnimator;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private  int screenWidth;
     private  int screenHeight;
+    private ImageButton pauseButton;
+    private SoundPlayer soundPlayer;
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -68,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         display.getMetrics(displayMetrics);
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;
+        pauseButton = findViewById(R.id.pauseButton);
+        soundPlayer = new SoundPlayer(this);
 
         //オブジェクト取得
         player = new Player();
@@ -106,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 0, 16);
 
+        //ポーズを押したら
+        pauseButton.setOnClickListener((View view)->{
+            showPauseDialog();
+        });
+
         TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
         player.m_Texture.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -131,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if(checkCollisionWithEnemy()){
                             // TextViewを更新
-                            enemyCollisionCountTextView.setText("敵に当たった回数: " + enemyCollisionCount);
+                            enemyCollisionCountTextView.setText("Level: " + enemyCollisionCount);
                         }
 
                         break;
@@ -239,6 +253,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showPauseDialog();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 戻るボタンのデフォルトの動作を無効化（何もしない）
     }
 
     //関数
@@ -431,6 +456,99 @@ public class MainActivity extends AppCompatActivity {
         gameobject.m_MoveX /= length;
         gameobject.m_MoveY /= length;
     }
+    public void showPauseDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_pause, null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.show();
+
+        //BGM.SE設定
+        SeekBar seekBarbgm = dialogView.findViewById(R.id.BGMseekBarPause);
+        SeekBar seekBarse = dialogView.findViewById(R.id.SEseekBarPause);
+
+        // シークバーの初期値を設定
+        seekBarbgm.setProgress((int) (MyApplication.getBGMVolume() * 100));
+        seekBarse.setProgress((int) (MyApplication.getSEVolume() * 100));
+
+        seekBarbgm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //BGMの音量設定
+                float bgmvolume = progress / 100.0f;
+                MyApplication.setBGMVolume(bgmvolume);
+                soundPlayer.setBGMVolume(bgmvolume);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekBarse.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //BGMの音量設定
+                float sevolume = progress / 100.0f;
+                MyApplication.setSEVolume(sevolume);
+                soundPlayer.setSEVolume(sevolume);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //リトライ
+        // ダイアログ内のボタンにクリックリスナーを設定
+        Button retry = dialogView.findViewById(R.id.retry);
+        retry.setOnClickListener((View view) -> {
+            // ボタンが押されたときの処理
+            startActivity(new Intent(this, MainActivity.class));
+            alertDialog.dismiss(); // ダイアログを閉じる
+        });
+
+        //ステージ選択へ
+        // ダイアログ内のボタンにクリックリスナーを設定
+        Button gotoStageSelect = dialogView.findViewById(R.id.gotoStageSelect);
+        gotoStageSelect.setOnClickListener((View view) -> {
+            // ボタンが押されたときの処理
+            startActivity(new Intent(this, SelectActivity.class));
+            alertDialog.dismiss(); // ダイアログを閉じる
+        });
+
+        //タイトルへ
+        // ダイアログ内のボタンにクリックリスナーを設定
+        Button gotoTitle = dialogView.findViewById(R.id.gotoTitle);
+        gotoTitle.setOnClickListener((View view) -> {
+            // ボタンが押されたときの処理
+            startActivity(new Intent(this, TitleActivity.class));
+            alertDialog.dismiss(); // ダイアログを閉じる
+        });
+
+        //戻る
+        Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
+        closeButton.setOnClickListener((View view)->{
+            alertDialog.dismiss(); // ダイアログを閉じる
+        });
+
+    }
+
 
 
 

@@ -9,8 +9,8 @@ public class SoundPlayer {
     private static int testSE;
     private static int testSE2;
     private Context context;
-    private float seVolume = 1.0f; // SEの初期音量
-    private float bgmVolume = 1.0f; // BGMの初期音量
+    private float seVolume = 0.8f; // SEの初期音量
+    private float bgmVolume = 0.8f; // BGMの初期音量
 
     public SoundPlayer(Context context) {
         this.context = context;

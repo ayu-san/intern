@@ -53,7 +53,7 @@
         android:layout_marginStart="76dp"
         android:layout_marginEnd="76dp"
         android:layout_marginBottom="68dp"
-        android:backgroundTint="#CCFBA2"
+        android:backgroundTint="#C2FB8E"
         android:text="遊び方"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -73,9 +73,9 @@
 
     <Button
         android:id="@+id/cregitbutton"
-        android:layout_width="127dp"
+        android:layout_width="120dp"
         android:layout_height="43dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:backgroundTint="#DCDBDB"
         android:text="クレジット"
