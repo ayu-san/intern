@@ -6,22 +6,26 @@ public class Enemy extends GameObject
 {
     float m_InitialSpeed = 700.0f;
     float m_Speed = 0.0f;
-    float m_Weight = 1300.0f; //重さ
+    float m_Weight = 500.0f; //重さ
 
     public void MoveEnemy(MainActivity main, Enemy enemy, GameObject target)
     {
-        if(!(0.0f < m_Speed) && !(m_Speed < 0.0f))
+        if(0.0f < m_Speed)
+        {
+            m_Speed -= 10.0f;
+        } else {
             m_Speed = m_InitialSpeed;
-        else {
-            m_Speed -= 1.0f;
         }
 
         if(enemy.m_CollisionTimer == 0)
         {
             enemy.m_MoveX = target.m_Texture.getX() - enemy.m_Texture.getX();
             enemy.m_MoveY = target.m_Texture.getY() - enemy.m_Texture.getY();
+            if(enemy.m_MoveX != 0.0f && enemy.m_MoveY != 0.0f)
+            {
+                main.normalizeVectorEnemy(enemy, enemy.m_MoveX,enemy.m_MoveY);
+            }
             //ベクトルを正規化
-            main.normalizeVectorEnemy(enemy, enemy.m_MoveX,enemy.m_MoveY);
 
             //移動
             enemy.m_MoveX = enemy.m_MoveX * (m_Speed / 100.0f);
@@ -41,10 +45,10 @@ public class Enemy extends GameObject
         {
             //右判定
             //エネミー左
-            if(player.m_PosX < enemy[i].m_PosX + enemy[i].m_Texture.getWidth()
+            if(player.m_PosX + player.m_Texture.getWidth() /3 < enemy[i].m_PosX + enemy[i].m_Texture.getWidth()
                     && player.m_Texture.getY() < enemy[i].m_PosY + enemy[i].m_Texture.getHeight()
                     && enemy[i].m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight()
-                    && enemy[i].m_PosX + enemy[i].m_Texture.getWidth() < player.m_oldPosX)
+                    && enemy[i].m_PosX + enemy[i].m_Texture.getWidth() < player.m_oldPosX + player.m_Texture.getWidth() /3 )
             {
                 enemy[i].m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -53,18 +57,18 @@ public class Enemy extends GameObject
 
                 float ex = energy1 / energy2;
 
-                enemy[i].m_MoveX = player.m_MoveX * ex;
-                enemy[i].m_MoveY = player.m_MoveY * ex;
+                enemy[i].m_MoveX = player.m_MoveX * ex / 10;
+                enemy[i].m_MoveY = player.m_MoveY * ex / 10;
 
                 player.m_MoveX *= -1;
                 player.m_MoveVecX *= -1;
             }
 
             //エネミー右
-            else if(enemy[i].m_PosX < player.m_PosX + player.m_Texture.getWidth()
+            else if(enemy[i].m_PosX < player.m_PosX + player.m_Texture.getWidth() - player.m_Texture.getWidth() /3
                     && player.m_Texture.getY() < enemy[i].m_PosY + enemy[i].m_Texture.getHeight()
                     && enemy[i].m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight()
-                    && player.m_oldPosX + player.m_Texture.getWidth() < enemy[i].m_PosX)
+                    && player.m_oldPosX + player.m_Texture.getWidth() - player.m_Texture.getWidth() /3 < enemy[i].m_PosX)
             {
                 enemy[i].m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -73,8 +77,8 @@ public class Enemy extends GameObject
 
                 float ex = energy1 / energy2;
 
-                enemy[i].m_MoveX = player.m_MoveX * ex;
-                enemy[i].m_MoveY = player.m_MoveY * ex;
+                enemy[i].m_MoveX = player.m_MoveX * ex / 10;
+                enemy[i].m_MoveY = player.m_MoveY * ex / 10;
 
                 player.m_MoveX *= -1;
                 player.m_MoveVecX *= -1;

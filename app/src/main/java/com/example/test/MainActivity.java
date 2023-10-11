@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
             enemy[i].m_Texture = findViewById(R.id.enemy);
             enemy[i].m_PosX=(screenWidth / 3.2f);
             enemy[i].m_PosY=(screenHeight / 4);
+            enemy[i].m_Texture.setX(enemy[i].m_PosX );
+            enemy[i].m_Texture.setY(enemy[i].m_PosY);
+
             enemy[i].SetMove(10.0f,10.0f);
         }
 
@@ -173,10 +176,13 @@ public class MainActivity extends AppCompatActivity {
                         *
                          */
 
-                        normalizeVector(player, player.m_MoveVecX, player.m_MoveVecY);//ベクトルを正規化
+                        if(player.m_MoveVecX != 0.0 && player.m_MoveVecY != 0.0f)
+                        {
+                            normalizeVector(player, player.m_MoveVecX, player.m_MoveVecY);//ベクトルを正規化
+                        }
 
                         //初めての移動
-                        player.m_Speed = player.m_InitialSpeed;//スピードに初速を代入
+                        player.m_Speed = player.m_InitialSpeed * (player.m_holdValue * 0.7f);//スピードに初速を代入＋長押し効果
                         player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
                         player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
                         //player.m_MoveX *= 7.0f;
@@ -188,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
 
                         float moveX2 = moveX * flyDistance; //X軸方向の移動ベクトル
                         float moveY2 = moveY * flyDistance; //Y軸方向の移動ベクトル
-
 
                         //double angleRadians = Math.atan2(deltaY,deltaX);
                         //double angleDegrees = Math.toDegrees(angleRadians);
@@ -256,10 +261,10 @@ public class MainActivity extends AppCompatActivity {
             return 1.5f;
         } else if (touchDuration < 2000) {
             // 中程度の長押し：飛距離2
-            return 3.0f;
+            return 2.5f;
         } else {
             // 長い長押し：飛距離3
-            return 5.0f;
+            return 3.5f;
         }
     }
     private void startTimer() {
@@ -329,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
             enemy[i].MoveEnemy(this, enemy[i], player);
             changePosPlayer();
             enemy[i].collisionTest(player, enemy);
-            hitcheck(player);
+            hitCheck(player);
             changePos();
         }
     }
@@ -357,10 +362,12 @@ public class MainActivity extends AppCompatActivity {
             player.m_oldPosX = player.m_PosX;
             player.m_oldPosY = player.m_PosY;
 
-            player.m_PosX = player.m_Texture.getX() + player.m_MoveX;
-            player.m_PosY = player.m_Texture.getY() + player.m_MoveY;
+            //player.m_PosX = player.m_Texture.getX() + player.m_MoveX;
+            //player.m_PosY = player.m_Texture.getY() + player.m_MoveY;
+            player.m_PosX += player.m_MoveX;
+            player.m_PosY += player.m_MoveY;
 
-            player.m_Speed -= 1.0; //減衰率
+            player.m_Speed -= 10.0; //減衰率
 
             player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
             player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
@@ -372,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //画面外判定
-    private void hitcheck(GameObject gameObject)
+    private void hitCheck(GameObject gameObject)
     {
         //右
         if(gameObject.m_PosX + gameObject.m_Texture.getWidth() > screenWidth)
