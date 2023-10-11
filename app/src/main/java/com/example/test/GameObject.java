@@ -6,6 +6,9 @@ public class GameObject
 {
         int m_CollisionTimer = 0;
         protected ImageView m_Texture;
+
+        protected float m_oldPosX;
+        protected float m_oldPosY;
         protected float m_PosX;
         protected float m_PosY;
 

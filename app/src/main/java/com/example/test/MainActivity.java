@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     //private ImageView enemy;
 
     private  Player player;
-    private  Enemy enemy;
+    private  Enemy[] enemy;
     private boolean isCollision = false;
     private float startX, startY;
     private long touchDownTime = 0;
@@ -78,11 +78,15 @@ public class MainActivity extends AppCompatActivity {
         player.m_Texture.setY(player.m_PosY);
         player.SetMove(0.0f,0.0f);
 
-        enemy = new Enemy();
-        enemy.m_Texture = findViewById(R.id.enemy);
-        enemy.m_PosX=(screenWidth / 3.2f);
-        enemy.m_PosY=(screenHeight / 4);
-        enemy.SetMove(10.0f,10.0f);
+        enemy = new Enemy[1];
+        for (int i = 0; i < enemy.length; i++)
+        {
+            enemy[i] = new Enemy();
+            enemy[i].m_Texture = findViewById(R.id.enemy);
+            enemy[i].m_PosX=(screenWidth / 3.2f);
+            enemy[i].m_PosY=(screenHeight / 4);
+            enemy[i].SetMove(10.0f,10.0f);
+        }
 
         //enemy = findViewById(R.id.enemy);
         //enemy.setX(screenWidth / 3.2f);
@@ -105,6 +109,12 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        player.m_MoveX = 0.0f;
+                        player.m_MoveVecX = 0.0f;
+
+                        player.m_MoveY = 0.0f;
+                        player.m_MoveVecY = 0.0f;
+
                         touchDownTime = System.currentTimeMillis();
                         startX = event.getX();
                         startY = event.getY();
@@ -271,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
     // プレイヤーキャラクターと敵キャラクターの当たり判定を検出
     private boolean checkCollisionWithEnemy() {
+        /*
         // プレイヤーキャラクターの矩形領域を取得
         Rect playerRect = new Rect(
                 (int) player.m_Texture.getX(),
@@ -305,23 +316,31 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        return false; // 仮の戻り値
+        *
+         */
+        return true; // 仮の戻り値
+
     }
 
     public void Update()
     {
-        enemy.PullCollisionTimer(enemy);
-        enemy.MoveEnemy(this, enemy,player);
-        changePosPlayer();
-        collisionTest();
-        hitcheck(player);
-        changePos();
+        for (int i = 0; i < enemy.length; i++) {
+            enemy[i].PullCollisionTimer(enemy[i]);
+            enemy[i].MoveEnemy(this, enemy[i], player);
+            changePosPlayer();
+            enemy[i].collisionTest(player, enemy);
+            hitcheck(player);
+            changePos();
+        }
     }
 
     private void changePos()
     {
-        enemy.m_Texture.setX(enemy.m_PosX);
-        enemy.m_Texture.setY(enemy.m_PosY);
+        for (int i = 0; i < enemy.length; i++)
+        {
+            enemy[i].m_Texture.setX(enemy[i].m_PosX);
+            enemy[i].m_Texture.setY(enemy[i].m_PosY);
+        }
 
         //player.m_Texture.setX(player.m_PosX);
         //プレイヤー座標更新
@@ -334,19 +353,22 @@ public class MainActivity extends AppCompatActivity {
         //スピードが0でないのなら
         if(0.0f < player.m_Speed)
         {
+            //前フレームの座標を保存しておく
+            player.m_oldPosX = player.m_PosX;
+            player.m_oldPosY = player.m_PosY;
+
             player.m_PosX = player.m_Texture.getX() + player.m_MoveX;
             player.m_PosY = player.m_Texture.getY() + player.m_MoveY;
 
-            player.m_Speed -= 1.5; //減衰率
+            player.m_Speed -= 1.0; //減衰率
 
             player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
             player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
         }
-
-        if(player.m_Speed < 0)
-        {
-            player.m_Speed = 0;
+        else{
+            player.m_Speed = 0.0f;
         }
+
     }
 
     //画面外判定
@@ -384,41 +406,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    private void collisionTest()
-    {
-        //右判定
-        //エネミー左
-        if(player.m_PosX + 100.0f < enemy.m_PosX + enemy.m_Texture.getWidth()
-                && player.m_Texture.getY() < enemy.m_PosY + enemy.m_Texture.getHeight()
-                && enemy.m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight())
-        {
-            enemy.m_CollisionTimer = 60;
-            //enemy.m_SpeedX *= -1;
-            //enemy.m_PosX  += -100.0f;
-            //player.m_PosX += 100.0f;
-
-            //enemy.m_MoveX *= -1;
-            float energy1 = player.m_Speed * player.m_Weight;
-            float energy2 = enemy.m_Speed * enemy.m_Weight;
-
-            float ex = energy1 / energy2;
-
-            enemy.m_MoveX = player.m_MoveX * ex;
-            enemy.m_MoveY = player.m_MoveY * ex;
-
-            //enemy.m_MoveX = player.m_MoveX;
-            //enemy.m_MoveY = player.m_MoveY;
-
-            //enemy.m_MoveY *= -1;
-
-            player.m_MoveX *= -1;
-            player.m_MoveVecX *= -1;
-
-            isCollision = true;
-        }
-    }
-
     private float calculateLength(float x, float y)
     {
         return (float) Math.sqrt(x * x + y * y);
