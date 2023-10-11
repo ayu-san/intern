@@ -3,7 +3,11 @@ package com.example.test;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +19,7 @@ public class TitleActivity extends AppCompatActivity {
     private Button settingButton;
     private Button asobiButton;
     private Button cregitButton;
+    private ImageView titlLogo;
 
     private SoundPlayer soundPlayer;
     private boolean shouldShowPauseDialog = true;
@@ -29,17 +34,26 @@ public class TitleActivity extends AppCompatActivity {
         asobiButton = findViewById(R.id.asobibutton);
         cregitButton = findViewById(R.id.cregitbutton);
 
+        titlLogo = findViewById(R.id.titlelogo);
+        Animation floatAnimation  = AnimationUtils.loadAnimation(this,R.anim.scale_up_down);
+        titlLogo.startAnimation(floatAnimation);
+
         soundPlayer = new SoundPlayer(this);
 
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
+
             soundPlayer.setTestSE();
+
             shouldShowPauseDialog = false;
             startActivity(new Intent(this, SelectActivity.class));
         });
 
         //設定ボタンを押したとき
         settingButton.setOnClickListener((View v)->{
+
+            soundPlayer.setTestSE();
+
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_settings,null);
 
@@ -96,6 +110,9 @@ public class TitleActivity extends AppCompatActivity {
 
         //遊び方ボタンを押したとき
         asobiButton.setOnClickListener((View v)->{
+
+            soundPlayer.setTestSE();
+
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_asobi,null);
 
@@ -110,6 +127,9 @@ public class TitleActivity extends AppCompatActivity {
 
         //クレジットボタンを押したとき
         cregitButton.setOnClickListener((View v)->{
+
+            soundPlayer.setTestSE2();
+
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_cregit,null);
 
