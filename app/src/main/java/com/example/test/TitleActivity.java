@@ -55,7 +55,8 @@ public class TitleActivity extends AppCompatActivity {
 
             //ダイアログビューの設定
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(dialogView);
+            builder.setView(dialogView)
+                    .setCancelable(false);
 
             //AlertDialogを表示
             AlertDialog alertDialog = builder.create();
@@ -121,7 +122,8 @@ public class TitleActivity extends AppCompatActivity {
 
             //ダイアログビューの設定
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(dialogView);
+            builder.setView(dialogView)
+                    .setCancelable(false);
 
             //AlertDialogを表示
             AlertDialog alertDialog = builder.create();
@@ -146,7 +148,8 @@ public class TitleActivity extends AppCompatActivity {
 
             //ダイアログビューの設定
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(dialogView);
+            builder.setView(dialogView)
+                    .setCancelable(false);
 
             //AlertDialogを表示
             AlertDialog alertDialog = builder.create();
