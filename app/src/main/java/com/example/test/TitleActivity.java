@@ -21,7 +21,7 @@ public class TitleActivity extends AppCompatActivity {
 
     private TapEffect tapEffect;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
