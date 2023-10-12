@@ -17,12 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TitleActivity extends AppCompatActivity {
 
-    private Button startButton;
-    private Button settingButton;
-    private Button asobiButton;
-    private Button cregitButton;
-    private ImageView titlLogo;
-
     private SoundPlayer soundPlayer;
 
     private TapEffect tapEffect;
@@ -33,12 +27,12 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-        startButton = findViewById(R.id.startbutton);
-        settingButton = findViewById(R.id.settingbutton);
-        asobiButton = findViewById(R.id.asobibutton);
-        cregitButton = findViewById(R.id.cregitbutton);
+        Button startButton = findViewById(R.id.startbutton);
+        Button settingButton = findViewById(R.id.settingbutton);
+        Button asobiButton = findViewById(R.id.asobibutton);
+        Button cregitButton = findViewById(R.id.cregitbutton);
 
-        titlLogo = findViewById(R.id.titlelogo);
+        ImageView titlLogo = findViewById(R.id.titlelogo);
         Animation floatAnimation  = AnimationUtils.loadAnimation(this,R.anim.scale_up_down);
         titlLogo.startAnimation(floatAnimation);
 
@@ -47,14 +41,11 @@ public class TitleActivity extends AppCompatActivity {
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
 
-        tapEffectContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    tapEffect.show(motionEvent.getX(), motionEvent.getY());
-                }
-                return false;
+        tapEffectContainer.setOnTouchListener((view, motionEvent) -> {
+            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                tapEffect.show(motionEvent.getX(), motionEvent.getY());
             }
+            return false;
         });
 
         //始めるボタンを押したとき
