@@ -26,7 +26,7 @@ public class TapEffect{
     public void show(float x, float y){
         // エフェクト用のImageViewを作成
         ImageView effectView = new ImageView(context);
-        Drawable effectDrawable = context.getResources().getDrawable(R.drawable.tap_effect_drawable); // エフェクトの画像を設定
+        Drawable effectDrawable = context.getResources().getDrawable(R.drawable.tap_effect); // エフェクトの画像を設定
         effectView.setX(x-40);
         effectView.setY(y-80);
         effectView.setImageDrawable(effectDrawable);
