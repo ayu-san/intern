@@ -127,6 +127,8 @@ public class TitleActivity extends AppCompatActivity {
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonSetting);
             closeButton.setOnClickListener((View view)->{
+                soundPlayer.setTestSE();
+
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
 
@@ -153,6 +155,8 @@ public class TitleActivity extends AppCompatActivity {
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
             closeButton.setOnClickListener((View view)->{
+                soundPlayer.setTestSE();
+
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
 
@@ -179,6 +183,8 @@ public class TitleActivity extends AppCompatActivity {
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonCregit);
             closeButton.setOnClickListener((View view)->{
+                soundPlayer.setTestSE();
+
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
 
@@ -190,21 +196,6 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
-    }
-
-    public void closeDialog(View view) {
-        // ダイアログを閉じる
-        if (view != null) {
-            AlertDialog alertDialog = (AlertDialog) view.getTag();
-            if (alertDialog != null) {
-                alertDialog.dismiss();
-            }
-        }
-    }
-
-    private void showTapEffect(float x, float y) {
-        // カスタムエフェクトの表示
-        tapEffect.show(x, y);
     }
 
 
