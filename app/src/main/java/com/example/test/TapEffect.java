@@ -26,7 +26,7 @@ public class TapEffect{
         effectView.setImageDrawable(effectDrawable);
 
         // エフェクトの位置を設定
-        int initialSize = 250;
+        int initialSize = 230;
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(initialSize, initialSize);
         effectView.setLayoutParams(layoutParams);
 
