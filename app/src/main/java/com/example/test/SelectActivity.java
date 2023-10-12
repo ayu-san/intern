@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 
@@ -22,6 +24,9 @@ public class SelectActivity extends AppCompatActivity {
 
     private boolean isConditionNormal = false;
     private boolean isConditionHard = false;
+
+
+    private TapEffect tapEffect;
 
 
     @Override
@@ -45,6 +50,21 @@ public class SelectActivity extends AppCompatActivity {
         //最初はどちらも無効化しておく
         normalbutton.setEnabled(false);
         hardbutton.setEnabled(false);
+
+        FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
+        tapEffect = new TapEffect(this,tapEffectContainer);
+
+        tapEffectContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    tapEffect.show(motionEvent.getX(), motionEvent.getY());
+                }
+                return false;
+            }
+        });
+
+
 
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{

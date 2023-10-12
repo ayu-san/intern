@@ -29,7 +29,9 @@ public class TitleActivity extends AppCompatActivity {
     private ImageView titlLogo;
 
     private SoundPlayer soundPlayer;
-    private FrameLayout frameLayout;
+
+    private TapEffect tapEffect;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +49,15 @@ public class TitleActivity extends AppCompatActivity {
 
         soundPlayer = new SoundPlayer(this);
 
-        frameLayout = findViewById(R.id.tap_effect);
+        FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
+        tapEffect = new TapEffect(this,tapEffectContainer);
 
-        frameLayout.setOnTouchListener(new View.OnTouchListener() {
+        tapEffectContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    ShowTouchEffect(motionEvent.getX(), motionEvent.getY());
+                    tapEffect.show(motionEvent.getX(), motionEvent.getY());
                 }
-
                 return false;
             }
         });
@@ -205,58 +207,10 @@ public class TitleActivity extends AppCompatActivity {
         }
     }
 
-    private void ShowTouchEffect(float x, float y){
-        // エフェクト用の ImageView を作成
-        ImageView effectImageView = new ImageView(this);
-        effectImageView.setImageResource(R.drawable.tap_effect_drawable); // エフェクト画像を設定
-        effectImageView.setX(x-40); // X 座標を設定
-        effectImageView.setY(y-80); // Y 座標を設定
-
-// 初期サイズを設定
-        int initialSize = 180;
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(initialSize, initialSize);
-        effectImageView.setLayoutParams(layoutParams);
-
-        frameLayout.addView(effectImageView);
-
-        // アニメーション: エフェクトのサイズを縮小
-        int finalSize = 100; // 最終的なサイズを設定
-        ValueAnimator widthAnimator = ValueAnimator.ofInt(initialSize, finalSize);
-        ValueAnimator heightAnimator = ValueAnimator.ofInt(initialSize, finalSize);
-
-        widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = effectImageView.getLayoutParams();
-                layoutParams.width = value;
-                effectImageView.setLayoutParams(layoutParams);
-            }
-        });
-
-        heightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = effectImageView.getLayoutParams();
-                layoutParams.height = value;
-                effectImageView.setLayoutParams(layoutParams);
-            }
-        });
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(widthAnimator, heightAnimator);
-        animatorSet.setDuration(300); // アニメーションの時間（ミリ秒）
-        animatorSet.start();
-
-        // エフェクトのアニメーション（例：フェードアウト）
-        effectImageView.animate().alpha(0).setDuration(300).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                // エフェクトをコンテナから削除
-                frameLayout.removeView(effectImageView);
-            }
-        });
+    private void showTapEffect(float x, float y) {
+        // カスタムエフェクトの表示
+        tapEffect.show(x, y);
     }
+
 
 }
