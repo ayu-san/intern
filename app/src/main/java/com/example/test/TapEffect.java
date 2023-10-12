@@ -34,7 +34,7 @@ public class TapEffect{
         parentView.addView(effectView);
 
         // アニメーションの設定
-        int finalSize = 150; // 最終的なサイズを設定
+        int finalSize = 200; // 最終的なサイズを設定
         ValueAnimator widthAnimator = ValueAnimator.ofInt(initialSize, finalSize);
         ValueAnimator heightAnimator = ValueAnimator.ofInt(initialSize, finalSize);
 
