@@ -4,19 +4,13 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class TapEffect{
-    private Context context;
-    private ViewGroup parentView;
+    private final Context context;
+    private final ViewGroup parentView;
 
     public TapEffect(Context context, ViewGroup parentView){
         this.context = context;
@@ -44,24 +38,18 @@ public class TapEffect{
         ValueAnimator widthAnimator = ValueAnimator.ofInt(initialSize, finalSize);
         ValueAnimator heightAnimator = ValueAnimator.ofInt(initialSize, finalSize);
 
-        widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = effectView.getLayoutParams();
-                layoutParams.width = value;
-                effectView.setLayoutParams(layoutParams);
-            }
+        widthAnimator.addUpdateListener(valueAnimator -> {
+            int value = (int) valueAnimator.getAnimatedValue();
+            ViewGroup.LayoutParams layoutParams1 = effectView.getLayoutParams();
+            layoutParams1.width = value;
+            effectView.setLayoutParams(layoutParams1);
         });
 
-        heightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = effectView.getLayoutParams();
-                layoutParams.height = value;
-                effectView.setLayoutParams(layoutParams);
-            }
+        heightAnimator.addUpdateListener(valueAnimator -> {
+            int value = (int) valueAnimator.getAnimatedValue();
+            ViewGroup.LayoutParams layoutParams12 = effectView.getLayoutParams();
+            layoutParams12.height = value;
+            effectView.setLayoutParams(layoutParams12);
         });
 
         AnimatorSet animatorSet = new AnimatorSet();
@@ -71,12 +59,9 @@ public class TapEffect{
 
 // エフェクトのアニメーション（例：フェードアウト）        // エフェクトにアニメーションを適用
 //        effectView.startAnimation(animatorSet);
-        effectView.animate().alpha(0).setDuration(300).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                // エフェクトをコンテナから削除
-                parentView.removeView(effectView);
-            }
+        effectView.animate().alpha(0).setDuration(300).withEndAction(() -> {
+            // エフェクトをコンテナから削除
+            parentView.removeView(effectView);
         });
     }
 
