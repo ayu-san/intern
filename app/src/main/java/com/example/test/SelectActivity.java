@@ -26,6 +26,7 @@ public class SelectActivity extends AppCompatActivity {
     private boolean isConditionHard = false;
 
 
+    private SoundPlayer soundPlayer;
     private TapEffect tapEffect;
 
 
@@ -51,6 +52,8 @@ public class SelectActivity extends AppCompatActivity {
         normalbutton.setEnabled(false);
         hardbutton.setEnabled(false);
 
+        soundPlayer = new SoundPlayer(this);
+
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
 
@@ -68,23 +71,31 @@ public class SelectActivity extends AppCompatActivity {
 
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE();
+
             onConditionNormal();
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //normalボタンを押したとき
         normalbutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE();
+
             onConditionHard();
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //hardボタンを押したとき
         hardbutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE();
+
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //戻るボタンを押したとき
         backbutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE2();
+
             startActivity(new Intent(this, TitleActivity.class));
         });
 
