@@ -136,4 +136,11 @@
         app:strokeWidth="6dp"
         tools:ignore="MissingConstraints,DuplicateClickableBoundsCheck" />
 
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tap_effect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
