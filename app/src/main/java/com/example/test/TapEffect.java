@@ -21,12 +21,12 @@ public class TapEffect{
         // エフェクト用のImageViewを作成
         ImageView effectView = new ImageView(context);
         Drawable effectDrawable = context.getResources().getDrawable(R.drawable.tap_effect, context.getTheme()); // エフェクトの画像を設定
-        effectView.setX(x-40);
-        effectView.setY(y-80);
+        effectView.setX(x-130);
+        effectView.setY(y-140);
         effectView.setImageDrawable(effectDrawable);
 
         // エフェクトの位置を設定
-        int initialSize = 200;
+        int initialSize = 250;
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(initialSize, initialSize);
         effectView.setLayoutParams(layoutParams);
 
@@ -34,7 +34,7 @@ public class TapEffect{
         parentView.addView(effectView);
 
         // アニメーションの設定
-        int finalSize = 100; // 最終的なサイズを設定
+        int finalSize = 150; // 最終的なサイズを設定
         ValueAnimator widthAnimator = ValueAnimator.ofInt(initialSize, finalSize);
         ValueAnimator heightAnimator = ValueAnimator.ofInt(initialSize, finalSize);
 
