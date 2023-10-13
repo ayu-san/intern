@@ -6,7 +6,7 @@ import com.example.test.MainActivity;
 
 public class Enemy extends GameObject
 {
-    float m_InitialSpeed = 1900.0f;
+    float m_InitialSpeed = 1200.0f;
     float m_Speed = 0.0f;
     float m_Weight = 500.0f; //重さ
 
