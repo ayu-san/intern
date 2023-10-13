@@ -1,15 +1,10 @@
 package com.example.test;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -22,42 +17,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TitleActivity extends AppCompatActivity {
 
-    private Button startButton;
-    private Button settingButton;
-    private Button asobiButton;
-    private Button cregitButton;
-    private ImageView titlLogo;
-
     private SoundPlayer soundPlayer;
-    private FrameLayout frameLayout;
-    @SuppressLint("MissingInflatedId")
+
+    private TapEffect tapEffect;
+
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-        startButton = findViewById(R.id.startbutton);
-        settingButton = findViewById(R.id.settingbutton);
-        asobiButton = findViewById(R.id.asobibutton);
-        cregitButton = findViewById(R.id.cregitbutton);
+        Button startButton = findViewById(R.id.startbutton);
+        Button settingButton = findViewById(R.id.settingbutton);
+        Button asobiButton = findViewById(R.id.asobibutton);
+        Button cregitButton = findViewById(R.id.cregitbutton);
 
-        titlLogo = findViewById(R.id.titlelogo);
+        ImageView titlLogo = findViewById(R.id.titlelogo);
         Animation floatAnimation  = AnimationUtils.loadAnimation(this,R.anim.scale_up_down);
         titlLogo.startAnimation(floatAnimation);
 
         soundPlayer = new SoundPlayer(this);
 
-        frameLayout = findViewById(R.id.tap_effect);
+        FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
+        tapEffect = new TapEffect(this,tapEffectContainer);
 
-        frameLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    ShowTouchEffect(motionEvent.getX(), motionEvent.getY());
-                }
-
-                return false;
+        tapEffectContainer.setOnTouchListener((view, motionEvent) -> {
+            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                tapEffect.show(motionEvent.getX(), motionEvent.getY());
             }
+            return false;
         });
 
         //始めるボタンを押したとき
@@ -130,6 +118,8 @@ public class TitleActivity extends AppCompatActivity {
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonSetting);
             closeButton.setOnClickListener((View view)->{
+                soundPlayer.setTestSE();
+
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
 
@@ -156,6 +146,8 @@ public class TitleActivity extends AppCompatActivity {
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
             closeButton.setOnClickListener((View view)->{
+                soundPlayer.setTestSE();
+
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
 
@@ -182,6 +174,8 @@ public class TitleActivity extends AppCompatActivity {
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonCregit);
             closeButton.setOnClickListener((View view)->{
+                soundPlayer.setTestSE();
+
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
 
@@ -195,68 +189,5 @@ public class TitleActivity extends AppCompatActivity {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
     }
 
-    public void closeDialog(View view) {
-        // ダイアログを閉じる
-        if (view != null) {
-            AlertDialog alertDialog = (AlertDialog) view.getTag();
-            if (alertDialog != null) {
-                alertDialog.dismiss();
-            }
-        }
-    }
-
-    private void ShowTouchEffect(float x, float y){
-        // エフェクト用の ImageView を作成
-        ImageView effectImageView = new ImageView(this);
-        effectImageView.setImageResource(R.drawable.tap_effect_drawable); // エフェクト画像を設定
-        effectImageView.setX(x-40); // X 座標を設定
-        effectImageView.setY(y-80); // Y 座標を設定
-
-// 初期サイズを設定
-        int initialSize = 180;
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(initialSize, initialSize);
-        effectImageView.setLayoutParams(layoutParams);
-
-        frameLayout.addView(effectImageView);
-
-        // アニメーション: エフェクトのサイズを縮小
-        int finalSize = 100; // 最終的なサイズを設定
-        ValueAnimator widthAnimator = ValueAnimator.ofInt(initialSize, finalSize);
-        ValueAnimator heightAnimator = ValueAnimator.ofInt(initialSize, finalSize);
-
-        widthAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = effectImageView.getLayoutParams();
-                layoutParams.width = value;
-                effectImageView.setLayoutParams(layoutParams);
-            }
-        });
-
-        heightAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int value = (int) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = effectImageView.getLayoutParams();
-                layoutParams.height = value;
-                effectImageView.setLayoutParams(layoutParams);
-            }
-        });
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(widthAnimator, heightAnimator);
-        animatorSet.setDuration(300); // アニメーションの時間（ミリ秒）
-        animatorSet.start();
-
-        // エフェクトのアニメーション（例：フェードアウト）
-        effectImageView.animate().alpha(0).setDuration(300).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                // エフェクトをコンテナから削除
-                frameLayout.removeView(effectImageView);
-            }
-        });
-    }
 
 }

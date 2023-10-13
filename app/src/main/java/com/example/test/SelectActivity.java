@@ -4,67 +4,92 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class SelectActivity extends AppCompatActivity {
 
-    private Button eazybutton;
     private Button normalbutton;
     private Button hardbutton;
-    private ImageButton backbutton;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences sharedPreferences2;
 
     private boolean isConditionNormal = false;
     private boolean isConditionHard = false;
 
 
+    private SoundPlayer soundPlayer;
+    private TapEffect tapEffect;
+
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
 
         //sharedPreferencesの初期化
-        sharedPreferences = getSharedPreferences("isConditionNormal",MODE_PRIVATE);
-        sharedPreferences2 = getSharedPreferences("isConditionHard",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("isConditionNormal", MODE_PRIVATE);
+        SharedPreferences sharedPreferences2 = getSharedPreferences("isConditionHard", MODE_PRIVATE);
 
         //sharedPreferencesの設定
         //isConditionNormal = sharedPreferences.getBoolean("isConditionNormal",false);
         //isConditionHard = sharedPreferences2.getBoolean("isConditionHard",false);
 
-        eazybutton = findViewById(R.id.eazy);
+        Button eazybutton = findViewById(R.id.eazy);
         normalbutton = findViewById(R.id.normal);
         hardbutton = findViewById(R.id.Hard);
-        backbutton = findViewById(R.id.backbutton);
+        ImageButton backbutton = findViewById(R.id.backbutton);
 
         //最初はどちらも無効化しておく
         normalbutton.setEnabled(false);
         hardbutton.setEnabled(false);
 
+        soundPlayer = new SoundPlayer(this);
+
+        FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
+        tapEffect = new TapEffect(this,tapEffectContainer);
+
+        tapEffectContainer.setOnTouchListener((view, motionEvent) -> {
+            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                tapEffect.show(motionEvent.getX(), motionEvent.getY());
+            }
+            return false;
+        });
+
+
+
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE();
+
             onConditionNormal();
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //normalボタンを押したとき
         normalbutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE();
+
             onConditionHard();
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //hardボタンを押したとき
         hardbutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE();
+
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //戻るボタンを押したとき
         backbutton.setOnClickListener((View v)->{
+            soundPlayer.setTestSE2();
+
             startActivity(new Intent(this, TitleActivity.class));
         });
 
