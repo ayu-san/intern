@@ -26,6 +26,7 @@ public class SelectActivity extends AppCompatActivity {
     private boolean isConditionHell = false;
     private boolean isConditionHeaven = false;
 
+    SharedPreferences sharedPreferences;
 
     private SoundPlayer soundPlayer;
     private TapEffect tapEffect;
@@ -38,16 +39,13 @@ public class SelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select);
 
         //sharedPreferencesの初期化
-        SharedPreferences sharedPreferences = getSharedPreferences("isConditionNormal", MODE_PRIVATE);
-        SharedPreferences sharedPreferences2 = getSharedPreferences("isConditionHard", MODE_PRIVATE);
-        SharedPreferences sharedPreferences3 = getSharedPreferences("isConditionHell", MODE_PRIVATE);
-        SharedPreferences sharedPreferences4 = getSharedPreferences("isConditionHeaven", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("isCondition", MODE_PRIVATE);
 
         //sharedPreferencesの設定
-        //isConditionNormal = sharedPreferences.getBoolean("isConditionNormal",false);
-        //isConditionHard = sharedPreferences2.getBoolean("isConditionHard",false);
-        //isConditionHell = sharedPreferences2.getBoolean("isConditionHell",false);
-        //isConditionHeaven = sharedPreferences2.getBoolean("isConditionHeaven",false);
+        isConditionNormal = sharedPreferences.getBoolean("isConditionNormal",false);
+        isConditionHard = sharedPreferences.getBoolean("isConditionHard",false);
+        isConditionHell = sharedPreferences.getBoolean("isConditionHell",false);
+        isConditionHeaven = sharedPreferences.getBoolean("isConditionHeaven",false);
 
         Button eazybutton = findViewById(R.id.eazy);
         normalbutton = findViewById(R.id.normal);
@@ -65,6 +63,9 @@ public class SelectActivity extends AppCompatActivity {
         hellbutton.setEnabled(false);
         heavenbutton.setEnabled(false);
 
+        // ボタンの初期状態を設定
+        initializeButtonState();
+
         soundPlayer = new SoundPlayer(this);
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
@@ -80,8 +81,7 @@ public class SelectActivity extends AppCompatActivity {
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
-
-            onConditionNormal();
+            setAndSaveCondition(normalbutton,"isConditionNormal",sharedPreferences,isConditionNormal);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -89,7 +89,7 @@ public class SelectActivity extends AppCompatActivity {
         normalbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            onConditionHard();
+            setAndSaveCondition(hardbutton,"isConditionHard",sharedPreferences,isConditionHard);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -97,7 +97,7 @@ public class SelectActivity extends AppCompatActivity {
         hardbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            onConditionHell();
+            setAndSaveCondition(hellbutton,"isConditionHell",sharedPreferences,isConditionHell);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -105,7 +105,7 @@ public class SelectActivity extends AppCompatActivity {
         hellbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            onConditionHeaven();
+            setAndSaveCondition(heavenbutton,"isConditionHeaven",sharedPreferences,isConditionHeaven);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -120,32 +120,10 @@ public class SelectActivity extends AppCompatActivity {
         backbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE2();
 
+            //initData(sharedPreferences,"isCondition");
+
             startActivity(new Intent(this, TitleActivity.class));
         });
-
-        //条件をクリアしたら有効可
-        if(isConditionNormal){
-            isConditionNormal = true;
-            normalbutton.setEnabled(true);
-        }
-
-        //条件をクリアしたら有効可
-        if(isConditionHard){
-            isConditionHard = true;
-            hardbutton.setEnabled(true);
-        }
-
-        //条件をクリアしたら有効可
-        if(isConditionHell){
-            isConditionHell = true;
-            hellbutton.setEnabled(true);
-        }
-
-        //条件をクリアしたら有効可
-        if(isConditionHeaven){
-            isConditionHeaven = true;
-            heavenbutton.setEnabled(true);
-        }
 
     }
 
@@ -155,45 +133,32 @@ public class SelectActivity extends AppCompatActivity {
     }
 
     // 条件が満たされた場合に呼び出すメソッド
-    private void onConditionNormal() {
-        isConditionNormal = true;
-        normalbutton.setEnabled(true);
+    private void setAndSaveCondition(Button button, String conditionName, SharedPreferences sharedPreferencesd, boolean value){
+        // SharedPreferencesから条件を読み込み、デフォルト値を使用する
+        boolean isConditionMet = sharedPreferencesd.getBoolean(conditionName, value);
 
-        // 条件が満たされたことをSharedPreferencesに保存
-        //SharedPreferences.Editor editor = sharedPreferences.edit();
-        //editor.putBoolean("isConditionNormal", true);
-        //editor.apply();
-
+        // SharedPreferencesに状態を保存
+        isConditionMet = true;
+        button.setEnabled(true);
+        SharedPreferences.Editor editor = sharedPreferencesd.edit();
+        editor.putBoolean(conditionName,true);
+        editor.apply();
     }
 
-    private void onConditionHard() {
-        isConditionHard = true;
-        hardbutton.setEnabled(true);
-
-        // 条件が満たされたことをSharedPreferencesに保存
-        //SharedPreferences.Editor editor2 = sharedPreferences2.edit();
-        //editor2.putBoolean("isConditionHard", true);
-        //editor2.apply();
+    // ボタンの初期状態を設定
+    private void initializeButtonState() {
+        normalbutton.setEnabled(isConditionNormal);
+        hardbutton.setEnabled(isConditionHard);
+        hellbutton.setEnabled(isConditionHell);
+        heavenbutton.setEnabled(isConditionHeaven);
     }
 
-    private void onConditionHell() {
-        isConditionHell = true;
-        hellbutton.setEnabled(true);
-
-        // 条件が満たされたことをSharedPreferencesに保存
-        //SharedPreferences.Editor editor3 = sharedPreferences3.edit();
-        //editor3.putBoolean("isConditionHell", true);
-        //editor3.apply();
-    }
-
-    private void onConditionHeaven() {
-        isConditionHeaven = true;
-        heavenbutton.setEnabled(true);
-
-        // 条件が満たされたことをSharedPreferencesに保存
-        //SharedPreferences.Editor editor4 = sharedPreferences4.edit();
-        //editor4.putBoolean("isConditionHeaven", true);
-        //editor4.apply();
+    //デバッグ用データ初期化
+    private void initData(SharedPreferences preferences1,String conditionName){
+        preferences1 = getSharedPreferences(conditionName,MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences1.edit();
+        editor.clear();
+        editor.apply();
     }
 
 }
