@@ -239,9 +239,9 @@ public class TitleActivity extends AppCompatActivity {
 
             //画像によって処理を変える
             if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
-                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+
             } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
-                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+
             }
 
         });
@@ -252,9 +252,9 @@ public class TitleActivity extends AppCompatActivity {
 
             //画像によって処理を変える
             if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
-                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+
             } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
-                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+
             }
 
         });
