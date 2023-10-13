@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             enemy[i].m_Texture.setX(enemy[i].m_PosX );
             enemy[i].m_Texture.setY(enemy[i].m_PosY);
 
-            enemy[i].SetMove(10.0f,10.0f);
+            enemy[i].SetMove(6.0f,0.0f);
         }
 
         //enemy = findViewById(R.id.enemy);
@@ -356,10 +356,15 @@ public class MainActivity extends AppCompatActivity {
     {
         for (int i = 0; i < enemy.length; i++) {
             enemy[i].PullCollisionTimer(enemy[i]);
-            enemy[i].MoveEnemy(this, enemy[i], player);
+            player.PullCollisionTimer(player);
+
+            enemy[i].MoveEnemy(this, enemy[i], player,screenWidth);
             changePosPlayer();
+
+            player.collisionTest(player, enemy);
             enemy[i].collisionTest(player, enemy);
             hitCheck(player);
+
             changePos();
         }
     }
@@ -380,25 +385,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void changePosPlayer()
     {
+        //前フレームの座標を保存しておく
+        player.m_oldPosX = player.m_PosX;
+        player.m_oldPosY = player.m_PosY;
+
+        player.m_PosX += player.m_MoveX;
+        player.m_PosY += player.m_MoveY;
+
         //スピードが0でないのなら
         if(0.0f < player.m_Speed)
         {
-            //前フレームの座標を保存しておく
-            player.m_oldPosX = player.m_PosX;
-            player.m_oldPosY = player.m_PosY;
-
-            //player.m_PosX = player.m_Texture.getX() + player.m_MoveX;
-            //player.m_PosY = player.m_Texture.getY() + player.m_MoveY;
-            player.m_PosX += player.m_MoveX;
-            player.m_PosY += player.m_MoveY;
-
             player.m_Speed -= 10.0; //減衰率
-
-            player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
-            player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
+            if(0 < player.m_CollisionTimer)
+            {
+                player.m_Speed = 0.0f;
+            } else {
+                player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
+                player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
+            }
         }
-        else{
+        else
+        {
             player.m_Speed = 0.0f;
+            if(0 == player.m_CollisionTimer)
+            {
+                player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
+                player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
+            }
         }
 
     }

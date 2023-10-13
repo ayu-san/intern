@@ -30,14 +30,20 @@ public class GameObject
 
         public void PullCollisionTimer(GameObject gameObject)
         {
-                if(gameObject.m_CollisionTimer != 0)
+                if(0 < gameObject.m_CollisionTimer)
                 {
                         gameObject.m_CollisionTimer--;
                 }
 
-                if(gameObject.m_CollisionTimer < 0)
+                else
                 {
                         gameObject.m_CollisionTimer = 0;
                 }
         }
+
+        //当たり判定関数
+        public void collisionTest(Player player, Enemy[] enemy)
+        {
+        }
+
 }
