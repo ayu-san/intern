@@ -60,11 +60,9 @@ public class TitleActivity extends AppCompatActivity {
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
 
-            soundPlayer.setTestSE();
-
             showLevelUp();
 
-            //startActivity(new Intent(this, SelectActivity.class));
+            startActivity(new Intent(this, SelectActivity.class));
         });
 
         //設定ボタンを押したとき
