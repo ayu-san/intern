@@ -9,17 +9,26 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.graphics.drawable.Drawable;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Random;
 
 public class TitleActivity extends AppCompatActivity {
 
     private SoundPlayer soundPlayer;
 
     private TapEffect tapEffect;
+
+    // 画像リソースの名前のリスト
+    private static final String[] imageResourceNames = {
+            "enemy","character_image","yajirusi","titlelogo"
+    };
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
@@ -53,7 +62,9 @@ public class TitleActivity extends AppCompatActivity {
 
             soundPlayer.setTestSE();
 
-            startActivity(new Intent(this, SelectActivity.class));
+            showLevelUp();
+
+            //startActivity(new Intent(this, SelectActivity.class));
         });
 
         //設定ボタンを押したとき
@@ -187,6 +198,76 @@ public class TitleActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
+    }
+
+    private void setRandomImageForImageButton(ImageButton imageButton) {
+        // ランダムな画像を選択
+        Random random = new Random();
+        int randomIndex = random.nextInt(imageResourceNames.length);
+        String randomImageResourceName = imageResourceNames[randomIndex];
+
+        // リソースIDを取得
+        int resID = getResources().getIdentifier(randomImageResourceName, "drawable", getPackageName());
+
+        // ImageButtonに画像を設定
+        imageButton.setImageResource(resID);
+    }
+
+    //レベルアップ画面表示関数
+    public void showLevelUp(){
+        //設定ダイアログの読み込み
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_levelup,null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView)
+                .setCancelable(false);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.show();
+
+        ImageButton item1 = dialogView.findViewById(R.id.item1);
+        ImageButton item2 = dialogView.findViewById(R.id.item2);
+        Button noselect = dialogView.findViewById(R.id.noSelect);
+
+        setRandomImageForImageButton(item1);
+        setRandomImageForImageButton(item2);
+
+        item1.setOnClickListener(view -> {
+            // ImageButtonの現在の画像を取得
+            Drawable currentDrawable = item1.getDrawable();
+
+            //画像によって処理を変える
+            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
+                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
+                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+            }
+
+        });
+
+        item2.setOnClickListener(view -> {
+            // ImageButtonの現在の画像を取得
+            Drawable currentDrawable = item2.getDrawable();
+
+            //画像によって処理を変える
+            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
+                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
+                startActivity(new Intent(TitleActivity.this, SelectActivity.class));
+            }
+
+        });
+
+        noselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
     }
 
 
