@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#77F6F6">
+    android:background="#04C4EF">
 
     <ImageView
         android:id="@+id/back3"
@@ -97,12 +97,10 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_media_previous" />
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tap_effect"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"></FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
