@@ -1,6 +1,8 @@
 package com.example.test;
 import static java.lang.Double.isNaN;
 
+import android.widget.ImageView;
+
 import com.example.test.GameObject;
 import com.example.test.MainActivity;
 
@@ -36,7 +38,7 @@ public class Enemy extends GameObject
                 enemy.m_MoveX = 0.0f;
                 enemy.m_MoveY = 0.0f;
 
-                enemy.m_Speed = m_InitialSpeed;
+                enemy.m_Speed = enemy.m_InitialSpeed;
             }
             //enemy.m_MoveX = 3.0f;
             //enemy.m_MoveY = 0.0f;
@@ -68,7 +70,7 @@ public class Enemy extends GameObject
     }
 
     @Override
-    //エネミーのoldPosを使っていく
+    //エネミーのoldPosを使っていく エネミーからプレイヤーにぶつかっていく
     public void collisionTest(Player player, Enemy[] enemy)
     {
         for (int i = 0; i < enemy.length; i++)

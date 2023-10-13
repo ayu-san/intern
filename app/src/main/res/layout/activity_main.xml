@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/sssdf"
+        android:layout_width="410dp"
+        android:layout_height="725dp"
+        tools:ignore="MissingConstraints" />
     <ImageView
         android:id="@+id/backgroundImageView"
         android:layout_width="1283dp"
@@ -27,8 +32,8 @@
         android:contentDescription="@string/todo"
         android:src="@drawable/character_image"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="76dp"
-        tools:layout_editor_absoluteY="131dp" />
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="482dp" />
 
     <ImageView
         android:id="@+id/enemy"
@@ -40,6 +45,29 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="155dp"
         tools:layout_editor_absoluteY="110dp" />
+
+
+    <ImageView
+        android:id="@+id/enemy1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="278dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/gall"
+        android:layout_width="415dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/gallline"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="623dp" />
 
     <TextView
         android:id="@+id/enemy_collision_count"

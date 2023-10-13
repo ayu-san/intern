@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -27,6 +28,11 @@ import java.util.TimerTask;
 import com.example.test.GameObject;
 import com.example.test.Player;
 import com.example.test.Enemy;
+import com.example.test.VerticalEnemy;
+import com.example.test.GallLine;
+import com.example.test.SelectActivity;
+import com.example.test.TitleActivity;
+
 public class MainActivity extends AppCompatActivity {
     //定数を定義
     final float OFFSET_POINT = 70.0f;
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private  Player player;
     private  Enemy[] enemy;
+    private  GallLine gallLine;
     private boolean isCollision = false;
     private float startX, startY;
     private long touchDownTime = 0;
@@ -87,18 +94,32 @@ public class MainActivity extends AppCompatActivity {
         player.m_Texture.setY(player.m_PosY);
         player.SetMove(0.0f,0.0f);
 
-        enemy = new Enemy[1];
+        gallLine = new GallLine(screenHeight);
+        gallLine.m_Texture = findViewById(R.id.gall);
+        gallLine.m_Texture.setX(gallLine.m_PosX );
+        gallLine.m_Texture.setY(gallLine.m_PosY);
+
+        enemy = new Enemy[2];
+        enemy[0] = new VerticalEnemy();
+        enemy[1] = new VerticalEnemy();
+
         for (int i = 0; i < enemy.length; i++)
         {
-            enemy[i] = new Enemy();
             enemy[i].m_Texture = findViewById(R.id.enemy);
-            enemy[i].m_PosX=(screenWidth / 3.2f);
-            enemy[i].m_PosY=(screenHeight / 4);
+            enemy[i].m_PosX=(screenWidth / 5 * (i * 3));
+            enemy[i].m_PosY=(0.0f);
             enemy[i].m_Texture.setX(enemy[i].m_PosX );
             enemy[i].m_Texture.setY(enemy[i].m_PosY);
 
-            enemy[i].SetMove(6.0f,0.0f);
+            enemy[i].SetMove(6.0f,1.0f);
         }
+
+        enemy[1].m_PosY =(-900.0f);
+        enemy[1].m_Texture = findViewById(R.id.enemy1);
+
+        //enemy[0].m_Texture.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.enemy));
+
+        //enemy[1].m_Texture.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.background_image));
 
         //enemy = findViewById(R.id.enemy);
         //enemy.setX(screenWidth / 3.2f);
@@ -364,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
             player.collisionTest(player, enemy);
             enemy[i].collisionTest(player, enemy);
             hitCheck(player);
+            gallLine.checkGall(this,gallLine,enemy);
 
             changePos();
         }
@@ -469,9 +491,13 @@ public class MainActivity extends AppCompatActivity {
         gameobject.m_MoveX /= length;
         gameobject.m_MoveY /= length;
     }
-    public void showPauseDialog() {
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_pause, null);
 
+    public void showPauseDialog() {
+        // タイマーを停止
+        timer.cancel();
+        timer.purge(); // タイマーのキューをクリア
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_pause, null);
         //ダイアログビューの設定
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
@@ -558,6 +584,20 @@ public class MainActivity extends AppCompatActivity {
         Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
         closeButton.setOnClickListener((View view)->{
             alertDialog.dismiss(); // ダイアログを閉じる
+
+            timer = new Timer();// タイマーを再生成
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Update();
+                        }
+                    });
+                }
+            }, 0, 16);
+
         });
 
     }
