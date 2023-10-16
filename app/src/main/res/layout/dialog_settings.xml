@@ -22,9 +22,9 @@
 
     <TextView
         android:id="@+id/BGMtextView"
-        android:layout_width="90dp"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:text="BGM"
+        android:text="音楽"
         android:textAlignment="center"
         android:textColor="#9C9C9C"
         android:textSize="30sp"
@@ -40,9 +40,9 @@
 
     <TextView
         android:id="@+id/SETextView"
-        android:layout_width="90dp"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:text="SE"
+        android:text="効果音"
         android:textAlignment="center"
         android:textColor="#9C9C9C"
         android:textSize="30sp"

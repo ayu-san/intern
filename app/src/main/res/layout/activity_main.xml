@@ -81,7 +81,7 @@
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="Level : 0"
+        android:text="レベル : 0"
         android:textAlignment="center"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/enemy"

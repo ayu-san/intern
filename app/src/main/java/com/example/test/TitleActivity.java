@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.graphics.drawable.Drawable;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,11 @@ public class TitleActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        setupButtonTouchEffect(startButton);
+        setupButtonTouchEffect(settingButton);
+        setupButtonTouchEffect(asobiButton);
+        setupButtonTouchEffect(cregitButton);
 
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
@@ -126,6 +132,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonSetting);
+            setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
                 soundPlayer.setTestSE();
 
@@ -154,6 +161,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
+            setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
                 soundPlayer.setTestSE();
 
@@ -182,6 +190,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonCregit);
+            setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
                 soundPlayer.setTestSE();
 
@@ -268,5 +277,68 @@ public class TitleActivity extends AppCompatActivity {
 
     }
 
+    public void showResult(){
+        //設定ダイアログの読み込み
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_result,null);
 
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.NoDimDialog);
+        builder.setView(dialogView)
+                .setCancelable(false);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertDialog.show();
+
+        Button retrybutton = dialogView.findViewById(R.id.result_retry);
+        Button selectbutton = dialogView.findViewById(R.id.result_selectstage);
+        Button titlebutton = dialogView.findViewById(R.id.result_title);
+        TextView stage = dialogView.findViewById(R.id.stagename);
+        TextView result = dialogView.findViewById(R.id.result);
+
+        stage.setText("ステージ１");
+        result.setText("クリア！");
+
+        //リトライボタン
+        retrybutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, TitleActivity.class));
+        });
+
+        //ステージ選択ボタン
+        selectbutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, SelectActivity.class));
+        });
+
+        //タイトルボタン
+        titlebutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, TitleActivity.class));
+        });
+
+    }
+
+    private void setupButtonTouchEffect(Button button) {
+        button.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    button.setScaleX(0.95f);
+                    button.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    button.setScaleX(1.0f);
+                    button.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+    }
 }
