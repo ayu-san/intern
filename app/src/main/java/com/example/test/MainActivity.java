@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     //private ImageView player.m_Texture;
     private int test;
     //private ImageView enemy;
+
+    // 画像リソースの名前のリスト
+    private static final String[] imageResourceNames = {
+            "enemy","character_image","yajirusi","titlelogo"
+    };
+
 
     private  Player player;
     ArrayList<Enemy> Enemies;
@@ -655,7 +663,122 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void setRandomImageForImageButton(ImageButton imageButton) {
+        // ランダムな画像を選択
+        Random random = new Random();
+        int randomIndex = random.nextInt(imageResourceNames.length);
+        String randomImageResourceName = imageResourceNames[randomIndex];
 
+        // リソースIDを取得
+        int resID = getResources().getIdentifier(randomImageResourceName, "drawable", getPackageName());
+
+        // ImageButtonに画像を設定
+        imageButton.setImageResource(resID);
+    }
+
+    //レベルアップ画面表示関数
+    public void showLevelUp(){
+        //設定ダイアログの読み込み
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_levelup,null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView)
+                .setCancelable(false);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.show();
+
+        ImageButton item1 = dialogView.findViewById(R.id.item1);
+        ImageButton item2 = dialogView.findViewById(R.id.item2);
+        Button noselect = dialogView.findViewById(R.id.noSelect);
+
+        setRandomImageForImageButton(item1);
+        setRandomImageForImageButton(item2);
+
+        item1.setOnClickListener(view -> {
+            // ImageButtonの現在の画像を取得
+            Drawable currentDrawable = item1.getDrawable();
+
+            //画像によって処理を変える
+            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
+
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
+
+            }
+
+        });
+
+        item2.setOnClickListener(view -> {
+            // ImageButtonの現在の画像を取得
+            Drawable currentDrawable = item2.getDrawable();
+
+            //画像によって処理を変える
+            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
+
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
+
+            }
+
+        });
+
+        noselect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+    public void showResult(){
+        //設定ダイアログの読み込み
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_result,null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.NoDimDialog);
+        builder.setView(dialogView)
+                .setCancelable(false);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertDialog.show();
+
+        Button retrybutton = dialogView.findViewById(R.id.result_retry);
+        Button selectbutton = dialogView.findViewById(R.id.result_selectstage);
+        Button titlebutton = dialogView.findViewById(R.id.result_title);
+        TextView stage = dialogView.findViewById(R.id.stagename);
+        TextView result = dialogView.findViewById(R.id.result);
+
+        stage.setText("ステージ１");
+        result.setText("クリア！");
+
+        //リトライボタン
+        retrybutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, MainActivity.class));
+        });
+
+        //ステージ選択ボタン
+        selectbutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, SelectActivity.class));
+        });
+
+        //タイトルボタン
+        titlebutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, TitleActivity.class));
+        });
+
+    }
 
 
 }
