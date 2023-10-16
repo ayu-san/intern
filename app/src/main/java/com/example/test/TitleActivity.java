@@ -268,5 +268,47 @@ public class TitleActivity extends AppCompatActivity {
 
     }
 
+    public void showResult(){
+        //設定ダイアログの読み込み
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_result,null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.NoDimDialog);
+        builder.setView(dialogView)
+                .setCancelable(false);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertDialog.show();
+
+        Button retrybutton = dialogView.findViewById(R.id.result_retry);
+        Button selectbutton = dialogView.findViewById(R.id.result_selectstage);
+        Button titlebutton = dialogView.findViewById(R.id.result_title);
+
+        //リトライボタン
+        retrybutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, TitleActivity.class));
+        });
+
+        //ステージ選択ボタン
+        selectbutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, SelectActivity.class));
+        });
+
+        //タイトルボタン
+        titlebutton.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+            alertDialog.dismiss(); // ダイアログを閉じる
+            startActivity(new Intent(this, TitleActivity.class));
+        });
+
+    }
+
 
 }
