@@ -8,12 +8,9 @@ public class SoundPlayer {
     private static SoundPool soundPool;
     private static int testSE;
     private static int testSE2;
-    private Context context;
     private float seVolume = 0.8f; // SEの初期音量
-    private float bgmVolume = 0.8f; // BGMの初期音量
 
     public SoundPlayer(Context context) {
-        this.context = context;
 
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -33,8 +30,8 @@ public class SoundPlayer {
     public void setSEVolume(float volume) {
         seVolume = volume;
     }
-    public void setBGMVolume(float volume) {
-        bgmVolume = volume;
+    public void setBGMVolume() {
+        // BGMの初期音量
     }
 
     public void release(){soundPool.release();}//soundPoolの解放

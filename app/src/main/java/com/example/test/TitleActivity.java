@@ -9,16 +9,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.graphics.drawable.Drawable;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Random;
 
 public class TitleActivity extends AppCompatActivity {
 
@@ -26,7 +21,7 @@ public class TitleActivity extends AppCompatActivity {
 
     private TapEffect tapEffect;
 
-    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +92,7 @@ public class TitleActivity extends AppCompatActivity {
                     //BGMの音量設定
                     float bgmvolume = progress / 100.0f;
                     MyApplication.setBGMVolume(bgmvolume);
-                    soundPlayer.setBGMVolume(bgmvolume);
+                    soundPlayer.setBGMVolume();
                 }
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
@@ -204,6 +199,7 @@ public class TitleActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupButtonTouchEffect(Button button) {
         button.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
