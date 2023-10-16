@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     private Handler handler = new Handler();
     private TapEffect tapEffect;
+    private String stageName;
     private String resultText;
     private  int screenWidth;
     private  int screenHeight;
@@ -398,7 +399,11 @@ public class MainActivity extends AppCompatActivity {
                 player.collisionTest(player, Enemies);
                 Enemies.get(i).collisionTest(player, Enemies);
 
-                gallLine.checkGall(this, gallLine, Enemies);
+                if(gallLine.checkGall(this, gallLine, Enemies)){
+                    stageName = "";
+                    resultText = "ゲームオーバー";
+                    showResult(stageName,resultText);
+                }
 
                 //画面外
                 hitCheck(player);
@@ -409,8 +414,9 @@ public class MainActivity extends AppCompatActivity {
         } else
         {
             //ゲームクリア
+            stageName = "ステージ１";
             resultText = "クリア！";
-            showResult(resultText);
+            showResult(stageName,resultText);
         }
     }
 
@@ -778,7 +784,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showResult(String resulttext){
+    public void showResult(String stagename,String resulttext){
         timer.cancel();
         timer.purge(); // タイマーのキューをクリア
 
@@ -806,7 +812,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtonTouchEffect(selectbutton);
         setupButtonTouchEffect(titlebutton);
 
-        stage.setText("ステージ１");
+        stage.setText(stagename);
         result.setText(resulttext);
 
         //リトライボタン
