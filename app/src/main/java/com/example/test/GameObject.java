@@ -2,19 +2,21 @@ package com.example.test;
 
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 public class GameObject
 {
         protected ImageView m_Texture;
         protected float m_PosX;
         protected float m_PosY;
+        protected float m_MoveX;
+        protected float m_MoveY;
 
         int m_CollisionTimer = 0;
 
         protected float m_oldPosX;
         protected float m_oldPosY;
 
-        protected float m_MoveX;
-        protected float m_MoveY;
 
         protected float m_InitialSpeed;//初速
         protected float m_Speed; //スピード
@@ -43,7 +45,7 @@ public class GameObject
         }
 
         //当たり判定関数
-        public void collisionTest(Player player, Enemy[] enemy)
+        public void collisionTest(Player player, ArrayList<Enemy> enemy)
         {
         }
 

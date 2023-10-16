@@ -33,16 +33,19 @@ import com.example.test.GallLine;
 import com.example.test.SelectActivity;
 import com.example.test.TitleActivity;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     //定数を定義
     final float OFFSET_POINT = 70.0f;
+
     //オブジェクト
     //private ImageView player.m_Texture;
     private int test;
     //private ImageView enemy;
 
     private  Player player;
-    private  Enemy[] enemy;
+    ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
     private boolean isCollision = false;
     private float startX, startY;
@@ -99,34 +102,12 @@ public class MainActivity extends AppCompatActivity {
         gallLine.m_Texture.setX(gallLine.m_PosX );
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
-        enemy = new Enemy[2];
-        enemy[0] = new VerticalEnemy();
-        enemy[1] = new VerticalEnemy();
+        Enemies = new ArrayList<>();
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,1.0f, 180, 0));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,1.0f, 700, 1));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,1.0f, 1200,2));
+        //ImageView texture,float posX, float moveX, float moveY, int delayTime
 
-        for (int i = 0; i < enemy.length; i++)
-        {
-            enemy[i].m_Texture = findViewById(R.id.enemy);
-            enemy[i].m_PosX=(screenWidth / 5 * (i * 3));
-            enemy[i].m_PosY=(-(float)enemy[i].m_Texture.getHeight());
-            enemy[i].m_Texture.setX(enemy[i].m_PosX );
-            enemy[i].m_Texture.setY(enemy[i].m_PosY);
-            enemy[i].SetTimer(i * 240);
-            enemy[i].SetConstValue(0.0f,1.0f);
-
-            enemy[i].SetMove(6.0f,1.0f);
-        }
-
-        enemy[1].m_Texture = findViewById(R.id.enemy1);
-
-
-
-        //enemy[0].m_Texture.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.enemy));
-
-        //enemy[1].m_Texture.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.background_image));
-
-        //enemy = findViewById(R.id.enemy);
-        //enemy.setX(screenWidth / 3.2f);
-        //enemy.setY(screenHeight / 4);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -329,9 +310,20 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 100); // 最初の実行をスケジュール
     }
 
-    private void stopTimer() {
+    private void stopTimer()
+    {
         handler.removeCallbacks(runnable); // タイマーを停止
     }
+
+    private void isGameClear()
+    {
+        if(player.GetEnemyKilledNumber() == Enemies.size())
+        {
+            //全敵ステージ外に飛ばしたので、ゲームクリア
+        }
+    }
+
+
 
     // プレイヤーキャラクターと敵キャラクターの当たり判定を検出
     private boolean checkCollisionWithEnemy() {
@@ -378,17 +370,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void Update()
     {
-        for (int i = 0; i < enemy.length; i++) {
-            enemy[i].PullCollisionTimer(enemy[i]);
+        for (int i = 0; i < Enemies.size(); i++) {
+            Enemies.get(i).PullCollisionTimer(Enemies.get(i));
             player.PullCollisionTimer(player);
 
-            enemy[i].MoveEnemy(this, enemy[i], player,screenWidth);
+            Enemies.get(i).MoveEnemy(this, Enemies.get(i), player,screenWidth);
             changePosPlayer();
 
-            player.collisionTest(player, enemy);
-            enemy[i].collisionTest(player, enemy);
+            player.collisionTest(player, Enemies);
+            Enemies.get(i).collisionTest(player, Enemies);
             hitCheck(player);
-            gallLine.checkGall(this,gallLine,enemy);
+            Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth,screenHeight);
+            gallLine.checkGall(this,gallLine,Enemies);
+            isGameClear();
 
             changePos();
         }
@@ -396,10 +390,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void changePos()
     {
-        for (int i = 0; i < enemy.length; i++)
+        for (int i = 0; i < Enemies.size(); i++)
         {
-            enemy[i].m_Texture.setX(enemy[i].m_PosX);
-            enemy[i].m_Texture.setY(enemy[i].m_PosY);
+            Enemies.get(i).m_Texture.setX(Enemies.get(i).m_PosX);
+            Enemies.get(i).m_Texture.setY(Enemies.get(i).m_PosY);
         }
 
         //player.m_Texture.setX(player.m_PosX);
