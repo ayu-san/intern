@@ -12,7 +12,7 @@ public class GameObject
         protected float m_MoveX;
         protected float m_MoveY;
 
-        int m_CollisionTimer = 0;
+        protected int m_CollisionTimer = 0;
 
         protected float m_oldPosX;
         protected float m_oldPosY;

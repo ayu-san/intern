@@ -35,7 +35,7 @@ public class Player extends GameObject
 
     @Override
     public void collisionTest(Player player, ArrayList<Enemy> enemies) {
-        if (!enemies.isEmpty())//リストが空ではない
+       // if (!enemies.isEmpty())//リストが空ではない
         {
             for (int i = 0; i < enemies.size(); i++) {
                 //右判定
@@ -44,6 +44,7 @@ public class Player extends GameObject
                         && player.m_PosY < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
                         && enemies.get(i).m_PosY < player.m_PosY + player.m_Texture.getHeight()
                         && enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth() < player.m_oldPosX + player.m_Texture.getWidth() / 3) {
+                    enemies.get(i).SetPlayerCollision();
                     enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                     player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -85,6 +86,7 @@ public class Player extends GameObject
                         && player.m_PosY < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
                         && enemies.get(i).m_PosY < player.m_PosY + player.m_Texture.getHeight()
                         && player.m_oldPosX + player.m_Texture.getWidth() - player.m_Texture.getWidth() / 3 < enemies.get(i).m_PosX) {
+                    enemies.get(i).SetPlayerCollision();
                     enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                     player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -126,6 +128,7 @@ public class Player extends GameObject
                         && player.m_PosX < enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth()
                         && enemies.get(i).m_PosX < player.m_PosX + player.m_Texture.getWidth()
                         && enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() < player.m_oldPosY) {
+                    enemies.get(i).SetPlayerCollision();
                     enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                     player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -166,6 +169,7 @@ public class Player extends GameObject
                         && player.m_PosX < enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth()
                         && enemies.get(i).m_PosX < player.m_PosX + player.m_Texture.getWidth()
                         && player.m_oldPosY + player.m_Texture.getHeight() < enemies.get(i).m_PosY) {
+                    enemies.get(i).SetPlayerCollision();
                     enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                     player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -204,9 +208,9 @@ public class Player extends GameObject
 
             }
         }
-        else {
+        //else {
 
-        }
+
     }
 
 

@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
-    private boolean isCollision = false;
     private float startX, startY;
     private long touchDownTime = 0;
     private int enemyCollisionCount = 0;
@@ -356,16 +355,6 @@ public class MainActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable); // タイマーを停止
     }
 
-    private void isGameClear()
-    {
-        if(player.GetEnemyKilledNumber() == Enemies.size())
-        {
-            //全敵ステージ外に飛ばしたので、ゲームクリア
-        }
-    }
-
-
-
     // プレイヤーキャラクターと敵キャラクターの当たり判定を検出
     private boolean checkCollisionWithEnemy() {
         /*
@@ -411,30 +400,39 @@ public class MainActivity extends AppCompatActivity {
 
     public void Update()
     {
-        for (int i = 0; i < Enemies.size(); i++) {
-            Enemies.get(i).PullCollisionTimer(Enemies.get(i));
-            player.PullCollisionTimer(player);
+        if(!Enemies.isEmpty())
+        {
+            for (int i = 0; i < Enemies.size(); i++) {
+                Enemies.get(i).PullCollisionTimer(Enemies.get(i));
+                player.PullCollisionTimer(player);
 
-            Enemies.get(i).MoveEnemy(this, Enemies.get(i), player,screenWidth);
-            changePosPlayer();
+                Enemies.get(i).MoveEnemy(this, Enemies.get(i), player, screenWidth);
+                changePosPlayer();
 
-            player.collisionTest(player, Enemies);
-            Enemies.get(i).collisionTest(player, Enemies);
-            hitCheck(player);
-            Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth,screenHeight);
-            gallLine.checkGall(this,gallLine,Enemies);
-            isGameClear();
+                player.collisionTest(player, Enemies);
+                Enemies.get(i).collisionTest(player, Enemies);
 
-            changePos();
+                gallLine.checkGall(this, gallLine, Enemies);
+
+                //画面外
+                hitCheck(player);
+                Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
+
+                changePos();
+            }
+        } else
+        {
+            //ゲームクリア
         }
     }
 
     private void changePos()
     {
-        for (int i = 0; i < Enemies.size(); i++)
-        {
-            Enemies.get(i).m_Texture.setX(Enemies.get(i).m_PosX);
-            Enemies.get(i).m_Texture.setY(Enemies.get(i).m_PosY);
+        if(!Enemies.isEmpty()) {
+            for (int i = 0; i < Enemies.size(); i++) {
+                Enemies.get(i).m_Texture.setX(Enemies.get(i).m_PosX);
+                Enemies.get(i).m_Texture.setY(Enemies.get(i).m_PosY);
+            }
         }
 
         //player.m_Texture.setX(player.m_PosX);

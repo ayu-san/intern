@@ -17,12 +17,15 @@ public class Enemy extends GameObject
     float m_ConstMoveX;//m_Moveの初期化状態を保持する変数
     float m_ConstMoveY;//m_Moveの初期化状態を保持する変数
 
+    boolean m_IsPlayerCollision;
+
     Enemy(ImageView texture,float posX, float moveX, float moveY, int delayTime, int index)
     {
         m_Texture = texture;
+        m_IsPlayerCollision = false;
 
-        m_PosX = 100.0f;
-        m_PosY = 300.0f;
+        m_PosX = posX;
+        m_PosY = -300.0f;
 
         m_oldPosX = m_PosX;
         m_oldPosY = m_PosY;
@@ -43,6 +46,11 @@ public class Enemy extends GameObject
 
     int m_DisplayTimer; //出現Deray時間
     int m_Index; //ArrayListのインデックス
+
+    public void SetPlayerCollision()
+    {
+        m_IsPlayerCollision = true;
+    }
 
     public void MoveEnemy(MainActivity main, Enemy enemy, GameObject target, int width)
     {
@@ -116,46 +124,50 @@ public class Enemy extends GameObject
         //右
         if(!enemies.isEmpty())//リストが空ではない
         {
-            for (int i = enemies.size() - 1; i >= 0; i--) {
-
-                if (enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth() > screenwidth) {
+            //for (int i = enemies.size() - 1; i >= 0; i--) {
+            for (int i = 0; i < enemies.size(); i++) {
+                if(enemies.get(i).m_IsPlayerCollision) {
+                    if (enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth() > screenwidth) {
 
 //                enemies.get(i).m_PosX = screenwidth - enemies.get(i).m_Texture.getWidth();
 //                enemies.get(i).m_MoveX *= -1;
 //                enemies.get(i).m_MoveVecX *= -1;
-                    enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
-                    enemies.remove(i);
-                }
+                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
+                        enemies.remove(i);
+                        break;
+                    }
 
-                //左
-                if (enemies.get(i).m_PosX < 0) {
+                    //左
+                    if (enemies.get(i).m_PosX < 0) {
 //                enemies.get(i).m_PosX = 0;
 //                enemies.get(i).m_MoveX *= -1;
 //                enemies.get(i).m_MoveVecX *= -1;
-                    enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
-                    enemies.remove(i);
-                }
+                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
+                        enemies.remove(i);
+                        break;
+                    }
 
-                //上
-                if (enemies.get(i).m_PosY < 0) {
+                    //上
+                    if (enemies.get(i).m_PosY < 0) {
 //                enemies.get(i).m_PosY = 0;
 //                enemies.get(i).m_MoveY *= -1;
 //                enemies.get(i).m_MoveVecY *= -1;
-                    enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
-                    enemies.remove(i);
-                }
+                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
+                        enemies.remove(i);
+                        break;
+                    }
 
-                //下
-                if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight) {
+                    //下
+                    if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight) {
 //                enemies.get(i).m_PosY = screenheight - enemies.get(i).m_Texture.getHeight();
 //                enemies.get(i).m_MoveY *= -1;
 //                enemies.get(i).m_MoveVecY *= -1;
-                    enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
-                    enemies.remove(i);
+                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
+                        enemies.remove(i);
+                        break;
+                    }
                 }
             }
-        } else {
-
         }
     }
 
@@ -177,6 +189,7 @@ public class Enemy extends GameObject
                         && player.m_PosY < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
                         && enemies.get(i).m_PosY < player.m_PosY + player.m_Texture.getHeight()
                         && player.m_PosX + player.m_Texture.getWidth() < enemies.get(i).m_oldPosX) {
+                    m_IsPlayerCollision = true;
                     enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                     player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
