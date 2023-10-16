@@ -19,7 +19,7 @@ public class GallLine extends GameObject
     GallLine(float screeneheight)
     {
         m_PosX = 0.0f;
-        m_PosY = screeneheight / 6 * 5;
+        m_PosY = screeneheight / 8 * 7;
     }
 
     public boolean checkGall(MainActivity main, GallLine gall, ArrayList<Enemy> enemies)

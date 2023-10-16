@@ -20,6 +20,17 @@
         app:srcCompat="@drawable/background_image" />
 
     <ImageView
+        android:id="@+id/gall"
+        android:layout_width="415dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/gallline"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="623dp" />
+
+    <ImageView
         android:id="@+id/character"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -63,17 +74,6 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
-
-    <ImageView
-        android:id="@+id/gall"
-        android:layout_width="415dp"
-        android:layout_height="50dp"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/gallline"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="623dp" />
 
     <TextView
         android:id="@+id/enemy_collision_count"
