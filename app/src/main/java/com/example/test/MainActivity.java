@@ -107,15 +107,18 @@ public class MainActivity extends AppCompatActivity {
         {
             enemy[i].m_Texture = findViewById(R.id.enemy);
             enemy[i].m_PosX=(screenWidth / 5 * (i * 3));
-            enemy[i].m_PosY=(0.0f);
+            enemy[i].m_PosY=(-(float)enemy[i].m_Texture.getHeight());
             enemy[i].m_Texture.setX(enemy[i].m_PosX );
             enemy[i].m_Texture.setY(enemy[i].m_PosY);
+            enemy[i].SetTimer(i * 240);
+            enemy[i].SetConstValue(0.0f,1.0f);
 
             enemy[i].SetMove(6.0f,1.0f);
         }
 
-        enemy[1].m_PosY =(-900.0f);
         enemy[1].m_Texture = findViewById(R.id.enemy1);
+
+
 
         //enemy[0].m_Texture.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.enemy));
 

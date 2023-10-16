@@ -14,8 +14,8 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
     {
         if(enemy.m_CollisionTimer == 0)
         {
-            enemy.m_MoveX = 0.0f;
-            enemy.m_MoveY = 1.0f;
+            enemy.m_MoveX = m_ConstMoveX;
+            enemy.m_MoveY = m_ConstMoveY;
 
             if(enemy.m_MoveX != 0.0f && enemy.m_MoveY != 0.0f && !isNaN(enemy.m_MoveX) && !isNaN(enemy.m_MoveY))
             {
@@ -39,11 +39,19 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
             }
         }
 
-        enemy.m_oldPosX = enemy.m_PosX;
-        enemy.m_oldPosY = enemy.m_PosY;
+        if(0 < m_DisplayTimer)
+        {
+            m_DisplayTimer--;
+        } else
+        {
+            m_DisplayTimer = 0;
+            //座標更新
+            enemy.m_oldPosX = enemy.m_PosX;
+            enemy.m_oldPosY = enemy.m_PosY;
 
-        enemy.m_PosX += enemy.m_MoveX;
-        enemy.m_PosY += enemy.m_MoveY;
+            enemy.m_PosX += enemy.m_MoveX;
+            enemy.m_PosY += enemy.m_MoveY;
+        }
     }
 
 }

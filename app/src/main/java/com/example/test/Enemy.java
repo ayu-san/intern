@@ -12,7 +12,10 @@ public class Enemy extends GameObject
     float m_Speed = 0.0f;
     float m_Weight = 500.0f; //重さ
 
-    //int m_CollisionTimer = 0;
+    float m_ConstMoveX;
+    float m_ConstMoveY;
+
+    int m_DisplayTimer;
 
     public void MoveEnemy(MainActivity main, Enemy enemy, GameObject target, int width)
     {
@@ -44,29 +47,31 @@ public class Enemy extends GameObject
             //enemy.m_MoveY = 0.0f;
         }
 
-        enemy.m_oldPosX = enemy.m_PosX;
-        enemy.m_oldPosY = enemy.m_PosY;
+        if(0 < m_DisplayTimer)
+        {
+            m_DisplayTimer--;
+        } else
+        {
+            m_DisplayTimer = 0;
+            //座標更新
+            enemy.m_oldPosX = enemy.m_PosX;
+            enemy.m_oldPosY = enemy.m_PosY;
 
-        enemy.m_PosX += enemy.m_MoveX;
-        enemy.m_PosY += enemy.m_MoveY;
+            enemy.m_PosX += enemy.m_MoveX;
+            enemy.m_PosY += enemy.m_MoveY;
+        }
 
         //reflect(enemy , width);
     }
-
-    public void reflect(Enemy enemy,int screen)
+    public void SetConstValue(float x, float y)
     {
-        if(enemy.m_PosX + enemy.m_Texture.getWidth() > screen)
-        {
-            enemy.m_PosX = screen - enemy.m_Texture.getWidth();
-            enemy.m_MoveX *= -1;
-        }
+        m_ConstMoveX = x;
+        m_ConstMoveY = y;
+    }
 
-        if(enemy.m_PosX < 0)
-        {
-            enemy.m_PosX = 0;
-            enemy.m_MoveX *= -1;
-        }
-
+    public void SetTimer(int time)
+    {
+        m_DisplayTimer = time;
     }
 
     @Override
