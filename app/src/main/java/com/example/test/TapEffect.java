@@ -2,6 +2,7 @@ package com.example.test;
 
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ public class TapEffect{
     public void show(float x, float y){
         // エフェクト用のImageViewを作成
         ImageView effectView = new ImageView(context);
-        Drawable effectDrawable = context.getResources().getDrawable(R.drawable.tap_effect, context.getTheme()); // エフェクトの画像を設定
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable effectDrawable = context.getResources().getDrawable(R.drawable.tap_effect, context.getTheme()); // エフェクトの画像を設定
         effectView.setX(x-130);
         effectView.setY(y-140);
         effectView.setImageDrawable(effectDrawable);

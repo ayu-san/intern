@@ -60,23 +60,20 @@ public class SelectActivity extends AppCompatActivity {
         setupButtonTouchEffect(hellbutton);
         setupButtonTouchEffect(heavenbutton);
 
-        backbutton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // ボタンをタッチしたときの処理
-                        backbutton.setScaleX(0.9f);
-                        backbutton.setScaleY(0.9f);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // ボタンを離したときの処理
-                        backbutton.setScaleX(1.0f);
-                        backbutton.setScaleY(1.0f);
-                        break;
-                }
-                return false;
+        backbutton.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    backbutton.setScaleX(0.9f);
+                    backbutton.setScaleY(0.9f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    backbutton.setScaleX(1.0f);
+                    backbutton.setScaleY(1.0f);
+                    break;
             }
+            return false;
         });
 
         ScrollView scrollView = findViewById(R.id.scroll);
@@ -106,7 +103,7 @@ public class SelectActivity extends AppCompatActivity {
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
-            setAndSaveCondition(normalbutton,"isConditionNormal",sharedPreferences,isConditionNormal);
+            setAndSaveCondition(normalbutton,"isConditionNormal",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -114,7 +111,7 @@ public class SelectActivity extends AppCompatActivity {
         normalbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            setAndSaveCondition(hardbutton,"isConditionHard",sharedPreferences,isConditionHard);
+            setAndSaveCondition(hardbutton,"isConditionHard",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -122,7 +119,7 @@ public class SelectActivity extends AppCompatActivity {
         hardbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            setAndSaveCondition(hellbutton,"isConditionHell",sharedPreferences,isConditionHell);
+            setAndSaveCondition(hellbutton,"isConditionHell",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -130,7 +127,7 @@ public class SelectActivity extends AppCompatActivity {
         hellbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            setAndSaveCondition(heavenbutton,"isConditionHeaven",sharedPreferences,isConditionHeaven);
+            setAndSaveCondition(heavenbutton,"isConditionHeaven",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -145,7 +142,7 @@ public class SelectActivity extends AppCompatActivity {
         backbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE2();
 
-            //initData(sharedPreferences,"isCondition");
+            //initData();
 
             startActivity(new Intent(this, TitleActivity.class));
         });
@@ -158,12 +155,8 @@ public class SelectActivity extends AppCompatActivity {
     }
 
     // 条件が満たされた場合に呼び出すメソッド
-    private void setAndSaveCondition(Button button, String conditionName, SharedPreferences sharedPreferencesd, boolean value){
-        // SharedPreferencesから条件を読み込み、デフォルト値を使用する
-        boolean isConditionMet = sharedPreferencesd.getBoolean(conditionName, value);
-
+    private void setAndSaveCondition(Button button, String conditionName, SharedPreferences sharedPreferencesd){
         // SharedPreferencesに状態を保存
-        isConditionMet = true;
         button.setEnabled(true);
         SharedPreferences.Editor editor = sharedPreferencesd.edit();
         editor.putBoolean(conditionName,true);
@@ -178,6 +171,7 @@ public class SelectActivity extends AppCompatActivity {
         heavenbutton.setEnabled(isConditionHeaven);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupButtonTouchEffect(Button button) {
         button.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
@@ -199,8 +193,8 @@ public class SelectActivity extends AppCompatActivity {
 
 
     //デバッグ用データ初期化
-    private void initData(SharedPreferences preferences1,String conditionName){
-        preferences1 = getSharedPreferences(conditionName,MODE_PRIVATE);
+    private void initData(){
+        SharedPreferences preferences1 = getSharedPreferences("isCondition", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences1.edit();
         editor.clear();
         editor.apply();

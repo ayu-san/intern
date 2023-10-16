@@ -4,10 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +15,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.animation.ObjectAnimator;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -27,14 +24,6 @@ import android.widget.TextView;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.example.test.GameObject;
-import com.example.test.Player;
-import com.example.test.Enemy;
-import com.example.test.VerticalEnemy;
-import com.example.test.GallLine;
-import com.example.test.SelectActivity;
-import com.example.test.TitleActivity;
 
 import java.util.ArrayList;
 
@@ -559,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
                 //BGMの音量設定
                 float bgmvolume = progress / 100.0f;
                 MyApplication.setBGMVolume(bgmvolume);
-                soundPlayer.setBGMVolume(bgmvolume);
+                soundPlayer.setBGMVolume();
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
