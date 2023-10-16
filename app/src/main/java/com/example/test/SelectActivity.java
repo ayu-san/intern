@@ -54,6 +54,31 @@ public class SelectActivity extends AppCompatActivity {
         heavenbutton = findViewById(R.id.heaven);
         ImageButton backbutton = findViewById(R.id.backbutton);
 
+        setupButtonTouchEffect(eazybutton);
+        setupButtonTouchEffect(normalbutton);
+        setupButtonTouchEffect(hardbutton);
+        setupButtonTouchEffect(hellbutton);
+        setupButtonTouchEffect(heavenbutton);
+
+        backbutton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // ボタンをタッチしたときの処理
+                        backbutton.setScaleX(0.9f);
+                        backbutton.setScaleY(0.9f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // ボタンを離したときの処理
+                        backbutton.setScaleX(1.0f);
+                        backbutton.setScaleY(1.0f);
+                        break;
+                }
+                return false;
+            }
+        });
+
         ScrollView scrollView = findViewById(R.id.scroll);
         scrollView.setScrollbarFadingEnabled(false);
 
@@ -152,6 +177,26 @@ public class SelectActivity extends AppCompatActivity {
         hellbutton.setEnabled(isConditionHell);
         heavenbutton.setEnabled(isConditionHeaven);
     }
+
+    private void setupButtonTouchEffect(Button button) {
+        button.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    button.setScaleX(0.95f);
+                    button.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    button.setScaleX(1.0f);
+                    button.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+    }
+
 
     //デバッグ用データ初期化
     private void initData(SharedPreferences preferences1,String conditionName){

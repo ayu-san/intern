@@ -58,6 +58,11 @@ public class TitleActivity extends AppCompatActivity {
             return false;
         });
 
+        setupButtonTouchEffect(startButton);
+        setupButtonTouchEffect(settingButton);
+        setupButtonTouchEffect(asobiButton);
+        setupButtonTouchEffect(cregitButton);
+
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
 
@@ -127,6 +132,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonSetting);
+            setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
                 soundPlayer.setTestSE();
 
@@ -155,6 +161,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
+            setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
                 soundPlayer.setTestSE();
 
@@ -183,6 +190,7 @@ public class TitleActivity extends AppCompatActivity {
 
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonCregit);
+            setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
                 soundPlayer.setTestSE();
 
@@ -316,5 +324,21 @@ public class TitleActivity extends AppCompatActivity {
 
     }
 
-
+    private void setupButtonTouchEffect(Button button) {
+        button.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    button.setScaleX(0.95f);
+                    button.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    button.setScaleX(1.0f);
+                    button.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+    }
 }
