@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.graphics.drawable.Drawable;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -286,6 +287,11 @@ public class TitleActivity extends AppCompatActivity {
         Button retrybutton = dialogView.findViewById(R.id.result_retry);
         Button selectbutton = dialogView.findViewById(R.id.result_selectstage);
         Button titlebutton = dialogView.findViewById(R.id.result_title);
+        TextView stage = dialogView.findViewById(R.id.stagename);
+        TextView result = dialogView.findViewById(R.id.result);
+
+        stage.setText("ステージ１");
+        result.setText("クリア！");
 
         //リトライボタン
         retrybutton.setOnClickListener(view -> {
