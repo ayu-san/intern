@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.animation.ObjectAnimator;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int animationDuration = 500; //ミリ単位のアニメーション時間
     private Timer timer = new Timer();
     private Handler handler = new Handler();
+    private TapEffect tapEffect;
     private  int screenWidth;
     private  int screenHeight;
     private ImageButton pauseButton;
@@ -87,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
         screenHeight = displayMetrics.heightPixels;
         pauseButton = findViewById(R.id.pauseButton);
         soundPlayer = new SoundPlayer(this);
+
+        FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
+        tapEffect = new TapEffect(this,tapEffectContainer);
+        tapEffectContainer.setOnTouchListener((view, motionEvent) -> {
+            if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                tapEffect.show(motionEvent.getX(), motionEvent.getY());
+            }
+            return false;
+        });
+
 
         //オブジェクト取得
         player = new Player();
@@ -122,8 +134,29 @@ public class MainActivity extends AppCompatActivity {
 
         //ポーズを押したら
         pauseButton.setOnClickListener((View view)->{
+
             showPauseDialog();
         });
+
+        pauseButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // ボタンをタッチしたときの処理
+                        pauseButton.setScaleX(1.1f);
+                        pauseButton.setScaleY(1.2f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // ボタンを離したときの処理
+                        pauseButton.setScaleX(1.2f);
+                        pauseButton.setScaleY(1.3f);
+                        break;
+                }
+                return false;
+            }
+        });
+
 
         TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
         player.m_Texture.setOnTouchListener(new View.OnTouchListener() {
@@ -150,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if(checkCollisionWithEnemy()){
                             // TextViewを更新
-                            enemyCollisionCountTextView.setText("Level: " + enemyCollisionCount);
+                            enemyCollisionCountTextView.setText("レベル : " + enemyCollisionCount);
                         }
 
                         break;
@@ -553,6 +586,7 @@ public class MainActivity extends AppCompatActivity {
         //リトライ
         // ダイアログ内のボタンにクリックリスナーを設定
         Button retry = dialogView.findViewById(R.id.retry);
+        setupButtonTouchEffect(retry);
         retry.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
             startActivity(new Intent(this, MainActivity.class));
@@ -562,6 +596,7 @@ public class MainActivity extends AppCompatActivity {
         //ステージ選択へ
         // ダイアログ内のボタンにクリックリスナーを設定
         Button gotoStageSelect = dialogView.findViewById(R.id.gotoStageSelect);
+        setupButtonTouchEffect(gotoStageSelect);
         gotoStageSelect.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
             startActivity(new Intent(this, SelectActivity.class));
@@ -571,6 +606,7 @@ public class MainActivity extends AppCompatActivity {
         //タイトルへ
         // ダイアログ内のボタンにクリックリスナーを設定
         Button gotoTitle = dialogView.findViewById(R.id.gotoTitle);
+        setupButtonTouchEffect(gotoTitle);
         gotoTitle.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
             startActivity(new Intent(this, TitleActivity.class));
@@ -579,6 +615,7 @@ public class MainActivity extends AppCompatActivity {
 
         //戻る
         Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
+        setupButtonTouchEffect(closeButton);
         closeButton.setOnClickListener((View view)->{
             alertDialog.dismiss(); // ダイアログを閉じる
 
@@ -599,6 +636,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setupButtonTouchEffect(Button button) {
+        button.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    button.setScaleX(0.95f);
+                    button.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    button.setScaleX(1.0f);
+                    button.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+    }
 
 
 
