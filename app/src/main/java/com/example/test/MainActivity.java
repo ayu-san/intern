@@ -3,6 +3,7 @@ package com.example.test;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 画像リソースの名前のリスト
     private static final String[] imageResourceNames = {
-            "enemy","character_image","yajirusi","titlelogo"
+            "speed","power","energy","heavy"
     };
 
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     private Handler handler = new Handler();
     private TapEffect tapEffect;
+    private String resultText;
     private  int screenWidth;
     private  int screenHeight;
     private ImageButton pauseButton;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,157 +137,151 @@ public class MainActivity extends AppCompatActivity {
             showPauseDialog();
         });
 
-        pauseButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // ボタンをタッチしたときの処理
-                        pauseButton.setScaleX(1.1f);
-                        pauseButton.setScaleY(1.2f);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // ボタンを離したときの処理
-                        pauseButton.setScaleX(1.2f);
-                        pauseButton.setScaleY(1.3f);
-                        break;
-                }
-                return false;
+        pauseButton.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    pauseButton.setScaleX(1.1f);
+                    pauseButton.setScaleY(1.2f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    pauseButton.setScaleX(1.2f);
+                    pauseButton.setScaleY(1.3f);
+                    break;
             }
+            return false;
         });
 
 
         TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
-        player.m_Texture.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        player.m_MoveX = 0.0f;
-                        player.m_MoveVecX = 0.0f;
+        player.m_Texture.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    player.m_MoveX = 0.0f;
+                    player.m_MoveVecX = 0.0f;
 
-                        player.m_MoveY = 0.0f;
-                        player.m_MoveVecY = 0.0f;
+                    player.m_MoveY = 0.0f;
+                    player.m_MoveVecY = 0.0f;
 
-                        touchDownTime = System.currentTimeMillis();
-                        startX = event.getX();
-                        startY = event.getY();
-                        startTimer();
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        long currentTime = System.currentTimeMillis();
-                        long touchDuration = currentTime - touchDownTime;
-                        changeColorBasedOnTouchLength(touchDuration);
-
-                        if(checkCollisionWithEnemy()){
-                            // TextViewを更新
-                            enemyCollisionCountTextView.setText("レベル : " + enemyCollisionCount);
-                        }
-
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        player.m_Texture.clearColorFilter();
-                        isCollisionHandled = false;
-                        // 長押しの時間を計算
-                        long currentTime2 = System.currentTimeMillis();
-                        long touchDuration2 = currentTime2 - touchDownTime;
-
-                        // 三段階の飛距離を計算
-                        float flyDistance = calculateFlyDistance(touchDuration2);
-                        player.m_holdValue = flyDistance;
-
-                        stopTimer();
-                        touchDownTime = 0; // タッチダウン時間をリセット
-
-                        float endX = event.getX();
-                        float endY = event.getY();
-
-                        //フリック方向計算
-                        float deltaX = endX - startX; //X軸方向の移動距離
-                        float deltaY = endY - startY; //Y軸方向の移動距離
-
-                        player.m_MoveVecX = endX - startX;
-                        player.m_MoveVecY = endY - startY;
-
-                        float moveX = deltaX * flyDistance; //X軸方向の移動ベクトル
-                        float moveY = deltaY * flyDistance; //Y軸方向の移動ベクトル
-
-                        /*
-                        // 移動ベクトルの長さを計算
-                        float moveVectorLength = (float) Math.sqrt(moveX * moveX + moveY * moveY);
-
-                        // 移動ベクトルの長さが一定の値（例: 200.0f）以上の場合に制限
-                        if (moveVectorLength > 300.0f) {
-                            float scaleFactor = 300.0f / moveVectorLength;
-                            moveX *= scaleFactor;
-                            moveY *= scaleFactor;
-                        }
-                        *
-                         */
-
-                        if(player.m_MoveVecX != 0.0 && player.m_MoveVecY != 0.0f)
-                        {
-                            normalizeVector(player, player.m_MoveVecX, player.m_MoveVecY);//ベクトルを正規化
-                        }
-
-                        //初めての移動
-                        player.m_Speed = player.m_InitialSpeed * (player.m_holdValue * 0.7f);//スピードに初速を代入＋長押し効果
-                        player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
-                        player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
-                        //player.m_MoveX *= 7.0f;
-                        //player.m_MoveY *= 7.0f; //仮調整
-
-                        //長押し効果を加える
-                        //player.m_MoveX *= flyDistance;
-                        //player.m_MoveY *= flyDistance;
-
-                        float moveX2 = moveX * flyDistance; //X軸方向の移動ベクトル
-                        float moveY2 = moveY * flyDistance; //Y軸方向の移動ベクトル
-
-                        //double angleRadians = Math.atan2(deltaY,deltaX);
-                        //double angleDegrees = Math.toDegrees(angleRadians);
-
-                        //player.m_Texture.setRotation((float)angleDegrees);
-
-                        //X軸方向の制限（画面端）
-                        float newX = player.m_Texture.getTranslationX() + moveX2;
-                        //if (isCollision)
-                    {
-                        //newX = player.m_Texture.getTranslationX();
-                    }
-                    if(newX < -50){
-                        newX = -50;
-                    } else if (newX > screenWidth - player.m_Texture.getWidth() + 50) {
-                        newX = screenWidth - player.m_Texture.getWidth() + 50;
-                    }
-
-                    //Y軸方向の制限（画面端）
-                    float newY = player.m_Texture.getTranslationY() + moveY2;
-                    //if (isCollision)
-                    {
-                        // newY  = player.m_Texture.getTranslationY();
-                    }
-                    if(newY < -150){
-                        newY = -150;
-                    } else if (newY > screenHeight - player.m_Texture.getHeight()) {
-                        newY = screenHeight - player.m_Texture.getHeight();
-                    }
-
-                    //X軸方向の移動アニメーション
-                    //ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationX", newX);
-                    //moveXAnimator.setDuration(animationDuration); //アニメーションの時間を設定
-                    //moveXAnimator.start(); //アニメーション開始
-
-                    //Y軸方向の移動アニメーション
-                    //ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationY", newY);
-                    //moveYAnimator.setDuration(animationDuration); //アニメーションの時間を設定
-                    //moveYAnimator.start(); //アニメーション開始
+                    touchDownTime = System.currentTimeMillis();
+                    startX = event.getX();
+                    startY = event.getY();
+                    startTimer();
                     break;
+
+                case MotionEvent.ACTION_MOVE:
+                    long currentTime = System.currentTimeMillis();
+                    long touchDuration = currentTime - touchDownTime;
+                    changeColorBasedOnTouchLength(touchDuration);
+
+                    if(checkCollisionWithEnemy()){
+                        // TextViewを更新
+                        enemyCollisionCountTextView.setText("レベル : " + enemyCollisionCount);
+                    }
+
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                    player.m_Texture.clearColorFilter();
+                    isCollisionHandled = false;
+                    // 長押しの時間を計算
+                    long currentTime2 = System.currentTimeMillis();
+                    long touchDuration2 = currentTime2 - touchDownTime;
+
+                    // 三段階の飛距離を計算
+                    float flyDistance = calculateFlyDistance(touchDuration2);
+                    player.m_holdValue = flyDistance;
+
+                    stopTimer();
+                    touchDownTime = 0; // タッチダウン時間をリセット
+
+                    float endX = event.getX();
+                    float endY = event.getY();
+
+                    //フリック方向計算
+                    float deltaX = endX - startX; //X軸方向の移動距離
+                    float deltaY = endY - startY; //Y軸方向の移動距離
+
+                    player.m_MoveVecX = endX - startX;
+                    player.m_MoveVecY = endY - startY;
+
+                    float moveX = deltaX * flyDistance; //X軸方向の移動ベクトル
+                    float moveY = deltaY * flyDistance; //Y軸方向の移動ベクトル
+
+                    /*
+                    // 移動ベクトルの長さを計算
+                    float moveVectorLength = (float) Math.sqrt(moveX * moveX + moveY * moveY);
+
+                    // 移動ベクトルの長さが一定の値（例: 200.0f）以上の場合に制限
+                    if (moveVectorLength > 300.0f) {
+                        float scaleFactor = 300.0f / moveVectorLength;
+                        moveX *= scaleFactor;
+                        moveY *= scaleFactor;
+                    }
+                    *
+                     */
+
+                    if(player.m_MoveVecX != 0.0 && player.m_MoveVecY != 0.0f)
+                    {
+                        normalizeVector(player, player.m_MoveVecX, player.m_MoveVecY);//ベクトルを正規化
+                    }
+
+                    //初めての移動
+                    player.m_Speed = player.m_InitialSpeed * (player.m_holdValue * 0.7f);//スピードに初速を代入＋長押し効果
+                    player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
+                    player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
+                    //player.m_MoveX *= 7.0f;
+                    //player.m_MoveY *= 7.0f; //仮調整
+
+                    //長押し効果を加える
+                    //player.m_MoveX *= flyDistance;
+                    //player.m_MoveY *= flyDistance;
+
+                    float moveX2 = moveX * flyDistance; //X軸方向の移動ベクトル
+                    float moveY2 = moveY * flyDistance; //Y軸方向の移動ベクトル
+
+                    //double angleRadians = Math.atan2(deltaY,deltaX);
+                    //double angleDegrees = Math.toDegrees(angleRadians);
+
+                    //player.m_Texture.setRotation((float)angleDegrees);
+
+                    //X軸方向の制限（画面端）
+                    float newX = player.m_Texture.getTranslationX() + moveX2;
+                    //if (isCollision)
+                {
+                    //newX = player.m_Texture.getTranslationX();
                 }
-                return true;
+                if(newX < -50){
+                    newX = -50;
+                } else if (newX > screenWidth - player.m_Texture.getWidth() + 50) {
+                    newX = screenWidth - player.m_Texture.getWidth() + 50;
+                }
+
+                //Y軸方向の制限（画面端）
+                float newY = player.m_Texture.getTranslationY() + moveY2;
+                //if (isCollision)
+                {
+                    // newY  = player.m_Texture.getTranslationY();
+                }
+                if(newY < -150){
+                    newY = -150;
+                } else if (newY > screenHeight - player.m_Texture.getHeight()) {
+                    newY = screenHeight - player.m_Texture.getHeight();
+                }
+
+                //X軸方向の移動アニメーション
+                //ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationX", newX);
+                //moveXAnimator.setDuration(animationDuration); //アニメーションの時間を設定
+                //moveXAnimator.start(); //アニメーション開始
+
+                //Y軸方向の移動アニメーション
+                //ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationY", newY);
+                //moveYAnimator.setDuration(animationDuration); //アニメーションの時間を設定
+                //moveYAnimator.start(); //アニメーション開始
+                break;
             }
+            return true;
         });
 
     }
@@ -412,6 +409,8 @@ public class MainActivity extends AppCompatActivity {
         } else
         {
             //ゲームクリア
+            resultText = "クリア！";
+            showResult(resultText);
         }
     }
 
@@ -618,12 +617,7 @@ public class MainActivity extends AppCompatActivity {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Update();
-                        }
-                    });
+                    handler.post(() -> Update());
                 }
             }, 0, 16);
 
@@ -631,6 +625,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupButtonTouchEffect(Button button) {
         button.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
@@ -657,14 +652,19 @@ public class MainActivity extends AppCompatActivity {
         String randomImageResourceName = imageResourceNames[randomIndex];
 
         // リソースIDを取得
-        int resID = getResources().getIdentifier(randomImageResourceName, "drawable", getPackageName());
+        @SuppressLint("DiscouragedApi") int resID = getResources().getIdentifier(randomImageResourceName, "drawable", getPackageName());
 
         // ImageButtonに画像を設定
         imageButton.setImageResource(resID);
     }
 
     //レベルアップ画面表示関数
+    @SuppressLint("ClickableViewAccessibility")
     public void showLevelUp(){
+        // タイマーを停止
+        timer.cancel();
+        timer.purge(); // タイマーのキューをクリア
+
         //設定ダイアログの読み込み
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_levelup,null);
 
@@ -682,6 +682,40 @@ public class MainActivity extends AppCompatActivity {
         ImageButton item2 = dialogView.findViewById(R.id.item2);
         Button noselect = dialogView.findViewById(R.id.noSelect);
 
+        item1.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    item1.setScaleX(0.95f);
+                    item1.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    item1.setScaleX(1.0f);
+                    item1.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+
+        item2.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    item2.setScaleX(0.95f);
+                    item2.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    item2.setScaleX(1.0f);
+                    item2.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+
+        setupButtonTouchEffect(noselect);
+
         setRandomImageForImageButton(item1);
         setRandomImageForImageButton(item2);
 
@@ -690,11 +724,20 @@ public class MainActivity extends AppCompatActivity {
             Drawable currentDrawable = item1.getDrawable();
 
             //画像によって処理を変える
-            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
+            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.speed).getConstantState())){
 
-            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {
 
             }
+            alertDialog.dismiss();
+
+            timer = new Timer();// タイマーを再生成
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(() -> Update());
+                }
+            }, 0, 16);
 
         });
 
@@ -703,24 +746,42 @@ public class MainActivity extends AppCompatActivity {
             Drawable currentDrawable = item2.getDrawable();
 
             //画像によって処理を変える
-            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.character_image).getConstantState())){
+            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.speed).getConstantState())){
 
-            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.enemy).getConstantState())) {
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {
 
             }
+            alertDialog.dismiss();
+
+            timer = new Timer();// タイマーを再生成
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(() -> Update());
+                }
+            }, 0, 16);
 
         });
 
-        noselect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
+        noselect.setOnClickListener(view -> {
+            alertDialog.dismiss();
+
+            timer = new Timer();// タイマーを再生成
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(MainActivity.this::Update);
+                }
+            }, 0, 16);
+
         });
 
     }
 
-    public void showResult(){
+    public void showResult(String resulttext){
+        timer.cancel();
+        timer.purge(); // タイマーのキューをクリア
+
         //設定ダイアログの読み込み
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_result,null);
 
@@ -741,8 +802,12 @@ public class MainActivity extends AppCompatActivity {
         TextView stage = dialogView.findViewById(R.id.stagename);
         TextView result = dialogView.findViewById(R.id.result);
 
+        setupButtonTouchEffect(retrybutton);
+        setupButtonTouchEffect(selectbutton);
+        setupButtonTouchEffect(titlebutton);
+
         stage.setText("ステージ１");
-        result.setText("クリア！");
+        result.setText(resulttext);
 
         //リトライボタン
         retrybutton.setOnClickListener(view -> {
