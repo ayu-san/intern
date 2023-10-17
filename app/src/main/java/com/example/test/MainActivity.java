@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             "speed","power","energy","heavy"
     };
 
+    private boolean isDialogVisible = false;
 
     private  Player player;
     ArrayList<Enemy> Enemies;
@@ -137,8 +138,11 @@ public class MainActivity extends AppCompatActivity {
 
         //ポーズを押したら
         pauseButton.setOnClickListener((View view)->{
-
-            showPauseDialog();
+            if (!isDialogVisible) {
+                // ダイアログを表示
+                showPauseDialog();
+                isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
+            }
         });
 
         pauseButton.setOnTouchListener((view, motionEvent) -> {
@@ -293,7 +297,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        showPauseDialog();
+        if (!isDialogVisible) {
+            // ダイアログを表示
+            showPauseDialog();
+            isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
+        }
     }
 
     @Override
@@ -631,6 +639,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 0, 16);
 
+        });
+
+        alertDialog.setOnDismissListener(dialog ->{
+            isDialogVisible = false;
         });
 
     }
