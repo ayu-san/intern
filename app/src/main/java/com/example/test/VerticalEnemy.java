@@ -16,16 +16,13 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
     }
 
     @Override
-    public void MoveEnemy(MainActivity main, Enemy enemy, GameObject target, int width)
+    public void MoveEnemy(Enemy enemy, GameObject target, int width)
     {
         if(enemy.m_CollisionTimer == 0)
         {
-            enemy.m_MoveX = m_ConstMoveX;
-            enemy.m_MoveY = m_ConstMoveY;
-
-            if(enemy.m_MoveX != 0.0f && enemy.m_MoveY != 0.0f && !isNaN(enemy.m_MoveX) && !isNaN(enemy.m_MoveY))
+            if(enemy.m_MoveX != 0.0f || enemy.m_MoveY != 0.0f)
             {
-                main.normalizeVectorEnemy(enemy, enemy.m_MoveX,enemy.m_MoveY);
+                normalizeVectorEnemy(enemy, enemy.m_MoveX,enemy.m_MoveY);
             }
             //ベクトルを正規化
 
@@ -38,8 +35,8 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
                 enemy.m_MoveY = enemy.m_MoveY * (enemy.m_Speed / 100.0f);
             } else
             {
-                enemy.m_MoveX = 0.0f;
-                enemy.m_MoveY = 0.0f;
+                enemy.m_MoveX = m_ConstMoveX;
+                enemy.m_MoveY = m_ConstMoveY;
 
                 enemy.m_Speed = enemy.m_InitialSpeed;
             }

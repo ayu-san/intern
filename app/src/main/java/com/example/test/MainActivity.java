@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-
         //オブジェクト取得
         player = new Player();
         player.m_Texture = findViewById(R.id.character);
@@ -115,9 +114,13 @@ public class MainActivity extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,1.0f, 180, 0));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,1.0f, 700, 1));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,1.0f, 1200,2));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
+        //Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
+        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
+        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
+
         //ImageView texture,float posX, float moveX, float moveY, int delayTime
 
         timer.schedule(new TimerTask() {
@@ -393,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
                 Enemies.get(i).PullCollisionTimer(Enemies.get(i));
                 player.PullCollisionTimer(player);
 
-                Enemies.get(i).MoveEnemy(this, Enemies.get(i), player, screenWidth);
+                Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
                 changePosPlayer();
 
                 player.collisionTest(player, Enemies);
@@ -438,8 +441,16 @@ public class MainActivity extends AppCompatActivity {
     private void changePosPlayer()
     {
         //前フレームの座標を保存しておく
-        player.m_oldPosX = player.m_PosX;
-        player.m_oldPosY = player.m_PosY;
+        if(player.m_oldPosX != player.m_PosX)
+        {
+            //進んでいるなら更新
+            player.m_oldPosX = player.m_PosX;
+        }
+
+        if(player.m_oldPosY != player.m_PosY)
+        {
+            player.m_oldPosY = player.m_PosY;
+        }
 
         player.m_PosX += player.m_MoveX;
         player.m_PosY += player.m_MoveY;
@@ -513,13 +524,6 @@ public class MainActivity extends AppCompatActivity {
         double length = calculateLength(x, y); //ベクトルの長さを計算
         gameobject.m_MoveVecX /= length;
         gameobject.m_MoveVecY /= length;
-    }
-
-    public void normalizeVectorEnemy(GameObject gameobject, float x, float y)
-    {
-        double length = calculateLength(x, y); //ベクトルの長さを計算
-        gameobject.m_MoveX /= length;
-        gameobject.m_MoveY /= length;
     }
 
     public void showPauseDialog() {
