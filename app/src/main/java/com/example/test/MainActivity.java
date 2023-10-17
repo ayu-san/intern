@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     private Handler handler = new Handler();
     private TapEffect tapEffect;
+    private ArrowView arrowView;
     private String stageName;
     private String resultText;
     private  int screenWidth;
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
+        arrowView = findViewById(R.id.arrow_view);
 
         //オブジェクト取得
         player = new Player();
@@ -183,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
                     long touchDuration = currentTime - touchDownTime;
                     changeColorBasedOnTouchLength(touchDuration);
 
+                    arrowView.setArrow(player.m_PosX+130,player.m_PosY+130, player.m_PosX+event.getX(), player.m_PosY+event.getY());
+
                     if(checkCollisionWithEnemy()){
                         // TextViewを更新
                         enemyCollisionCountTextView.setText("レベル : " + enemyCollisionCount);
@@ -216,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
 
                     float moveX = deltaX * flyDistance; //X軸方向の移動ベクトル
                     float moveY = deltaY * flyDistance; //Y軸方向の移動ベクトル
+
+                    arrowView.setArrow(0, 0, 0, 0); // 矢印を非表示に
 
                     /*
                     // 移動ベクトルの長さを計算
