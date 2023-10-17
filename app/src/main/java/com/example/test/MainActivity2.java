@@ -301,13 +301,13 @@ public class MainActivity2 extends AppCompatActivity {
     private void changeColorBasedOnTouchLength(double touchLength) {
         if (touchLength < 1000) {
             // 短いタッチ：色を赤に変更
-            player.m_Texture.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            player.m_Texture.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
         } else if (touchLength < 2000) {
             // 中程度のタッチ：色を青に変更
-            player.m_Texture.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+            player.m_Texture.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
         } else {
             // 長いタッチ：色を緑に変更
-            player.m_Texture.setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+            player.m_Texture.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
         }
     }
 
