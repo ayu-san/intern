@@ -121,10 +121,6 @@ public class Enemy extends GameObject
        gameobject.m_MoveX /= length;
        gameobject.m_MoveY /= length;
    }
-
-
-
-
     public void InitEnemy(Enemy enemy)
     {
         //オルドpos初期化
@@ -192,7 +188,95 @@ public class Enemy extends GameObject
     {
         m_DisplayTimer = time;
     }
+    public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies)
+    {
+        for (int i = 0; i < enemies.size(); i++)
+        {
+            int radius = player.m_Texture.getHeight() /2;
+            radius += 20.0f;
 
+            float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
+            float oldenemyY = enemies.get(i).m_oldPosY + (float)enemies.get(i).m_Texture.getHeight()/2;
+
+            float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
+            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 60.0f;
+            float enemyX  = enemies.get(i).m_PosX + (float)enemies.get(i).m_Texture.getWidth()/2;
+            float enemyY  = enemies.get(i).m_PosY + (float)enemies.get(i).m_Texture.getHeight()/2;
+
+            float oldDX = oldenemyX - playerX;
+            float oldDY = oldenemyY - playerY;
+
+            float dx = enemyX - playerX;
+            float dy = enemyY - playerY;
+            float calc = (float) Math.sqrt(dx * dx + dy * dy);
+            float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
+
+            if(radius < oldcalc && calc <= radius)
+            { //当たった
+                m_IsPlayerCollision = true;
+                enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+                player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+
+                float energy1 = player.m_Speed * player.m_Weight;
+                float energy2 = enemies.get(i).m_Speed * enemies.get(i).m_Weight;
+
+                float ex;
+                float ex2;
+
+                if (energy1 != 0.0f && energy2 != 0.0f) {
+                    ex = energy1 / energy2;
+                    ex2 = energy2 / energy1;
+                } else //Playerのスピードが0の時にも入る
+                {
+                    ex = 1.0f;
+                    ex2 = 5.0f;
+                }
+
+                float preserveMoveX = enemies.get(i).m_MoveX;
+                float preserveMoveY = enemies.get(i).m_MoveY;
+
+                //正規化処理
+                if(player.m_MoveX == 0.0f && player.m_MoveX == 0.0f)
+                {
+                    float vecX = -(player.m_PosX - enemies.get(i).m_PosX);
+                    float vecY = -(player.m_PosY - enemies.get(i).m_PosY);
+
+                    float vectorLength = (float) Math.sqrt(vecX * vecX + vecY * vecY);
+
+                    if (vectorLength > 0.0f) {
+                        // ベクトルの長さが0でない場合に正規化を行う
+                        float normalizedX = vecX / vectorLength;
+                        float normalizedY = vecY / vectorLength;
+
+                        // ベクトルの反転を保持したまま正規化されたベクトルを使用
+                        enemies.get(i).m_MoveX = normalizedX;
+                        enemies.get(i).m_MoveY = normalizedY;
+                    } else {
+                        // ベクトルの長さが0の場合は正規化を行えません
+                        // 長さが0の場合、ベクトルの方向は定義できません
+                        // ここで適切なエラー処理を行うか、ベクトルのデフォルト値を設定します
+                        enemies.get(i).m_MoveX = 0.0f; // 例: デフォルト値を0に設定
+                        enemies.get(i).m_MoveY = 0.0f;
+                    }
+                }
+                else
+                {
+                    if (!isNaN(player.m_MoveX * ex / 10))
+                        enemies.get(i).m_MoveX = player.m_MoveX * ex / 10;
+
+                    if (!isNaN(player.m_MoveY * ex / 10))
+                        enemies.get(i).m_MoveY = player.m_MoveY * ex / 10;
+
+                }
+
+                if (!isNaN(ex2)) {
+                    player.m_MoveX = preserveMoveX * ex2 / 10;
+                    player.m_MoveY = preserveMoveY * ex2 / 10;
+                }
+            }
+        }
+    }
+    
     @Override
     //エネミーのoldPosを使っていく エネミーからプレイヤーにぶつかっていく
     public void collisionTest(Player player, ArrayList<Enemy> enemies)

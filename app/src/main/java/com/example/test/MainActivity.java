@@ -119,12 +119,12 @@ public class MainActivity extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
-        //Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
-        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
-        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
+        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
+        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
+        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
+        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
 
         //ImageView texture,float posX, float moveX, float moveY, int delayTime
 
@@ -415,8 +415,11 @@ public class MainActivity extends AppCompatActivity {
                 Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
                 changePosPlayer();
 
-                player.collisionTest(player, Enemies);
-                Enemies.get(i).collisionTest(player, Enemies);
+//                player.collisionTest(player, Enemies);
+//                Enemies.get(i).collisionTest(player, Enemies);
+                player.CollisionCirclePlayer(player, Enemies);
+                Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+
 
                 if(gallLine.checkGall(gallLine, Enemies)){
                     stageName = "";
