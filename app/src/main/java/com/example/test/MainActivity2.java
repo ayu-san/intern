@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,7 +34,6 @@ public class MainActivity2 extends AppCompatActivity {
 
     //オブジェクト
     //private ImageView player.m_Texture;
-    private int test;
     //private ImageView enemy;
 
     // 画像リソースの名前のリスト
@@ -48,15 +48,12 @@ public class MainActivity2 extends AppCompatActivity {
     private  GallLine gallLine;
     private float startX, startY;
     private long touchDownTime = 0;
-    private int enemyCollisionCount = 0;
-    private boolean isCollisionHandled = false;
-    private static final int animationDuration = 500; //ミリ単位のアニメーション時間
+    private final int enemyCollisionCount = 0;
+    //ミリ単位のアニメーション時間
     private Timer timer = new Timer();
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private TapEffect tapEffect;
     private ArrowView arrowView;
-    private String stageName;
-    private String resultText;
     private  int screenWidth;
     private  int screenHeight;
     private ImageButton pauseButton;
@@ -69,7 +66,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
     };
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,9 +115,10 @@ public class MainActivity2 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 3 * 2,-0.5f,7.0f, 180, 0));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 8,0.5f,7.0f, 180, 0));
+        Enemies.add(new ChaseEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (3),0.0f,7.0f, 700, 1));
+        Enemies.add(new VerticalEnemy2(findViewById(R.id.enemy3),screenWidth / 7 * (4),0.0f,7.0f, 1200,2));
         //Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
         //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
         //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
@@ -130,12 +128,7 @@ public class MainActivity2 extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Update();
-                    }
-                });
+                handler.post(() -> Update());
             }
         }, 0, 16);
 
@@ -197,7 +190,6 @@ public class MainActivity2 extends AppCompatActivity {
 
                 case MotionEvent.ACTION_UP:
                     player.m_Texture.clearColorFilter();
-                    isCollisionHandled = false;
                     // 長押しの時間を計算
                     long currentTime2 = System.currentTimeMillis();
                     long touchDuration2 = currentTime2 - touchDownTime;
@@ -250,8 +242,6 @@ public class MainActivity2 extends AppCompatActivity {
                     //player.m_MoveY *= 7.0f; //仮調整
 
                     //長押し効果を加える
-                    //player.m_MoveX *= flyDistance;
-                    //player.m_MoveY *= flyDistance;
 
                     float moveX2 = moveX * flyDistance; //X軸方向の移動ベクトル
                     float moveY2 = moveY * flyDistance; //Y軸方向の移動ベクトル
@@ -285,15 +275,6 @@ public class MainActivity2 extends AppCompatActivity {
                     newY = screenHeight - player.m_Texture.getHeight();
                 }
 
-                //X軸方向の移動アニメーション
-                //ObjectAnimator moveXAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationX", newX);
-                //moveXAnimator.setDuration(animationDuration); //アニメーションの時間を設定
-                //moveXAnimator.start(); //アニメーション開始
-
-                //Y軸方向の移動アニメーション
-                //ObjectAnimator moveYAnimator = ObjectAnimator.ofFloat(player.m_Texture, "translationY", newY);
-                //moveYAnimator.setDuration(animationDuration); //アニメーションの時間を設定
-                //moveYAnimator.start(); //アニメーション開始
                 break;
             }
             return true;
@@ -405,6 +386,8 @@ public class MainActivity2 extends AppCompatActivity {
 
     public void Update()
     {
+        String stageName;
+        String resultText;
         if(!Enemies.isEmpty())
         {
             for (int i = 0; i < Enemies.size(); i++) {
@@ -420,7 +403,7 @@ public class MainActivity2 extends AppCompatActivity {
                 if(gallLine.checkGall(gallLine, Enemies)){
                     stageName = "";
                     resultText = "ゲームオーバー";
-                    showResult(stageName,resultText);
+                    showResult(stageName, resultText);
                 }
 
                 //画面外
@@ -432,9 +415,9 @@ public class MainActivity2 extends AppCompatActivity {
         } else
         {
             //ゲームクリア
-            stageName = "ステージ１";
+            stageName = "ステージ２";
             resultText = "クリア！";
-            showResult(stageName,resultText);
+            showResult(stageName, resultText);
         }
     }
 
@@ -648,9 +631,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         });
 
-        alertDialog.setOnDismissListener(dialog ->{
-            isDialogVisible = false;
-        });
+        alertDialog.setOnDismissListener(dialog -> isDialogVisible = false);
 
     }
 
@@ -822,7 +803,7 @@ public class MainActivity2 extends AppCompatActivity {
         //AlertDialogを表示
         AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
-        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        Objects.requireNonNull(alertDialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.show();
 
         Button retrybutton = dialogView.findViewById(R.id.result_retry);
