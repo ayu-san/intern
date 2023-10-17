@@ -13,7 +13,7 @@ public class ArrowView extends View {
     public ArrowView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
-        paint.setColor(0xAAFFAA00); // 緑色
+        paint.setColor(0xAAFFAA00); // オレンジに変更
         paint.setStrokeWidth(25f);
     }
 

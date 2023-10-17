@@ -22,7 +22,7 @@ public class GallLine extends GameObject
         m_PosY = screeneheight / 8 * 7;
     }
 
-    public boolean checkGall(MainActivity main, GallLine gall, ArrayList<Enemy> enemies)
+    public boolean checkGall(GallLine gall, ArrayList<Enemy> enemies)
     {
         if(!enemies.isEmpty())//リストが空ではない
         {

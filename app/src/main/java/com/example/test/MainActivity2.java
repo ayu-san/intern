@@ -1,8 +1,5 @@
 package com.example.test;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,25 +7,27 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity {
     //定数を定義
     final float OFFSET_POINT = 70.0f;
 
@@ -74,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
         // ImageViewを取得
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
 
         // 背景画像を設定
-        backgroundImageView.setImageResource(R.drawable.background_image);
+        backgroundImageView.setImageResource(R.drawable.back_ground_desert);
 
         //画面サイズの取得
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -609,7 +608,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtonTouchEffect(retry);
         retry.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity2.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
 
@@ -800,7 +799,7 @@ public class MainActivity extends AppCompatActivity {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    handler.post(MainActivity.this::Update);
+                    handler.post(MainActivity2.this::Update);
                 }
             }, 0, 16);
 
@@ -843,7 +842,7 @@ public class MainActivity extends AppCompatActivity {
         retrybutton.setOnClickListener(view -> {
             soundPlayer.setTestSE();
             alertDialog.dismiss(); // ダイアログを閉じる
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity2.class));
         });
 
         //ステージ選択ボタン

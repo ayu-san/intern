@@ -112,7 +112,7 @@ public class SelectActivity extends AppCompatActivity {
             soundPlayer.setTestSE();
 
             setAndSaveCondition(hardbutton,"isConditionHard",sharedPreferences);
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity2.class));
         });
 
         //hardボタンを押したとき
