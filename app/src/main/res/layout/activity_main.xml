@@ -130,5 +130,12 @@
 
     </FrameLayout>
 
+    <com.example.test.ArrowView
+        android:id="@+id/arrow_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top|start"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
