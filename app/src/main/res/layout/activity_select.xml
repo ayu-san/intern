@@ -52,7 +52,7 @@
         android:scrollbarDefaultDelayBeforeFade="400"
         android:scrollbarFadeDuration="300"
         android:scrollbarSize="20dp"
-        android:scrollbarTrackVertical="@color/yellow"
+        android:scrollbarTrackVertical="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
