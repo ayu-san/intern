@@ -853,8 +853,11 @@ public class MainActivity2 extends AppCompatActivity {
             startActivity(new Intent(this, TitleActivity.class));
         });
 
-    }
+        alertDialog.setOnDismissListener(dialog ->{
+            isDialogVisible = false;
+        });
 
+    }
 
 }
 
