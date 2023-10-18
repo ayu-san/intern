@@ -123,6 +123,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         gallLine = new GallLine(screenHeight);
         gallLine.m_Texture = findViewById(R.id.gall);
+        gallLine.m_Texture.setImageResource(R.drawable.goal);
         gallLine.m_Texture.setX(gallLine.m_PosX );
         gallLine.m_Texture.setY(gallLine.m_PosY);
 

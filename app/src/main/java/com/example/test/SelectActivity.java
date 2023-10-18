@@ -6,9 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +56,11 @@ public class SelectActivity extends AppCompatActivity {
         hellbutton = findViewById(R.id.hell);
         heavenbutton = findViewById(R.id.heaven);
         ImageButton backbutton = findViewById(R.id.backbutton);
+
+        ImageView logo = findViewById(R.id.selectlogo);
+        Animation floatAnimation  = AnimationUtils.loadAnimation(this,R.anim.float_left_right);
+        logo.startAnimation(floatAnimation);
+
 
         setupButtonTouchEffect(eazybutton);
         setupButtonTouchEffect(normalbutton);
