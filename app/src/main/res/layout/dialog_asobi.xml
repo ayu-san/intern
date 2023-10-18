@@ -24,12 +24,79 @@
         android:layout_height="309dp"
         app:srcCompat="@drawable/background_image" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/page1button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#A5F386"
+            android:gravity="center|center_horizontal"
+            android:text="1ページ目"
+            android:textAlignment="center"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:strokeColor="#63D337"
+            app:strokeWidth="2dp" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5" />
+
+        <Button
+            android:id="@+id/page2button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginHorizontal="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#A5F386"
+            android:gravity="center|center_horizontal"
+            android:text="２ページ目"
+            android:textAlignment="center"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            app:strokeColor="#63D337"
+            app:strokeWidth="2dp" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".5" />
+
+        <Button
+            android:id="@+id/page3button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#A6F487"
+            android:gravity="center|center_horizontal"
+            android:text="3ページ目"
+            android:textAlignment="center"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            app:strokeColor="#63D237"
+            app:strokeWidth="2dp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/closeButtonAsobi"
         android:layout_width="156dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_margin="12dp"
+        android:layout_margin="18dp"
         android:backgroundTint="#9FE185"
         android:text="戻る"
         android:textAlignment="center"

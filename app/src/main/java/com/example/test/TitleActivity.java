@@ -149,6 +149,36 @@ public class TitleActivity extends AppCompatActivity {
             alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
             alertDialog.show();
 
+            ImageView practice = dialogView.findViewById(R.id.imageView2);
+            Button page1button = dialogView.findViewById(R.id.page1button);
+            Button page2button = dialogView.findViewById(R.id.page2button);
+            Button page3button = dialogView.findViewById(R.id.page3button);
+
+            page1button.setOnClickListener((View view) -> {
+                soundPlayer.setTestSE();
+                page1button.setVisibility(View.INVISIBLE);
+                page2button.setVisibility(View.VISIBLE);
+                page3button.setVisibility(View.VISIBLE);
+                practice.setImageResource(R.drawable.background_image);
+            });
+
+           page2button.setOnClickListener((View view) -> {
+               soundPlayer.setTestSE();
+               page1button.setVisibility(View.VISIBLE);
+               page2button.setVisibility(View.INVISIBLE);
+               page3button.setVisibility(View.VISIBLE);
+               practice.setImageResource(R.drawable.back_ground_desert);
+            });
+
+           page3button.setOnClickListener((View view) -> {
+               soundPlayer.setTestSE();
+               page1button.setVisibility(View.VISIBLE);
+               page2button.setVisibility(View.VISIBLE);
+               page3button.setVisibility(View.INVISIBLE);
+               practice.setImageResource(R.drawable.back_ground_mountains);
+            });
+
+
             //戻る
             Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
             setupButtonTouchEffect(closeButton);
