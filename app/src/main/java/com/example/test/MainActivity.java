@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         gallLine = new GallLine(screenHeight);
         gallLine.m_Texture = findViewById(R.id.gall);
+        gallLine.m_Texture.setImageResource(R.drawable.goal);
         gallLine.m_Texture.setX(gallLine.m_PosX );
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
