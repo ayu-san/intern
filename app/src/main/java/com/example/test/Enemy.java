@@ -142,20 +142,6 @@ public class Enemy extends GameObject
        gameobject.m_MoveX /= length;
        gameobject.m_MoveY /= length;
    }
-    public void InitEnemy(Enemy enemy)
-    {
-        //オルドpos初期化
-        enemy.m_oldPosX = enemy.m_PosX;
-        enemy.m_oldPosY = enemy.m_PosY;
-        //テクスチャ座標初期化
-        enemy.m_Texture.setX(enemy.m_PosX);
-        enemy.m_Texture.setY(enemy.m_PosY);
-
-        //コンスタントMove初期化
-        enemy.m_ConstMoveX = enemy.m_MoveX;
-        enemy.m_ConstMoveY = enemy.m_MoveY;
-    }
-
     public void SetConstValue(float x, float y)
     {
         m_ConstMoveX = x;
@@ -214,7 +200,7 @@ public class Enemy extends GameObject
         for (int i = 0; i < enemies.size(); i++)
         {
             int radius = player.m_Texture.getHeight() /2;
-            radius +=50.0f;
+            radius += 50.0f;
 
             float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float oldenemyY = enemies.get(i).m_oldPosY + (float)enemies.get(i).m_Texture.getHeight()/2;

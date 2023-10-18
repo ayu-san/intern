@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             "speed","power","energy","heavy"
     };
 
+    public int g_InitSize = 0;
     private boolean isDialogVisible = false;
 
     private  Player player;
@@ -130,12 +131,13 @@ public class MainActivity extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
-        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
-        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
-        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
+        g_InitSize = Enemies.size();
+//        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
+//        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
+//        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
 
         //ImageView texture,float posX, float moveX, float moveY, int delayTime
 
@@ -419,18 +421,29 @@ public class MainActivity extends AppCompatActivity {
     {
         if(!Enemies.isEmpty())
         {
-            for (int i = 0; i < Enemies.size(); i++) {
-                Enemies.get(i).PullCollisionTimer(Enemies.get(i));
+            for (int i = 0; i < g_InitSize; i++)
+            {
+                int upSize = Enemies.size();
+                if(i <= upSize -1)
+                {
+                    Enemies.get(i).PullCollisionTimer(Enemies.get(i));
+                }
                 player.PullCollisionTimer(player);
 
-                Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
+                if(i <= upSize -1)
+                {
+                    Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
+                }
                 changePosPlayer();
 
 //                player.collisionTest(player, Enemies);
 //                Enemies.get(i).collisionTest(player, Enemies);
                 player.CollisionCirclePlayer(player, Enemies);
-                Enemies.get(i).CollisionCircleEnemy(player, Enemies);
 
+                if(i <= upSize -1)
+                {
+                    Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+                }
 
                 if(gallLine.checkGall(gallLine, Enemies)){
                     stageName = "";
@@ -440,7 +453,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //画面外
                 hitCheck(player);
-                Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
+                if(i <= upSize -1)
+                {
+                    Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
+                }
 
                 changePos();
             }
