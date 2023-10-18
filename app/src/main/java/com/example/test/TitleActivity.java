@@ -38,6 +38,15 @@ public class TitleActivity extends AppCompatActivity {
 
         soundPlayer = new SoundPlayer(this);
 
+        // MyApplication から BGM と SE の音量を取得
+        float initialBGMVolume = MyApplication.getBGMVolume();
+        float initialSEVolume = MyApplication.getSEVolume();
+        // SoundPlayer に初期音量を設定
+        soundPlayer.setBGMVolume(initialBGMVolume);
+        soundPlayer.setSEVolume(initialSEVolume);
+
+        soundPlayer.setTestBGM();
+
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
 
@@ -92,7 +101,7 @@ public class TitleActivity extends AppCompatActivity {
                     //BGMの音量設定
                     float bgmvolume = progress / 100.0f;
                     MyApplication.setBGMVolume(bgmvolume);
-                    soundPlayer.setBGMVolume();
+                    soundPlayer.setBGMVolume(bgmvolume);
                 }
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
@@ -227,7 +236,19 @@ public class TitleActivity extends AppCompatActivity {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+        // BGMとSEの現在の音量を取得
+        float currentBGMVolume = soundPlayer.getBGMVolume();
+        float currentSEVolume = soundPlayer.getSEVolume();
+
+        // BGMとSEの現在の音量を保存
+        MyApplication.saveCurrentBGMVolume(currentBGMVolume);
+        MyApplication.saveCurrentSEVolume(currentSEVolume);
+        soundPlayer.release(); // アクティビティがバックグラウンドに移動するときに音楽を停止・解放
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupButtonTouchEffect(Button button) {

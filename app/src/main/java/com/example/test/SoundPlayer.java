@@ -1,43 +1,87 @@
 package com.example.test;
 
 import android.content.Context;
-import android.media.AudioAttributes;
-import android.media.SoundPool;
-
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 public class SoundPlayer {
-    private static SoundPool soundPool;
+    private static MediaPlayer  sePlayer;
+    private MediaPlayer  bgmPlayer;
+    private Context context;
     private static int testSE;
     private static int testSE2;
+    private static int testBGM;
     private float seVolume = 0.8f; // SEの初期音量
+    private float bgmVolume = 0.8f; // BGMの初期音量
 
     public SoundPlayer(Context context) {
+        this.context = context; // コンテキストを設定
 
-        AudioAttributes attributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build();
+        // SE用を初期化
+        sePlayer = new MediaPlayer();
 
-        soundPool = new SoundPool.Builder()
-                .setAudioAttributes(attributes)
-                .build();
+        // BGM用を初期化
+        bgmPlayer = new MediaPlayer();
 
         //サウンドのロード
-        testSE = soundPool.load(context, R.raw.setest, 1);
-        testSE2 = soundPool.load(context, R.raw.setest2, 1);
+        testSE = R.raw.setest;
+        testSE2 = R.raw.setest2;
+        testBGM = R.raw.bgmtest;
+
+        // MediaPlayerにサウンドファイルを設定
+        sePlayer = MediaPlayer.create(context, testSE);
+        bgmPlayer = MediaPlayer.create(context, testBGM);
+
     }
 
-    //音量調整機能
-    public void setSEVolume(float volume) {
-        seVolume = volume;
-    }
-    public void setBGMVolume() {
-        // BGMの初期音量
+    public  void release(){
+        if (sePlayer != null) {
+            sePlayer.release();
+            sePlayer = null;
+        }
+        if (bgmPlayer != null) {
+            bgmPlayer.release();
+            bgmPlayer = null;
+        }
     }
 
-    public void release(){soundPool.release();}//soundPoolの解放
+    // 音量調整機能
+    public float getSEVolume() {
+        return seVolume;
+    }
 
-    //サウンド読み込み関数
-    public void setTestSE(){soundPool.play(testSE,seVolume, seVolume, 1, 0, 1.0f);}
-    public void setTestSE2(){soundPool.play(testSE2,seVolume, seVolume, 1, 0, 1.0f);}
+    public void setSEVolume(float sevolume) {
+        seVolume = sevolume;
+        sePlayer.setVolume(seVolume, seVolume);
+    }
+
+    public float getBGMVolume() {
+        return bgmVolume;
+    }
+    public void setBGMVolume(float bgmvolume) {
+        bgmVolume = bgmvolume;
+        bgmPlayer.setVolume(bgmVolume, bgmVolume);
+    }
+
+    // サウンド再生関数
+// サウンド再生関数
+    public void setTestSE() {
+        sePlayer = MediaPlayer.create(context, testSE);
+        sePlayer.setVolume(seVolume, seVolume);
+        sePlayer.start();
+    }
+
+    public void setTestSE2() {
+        sePlayer = MediaPlayer.create(context, testSE2);
+        sePlayer.setVolume(seVolume, seVolume);
+        sePlayer.start();
+    }
+
+    public void setTestBGM() {
+        bgmPlayer = MediaPlayer.create(context, testBGM);
+        bgmPlayer.setVolume(bgmVolume, bgmVolume);
+        bgmPlayer.setLooping(true); // BGMをループ再生
+        bgmPlayer.start();
+    }
+
 
 }

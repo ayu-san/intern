@@ -90,6 +90,14 @@ public class SelectActivity extends AppCompatActivity {
 
         soundPlayer = new SoundPlayer(this);
 
+        // MyApplication から BGM と SE の音量を取得
+        float initialBGMVolume = MyApplication.getBGMVolume();
+        float initialSEVolume = MyApplication.getSEVolume();
+        // SoundPlayer に初期音量を設定
+        soundPlayer.setBGMVolume(initialBGMVolume);
+        soundPlayer.setSEVolume(initialSEVolume);
+
+
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
 

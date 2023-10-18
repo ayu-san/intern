@@ -90,7 +90,17 @@ public class MainActivity extends AppCompatActivity {
         screenWidth = displayMetrics.widthPixels;
         screenHeight = displayMetrics.heightPixels;
         pauseButton = findViewById(R.id.pauseButton);
+
         soundPlayer = new SoundPlayer(this);
+
+        // MyApplication から BGM と SE の音量を取得
+        float initialBGMVolume = MyApplication.getBGMVolume();
+        float initialSEVolume = MyApplication.getSEVolume();
+        // SoundPlayer に初期音量を設定
+        soundPlayer.setBGMVolume(initialBGMVolume);
+        soundPlayer.setSEVolume(initialSEVolume);
+
+
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -608,7 +618,7 @@ public class MainActivity extends AppCompatActivity {
                 //BGMの音量設定
                 float bgmvolume = progress / 100.0f;
                 MyApplication.setBGMVolume(bgmvolume);
-                soundPlayer.setBGMVolume();
+                soundPlayer.setBGMVolume(bgmvolume);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {

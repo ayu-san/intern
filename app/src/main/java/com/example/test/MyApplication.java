@@ -36,4 +36,14 @@ public class MyApplication extends Application{
         editor.putFloat(SE_VOLUME, volume).apply();
     }
 
+    // BGMの現在の音量を保存
+    public static void saveCurrentBGMVolume(float volume) {
+        editor.putFloat(BGM_VOLUME, volume).apply();
+    }
+
+    // SEの現在の音量を保存
+    public static void saveCurrentSEVolume(float volume) {
+        editor.putFloat(SE_VOLUME, volume).apply();
+    }
+
 }
