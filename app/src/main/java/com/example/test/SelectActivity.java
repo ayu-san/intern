@@ -19,10 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SelectActivity extends AppCompatActivity {
 
-    private Button normalbutton;
-    private Button hardbutton;
-    private Button hellbutton;
-    private Button heavenbutton;
+    private ImageButton normalbutton;
+    private ImageButton hardbutton;
+    private ImageButton hellbutton;
+    private ImageButton heavenbutton;
 
     private boolean isConditionNormal = false;
     private boolean isConditionHard = false;
@@ -50,7 +50,7 @@ public class SelectActivity extends AppCompatActivity {
         isConditionHell = sharedPreferences.getBoolean("isConditionHell",false);
         isConditionHeaven = sharedPreferences.getBoolean("isConditionHeaven",false);
 
-        Button eazybutton = findViewById(R.id.eazy);
+        ImageButton eazybutton = findViewById(R.id.eazy);
         normalbutton = findViewById(R.id.normal);
         hardbutton = findViewById(R.id.Hard);
         hellbutton = findViewById(R.id.hell);
@@ -116,6 +116,21 @@ public class SelectActivity extends AppCompatActivity {
             return false;
         });
 
+        if(isConditionNormal){
+            normalbutton.setBackgroundResource(R.drawable.stage2button);
+        }
+        if(isConditionHard){
+            hardbutton.setBackgroundResource(R.drawable.stage3button);
+        }
+        if(isConditionHell){
+            hellbutton.setBackgroundResource(R.drawable.stage4button);
+        }
+        if(isConditionHeaven){
+            heavenbutton.setBackgroundResource(R.drawable.stage5button);
+        }
+
+
+
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
@@ -171,7 +186,7 @@ public class SelectActivity extends AppCompatActivity {
     }
 
     // 条件が満たされた場合に呼び出すメソッド
-    private void setAndSaveCondition(Button button, String conditionName, SharedPreferences sharedPreferencesd){
+    private void setAndSaveCondition(ImageButton button, String conditionName, SharedPreferences sharedPreferencesd){
         // SharedPreferencesに状態を保存
         button.setEnabled(true);
         SharedPreferences.Editor editor = sharedPreferencesd.edit();
@@ -189,6 +204,26 @@ public class SelectActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupButtonTouchEffect(Button button) {
+        button.setOnTouchListener((view, motionEvent) -> {
+            switch (motionEvent.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    // ボタンをタッチしたときの処理
+                    button.setScaleX(0.95f);
+                    button.setScaleY(0.95f);
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    // ボタンを離したときの処理
+                    button.setScaleX(1.0f);
+                    button.setScaleY(1.0f);
+                    break;
+            }
+            return false;
+        });
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupButtonTouchEffect(ImageButton button) {
         button.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_DOWN:

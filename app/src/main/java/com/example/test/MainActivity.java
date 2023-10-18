@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
 
         // 背景画像を設定
-        backgroundImageView.setImageResource(R.drawable.background_image);
+        backgroundImageView.setImageResource(R.drawable.back_ground_grass);
 
         //画面サイズの取得
         DisplayMetrics displayMetrics = new DisplayMetrics();
