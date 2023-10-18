@@ -54,25 +54,21 @@ public class Enemy extends GameObject
 
     public void MoveEnemy(Enemy enemy, GameObject target, int width)
     {
-        if(enemy.m_CollisionTimer == 0)
-        {
+        if (enemy.m_CollisionTimer == 0) {
             enemy.m_MoveX = target.m_Texture.getX() - enemy.m_Texture.getX();
             enemy.m_MoveY = target.m_Texture.getY() - enemy.m_Texture.getY();
-            if(enemy.m_MoveX != 0.0f && enemy.m_MoveY != 0.0f && !isNaN(enemy.m_MoveX) && !isNaN(enemy.m_MoveY))
-            {
-                    normalizeVectorEnemy(enemy, enemy.m_MoveX,enemy.m_MoveY);
+            if (enemy.m_MoveX != 0.0f && enemy.m_MoveY != 0.0f && !isNaN(enemy.m_MoveX) && !isNaN(enemy.m_MoveY)) {
+                normalizeVectorEnemy(enemy, enemy.m_MoveX, enemy.m_MoveY);
             }
             //ベクトルを正規化
 
             //移動
-            if(0.0f < enemy.m_Speed)
-            {
+            if (0.0f < enemy.m_Speed) {
                 enemy.m_Speed -= 10.0f;
 
                 enemy.m_MoveX = enemy.m_MoveX * (enemy.m_Speed / 100.0f);
                 enemy.m_MoveY = enemy.m_MoveY * (enemy.m_Speed / 100.0f);
-            } else
-            {
+            } else {
                 enemy.m_MoveX = 0.0f;
                 enemy.m_MoveY = 0.0f;
 
@@ -82,31 +78,56 @@ public class Enemy extends GameObject
             //enemy.m_MoveY = 0.0f;
         }
 
-        if(0 < m_DisplayTimer)
-        {
+        if (0 < m_DisplayTimer) {
             m_DisplayTimer--;
-        } else
-        {
+        } else {
             m_DisplayTimer = 0;
             //座標更新
-            if(enemy.m_oldPosX != enemy.m_PosX)
-            {
+            if (enemy.m_oldPosX != enemy.m_PosX) {
                 //進んでいるなら更新
                 enemy.m_oldPosX = enemy.m_PosX;
             }
 
-            if(enemy.m_oldPosY != enemy.m_PosY)
-            {
+            if (enemy.m_oldPosY != enemy.m_PosY) {
                 enemy.m_oldPosY = enemy.m_PosY;
             }
-
-
 
             enemy.m_PosX += enemy.m_MoveX;
             enemy.m_PosY += enemy.m_MoveY;
         }
 
         //reflect(enemy , width);
+    }
+
+    public boolean isCoinCideEnemy(Enemy enemy, GameObject target)
+    {
+        {
+            int radius = target.m_Texture.getHeight() /2;
+            radius += 20.0f;
+
+            float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
+            float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
+
+            float playerX = target.m_PosX + (float)target.m_Texture.getWidth()/2;
+            float playerY = target.m_PosY + (float)target.m_Texture.getHeight()/2 - 40.0f;
+            float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
+            float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
+
+            float oldDX = oldenemyX - playerX;
+            float oldDY = oldenemyY - playerY;
+
+            float dx = enemyX - playerX;
+            float dy = enemyY - playerY;
+            float calc = (float) Math.sqrt(dx * dx + dy * dy);
+            float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
+
+            if(radius < oldcalc && calc <= radius)
+            { //当たった
+                //補正
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -193,13 +214,13 @@ public class Enemy extends GameObject
         for (int i = 0; i < enemies.size(); i++)
         {
             int radius = player.m_Texture.getHeight() /2;
-            radius += 20.0f;
+            radius +=50.0f;
 
             float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float oldenemyY = enemies.get(i).m_oldPosY + (float)enemies.get(i).m_Texture.getHeight()/2;
 
             float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 60.0f;
+            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 40.0f;
             float enemyX  = enemies.get(i).m_PosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float enemyY  = enemies.get(i).m_PosY + (float)enemies.get(i).m_Texture.getHeight()/2;
 
@@ -213,6 +234,10 @@ public class Enemy extends GameObject
 
             if(radius < oldcalc && calc <= radius)
             { //当たった
+                //めり込まないように補正する
+                enemies.get(i).m_PosX = enemies.get(i).m_oldPosX;
+                enemies.get(i).m_PosY = enemies.get(i).m_oldPosY;
+
                 m_IsPlayerCollision = true;
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける

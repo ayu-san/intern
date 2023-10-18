@@ -1,5 +1,7 @@
 package com.example.test;
 
+import static java.lang.Double.isNaN;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;

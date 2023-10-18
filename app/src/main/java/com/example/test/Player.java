@@ -38,7 +38,7 @@ public class Player extends GameObject
         for (int i = 0; i < enemies.size(); i++)
         {
             int radius = player.m_Texture.getHeight() /2;
-            radius += 20.0f;
+            radius += 50.0f;
 
             float oldplayerX = player.m_oldPosX + (float)player.m_Texture.getWidth()/2;
             float oldplayerY = player.m_oldPosY + (float)player.m_Texture.getHeight()/2;
@@ -58,6 +58,10 @@ public class Player extends GameObject
 
             if(radius < oldcalc && calc <= radius)
             { //当たった
+                //めり込まないように補正する
+                player.m_PosX = player.m_oldPosX;
+                player.m_PosY = player.m_oldPosY;
+
                 enemies.get(i).SetPlayerCollision();
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける

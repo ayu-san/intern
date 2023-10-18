@@ -477,6 +477,7 @@ public class MainActivity extends AppCompatActivity {
 
         //スピードが0でないのなら
         if(0.0f < player.m_Speed)
+
         {
             player.m_Speed -= 10.0; //減衰率
             if(0 < player.m_CollisionTimer)
@@ -506,31 +507,63 @@ public class MainActivity extends AppCompatActivity {
         if(gameObject.m_PosX + gameObject.m_Texture.getWidth() > screenWidth)
         {
             gameObject.m_PosX = screenWidth - gameObject.m_Texture.getWidth();
-            gameObject.m_MoveX *= -1;
-            player.m_MoveVecX *= -1;
+            if(0.0f < player.m_Speed)
+            {//敵からぶつかってこられたとき
+                gameObject.m_MoveX *= -1.0;
+                player.m_MoveVecX *= -1.0;
+            }
+            else
+            {
+                gameObject.m_MoveX *= -0.1;
+                player.m_MoveVecX *= -0.1;
+            }
         }
 
         //左
         if(gameObject.m_PosX < 0)
         {
             gameObject.m_PosX = 0;
-            gameObject.m_MoveX *= -1;
-            player.m_MoveVecX *= -1;
+            if(0.0f < player.m_Speed)
+            {//敵からぶつかってこられたとき
+                gameObject.m_MoveX *= -1.0;
+                player.m_MoveVecX *= -1.0;
+            }
+            else
+            {
+                gameObject.m_MoveX *= -0.1;
+                player.m_MoveVecX *= -0.1;
+            }
         }
 
         //上
         if(gameObject.m_PosY < 0) {
             gameObject.m_PosY = 0;
-            gameObject.m_MoveY *= -1;
-            player.m_MoveVecY *= -1;
+            if(0.0f < player.m_Speed)
+            {//敵からぶつかってこられたとき
+                gameObject.m_MoveY *= -1.0;
+                player.m_MoveVecY *= -1.0;
+            }
+            else
+            {
+                gameObject.m_MoveY *= -0.1;
+                player.m_MoveVecY *= -0.1;
+            }
         }
 
         //下
         if(gameObject.m_PosY + gameObject.m_Texture.getHeight() > screenHeight)
         {
             gameObject.m_PosY = screenHeight - gameObject.m_Texture.getHeight();
-            gameObject.m_MoveY *= -1;
-            player.m_MoveVecY *= -1;
+            if(0.0f < player.m_Speed)
+            {//敵からぶつかってこられたとき
+                gameObject.m_MoveY *= -1.0;
+                player.m_MoveVecY *= -1.0;
+            }
+            else
+            {
+                gameObject.m_MoveY *= -0.1;
+                player.m_MoveVecY *= -0.1;
+            }
         }
 
     }
