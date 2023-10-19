@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private  int screenHeight;
     private ImageButton pauseButton;
     private SoundPlayer soundPlayer;
+    private boolean gameStarted = false;
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -78,6 +79,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View touchView = findViewById(R.id.startText);
+        View blackView = findViewById(R.id.blackview);
+
+        touchView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                touchView.setVisibility(View.INVISIBLE);
+                blackView.setVisibility(View.INVISIBLE);
+                gameStarted = true;
+                return true;
+            }
+        });
 
         // ImageViewを取得
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
@@ -422,53 +437,48 @@ public class MainActivity extends AppCompatActivity {
 
     public void Update()
     {
-        if(!Enemies.isEmpty())
-        {
-            for (int i = 0; i < g_InitSize; i++)
-            {
-                int upSize = Enemies.size();
-                if(i <= upSize -1)
-                {
-                    Enemies.get(i).PullCollisionTimer(Enemies.get(i));
-                }
-                player.PullCollisionTimer(player);
+        if(gameStarted) {
+            if (!Enemies.isEmpty()) {
+                for (int i = 0; i < g_InitSize; i++) {
+                    int upSize = Enemies.size();
+                    if (i <= upSize - 1) {
+                        Enemies.get(i).PullCollisionTimer(Enemies.get(i));
+                    }
+                    player.PullCollisionTimer(player);
 
-                if(i <= upSize -1)
-                {
-                    Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
-                }
-                changePosPlayer();
+                    if (i <= upSize - 1) {
+                        Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
+                    }
+                    changePosPlayer();
 
 //                player.collisionTest(player, Enemies);
 //                Enemies.get(i).collisionTest(player, Enemies);
-                player.CollisionCirclePlayer(player, Enemies);
+                    player.CollisionCirclePlayer(player, Enemies);
 
-                if(i <= upSize -1)
-                {
-                    Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+                    if (i <= upSize - 1) {
+                        Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+                    }
+
+                    if (gallLine.checkGall(gallLine, Enemies)) {
+                        stageName = "";
+                        resultText = "ゲームオーバー";
+                        showResult(stageName, resultText);
+                    }
+
+                    //画面外
+                    hitCheck(player);
+                    if (i <= upSize - 1) {
+                        Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
+                    }
+
+                    changePos();
                 }
-
-                if(gallLine.checkGall(gallLine, Enemies)){
-                    stageName = "";
-                    resultText = "ゲームオーバー";
-                    showResult(stageName,resultText);
-                }
-
-                //画面外
-                hitCheck(player);
-                if(i <= upSize -1)
-                {
-                    Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
-                }
-
-                changePos();
+            } else {
+                //ゲームクリア
+                stageName = "ステージ１";
+                resultText = "クリア！";
+                showResult(stageName, resultText);
             }
-        } else
-        {
-            //ゲームクリア
-            stageName = "ステージ１";
-            resultText = "クリア！";
-            showResult(stageName,resultText);
         }
     }
 

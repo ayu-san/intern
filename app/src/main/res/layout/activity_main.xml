@@ -11,7 +11,6 @@
         android:id="@+id/backgroundImageView"
         android:layout_width="1283dp"
         android:layout_height="1005dp"
-        android:layout_marginBottom="111dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.443"
@@ -94,6 +93,7 @@
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
+
     <ProgressBar
         android:id="@+id/level"
         style="?android:attr/progressBarStyleHorizontal"
@@ -139,5 +139,30 @@
         android:layout_gravity="top|start"
         android:background="#00FFFFFF"
         android:backgroundTint="#00FFFFFF" />
+
+    <View
+        android:id="@+id/blackview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#050505"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/startText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center"
+        android:text="タッチでスタート！"
+        android:textAlignment="center"
+        android:textColor="#FFFCFC"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
