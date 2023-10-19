@@ -421,7 +421,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 //画面外
                 hitCheck(player);
-                Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
+                //Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
 
                 changePos();
             }

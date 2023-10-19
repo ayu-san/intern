@@ -1,8 +1,11 @@
 package com.example.test;
 import static java.lang.Double.isNaN;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 
 import com.example.test.GameObject;
 import com.example.test.MainActivity;
@@ -149,7 +152,8 @@ public class Enemy extends GameObject
     }
 
     //画面外判定
-    public void hitCheckEnemy(ArrayList<Enemy> enemies, Player player, int screenwidth,int screenheight) {
+    public void hitCheckEnemy(ArrayList<Enemy> enemies, Player player, int screenwidth,int screenheight,CollideEffect collideEffect, Drawable drawable) {
+        long duration = 500;
         //右
         if(!enemies.isEmpty())//リストが空ではない
         {
@@ -158,30 +162,38 @@ public class Enemy extends GameObject
                 if(enemies.get(i).m_IsPlayerCollision) {
                     if (enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth() > screenwidth)
                     {
+                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         break;
                     }
 
                     //左
-                    if (enemies.get(i).m_PosX < 0)
+                    else if (enemies.get(i).m_PosX < 0)
                     {
+                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         break;
                     }
 
                     //上
-                    if (enemies.get(i).m_PosY < 0)
+                    else if (enemies.get(i).m_PosY < 0)
                     {
+                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         break;
                     }
 
                     //下
-                    if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
+                    else if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
                     {
+                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         break;

@@ -16,12 +16,9 @@ public class CollideEffect {
         this.container = container;
     }
 
-    public void collideEffect(int x, int y, Drawable drawable,long duration){
+    public void collideEffect(int x, int y, Drawable drawable,int width,int height,long duration){
         ImageView imageView = new ImageView(container.getContext());
         imageView.setImageDrawable(drawable);
-
-        int width = 350;
-        int height = 350;
 
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 width, // エフェクトの幅
