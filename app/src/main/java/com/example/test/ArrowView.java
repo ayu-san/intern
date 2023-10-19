@@ -13,8 +13,8 @@ public class ArrowView extends View {
     public ArrowView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
-        paint.setColor(0xAAFFAA00); // オレンジに変更
-        paint.setStrokeWidth(25f);
+        paint.setColor(0xCCFFAA00); // オレンジに変更
+        paint.setStrokeWidth(30f);
     }
 
     public void setArrow(float startX, float startY, float endX, float endY) {
@@ -32,7 +32,7 @@ public class ArrowView extends View {
             // 矢印を描画
             canvas.drawLine(startX, startY, endX, endY, paint);
             // 矢印の先端部分を描画（ここでは単純に線分の終点）
-            canvas.drawCircle(endX, endY, 45, paint);
+            canvas.drawCircle(endX, endY, 50, paint);
         }
     }
 }

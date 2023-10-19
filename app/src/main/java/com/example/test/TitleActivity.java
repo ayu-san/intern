@@ -168,7 +168,7 @@ public class TitleActivity extends AppCompatActivity {
                 page1button.setVisibility(View.INVISIBLE);
                 page2button.setVisibility(View.VISIBLE);
                 page3button.setVisibility(View.VISIBLE);
-                practice.setImageResource(R.drawable.background_image);
+                practice.setImageResource(R.drawable.asobi1);
             });
 
            page2button.setOnClickListener((View view) -> {
@@ -176,7 +176,7 @@ public class TitleActivity extends AppCompatActivity {
                page1button.setVisibility(View.VISIBLE);
                page2button.setVisibility(View.INVISIBLE);
                page3button.setVisibility(View.VISIBLE);
-               practice.setImageResource(R.drawable.back_ground_desert);
+               practice.setImageResource(R.drawable.asobi2);
             });
 
            page3button.setOnClickListener((View view) -> {
@@ -184,7 +184,7 @@ public class TitleActivity extends AppCompatActivity {
                page1button.setVisibility(View.VISIBLE);
                page2button.setVisibility(View.VISIBLE);
                page3button.setVisibility(View.INVISIBLE);
-               practice.setImageResource(R.drawable.back_ground_mountains);
+               practice.setImageResource(R.drawable.asobi3);
             });
 
 

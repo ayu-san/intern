@@ -76,13 +76,12 @@
         android:layout_height="100dp"
         android:layout_marginStart="52dp"
         android:background="#00FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/newLevel2"
+        app:layout_constraintEnd_toStartOf="@+id/or"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:srcCompat="@drawable/character_image" />
 
     <TextView
-        android:id="@+id/newLevel2"
         android:layout_width="81dp"
         android:layout_height="69dp"
         android:layout_marginStart="8dp"
@@ -106,7 +105,7 @@
         android:layout_marginEnd="52dp"
         android:background="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/newLevel2"
+        app:layout_constraintStart_toEndOf="@+id/or"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:srcCompat="@drawable/character_image" />
 
