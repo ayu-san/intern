@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int animationDuration = 500; //ミリ単位のアニメーション時間
     private Timer timer = new Timer();
     private Handler handler = new Handler();
+    private Drawable enemyeffect;
     private TapEffect tapEffect;
     private CollideEffect collideEffect;
     private ArrowView arrowView;
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
-
+        enemyeffect = ContextCompat.getDrawable(this,R.drawable.hiteffect2);
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -468,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
                     //画面外
                     hitCheck(player);
                     if (i <= upSize - 1) {
-                        Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight);
+                        Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight,collideEffect,enemyeffect);
                     }
 
                     changePos();
@@ -551,7 +552,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosX = screenWidth - gameObject.m_Texture.getWidth();
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect(screenWidth, (int) (player.m_PosY +130),drawable,durations);
+                collideEffect.collideEffect(screenWidth, (int) (player.m_PosY +130),drawable,350,350,durations);
                 gameObject.m_MoveX *= -1.0;
                 player.m_MoveVecX *= -1.0;
             }
@@ -568,7 +569,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosX = 0;
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect(0, (int) (player.m_PosY +130),drawable,durations);
+                collideEffect.collideEffect(0, (int) (player.m_PosY +130),drawable,350,350,durations);
                 gameObject.m_MoveX *= -1.0;
                 player.m_MoveVecX *= -1.0;
             }
@@ -584,7 +585,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosY = 0;
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect((int) (player.m_PosX +130), 0,drawable,durations);
+                collideEffect.collideEffect((int) (player.m_PosX +130), 0,drawable,350,350,durations);
                 gameObject.m_MoveY *= -1.0;
                 player.m_MoveVecY *= -1.0;
             }
@@ -601,7 +602,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosY = screenHeight - gameObject.m_Texture.getHeight();
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect((int) (player.m_PosX +130), screenHeight,drawable,durations);
+                collideEffect.collideEffect((int) (player.m_PosX +130), screenHeight,drawable,350,350,durations);
                 gameObject.m_MoveY *= -1.0;
                 player.m_MoveVecY *= -1.0;
             }
