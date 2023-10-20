@@ -133,13 +133,13 @@ public class Enemy extends GameObject
     {
         return (float) Math.sqrt(x * x + y * y);
     }
-    
-   public void normalizeVectorEnemy(GameObject gameobject, float x, float y)
-   {
-       double length = calculateLength(x, y); //ベクトルの長さを計算
-       gameobject.m_MoveX /= length;
-       gameobject.m_MoveY /= length;
-   }
+
+    public void normalizeVectorEnemy(GameObject gameobject, float x, float y)
+    {
+        double length = calculateLength(x, y); //ベクトルの長さを計算
+        gameobject.m_MoveX /= length;
+        gameobject.m_MoveY /= length;
+    }
     public void SetConstValue(float x, float y)
     {
         m_ConstMoveX = x;
@@ -158,7 +158,7 @@ public class Enemy extends GameObject
                     if (enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth() > screenwidth)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -168,7 +168,7 @@ public class Enemy extends GameObject
                     else if (enemies.get(i).m_PosX < 0)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -178,7 +178,7 @@ public class Enemy extends GameObject
                     else if (enemies.get(i).m_PosY < 0)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -188,7 +188,7 @@ public class Enemy extends GameObject
                     else if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -204,11 +204,11 @@ public class Enemy extends GameObject
     {
         m_DisplayTimer = time;
     }
-    public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies)
+    public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies,CollideEffect collideEffect, Drawable drawable)
     {
         for (int i = 0; i < enemies.size(); i++)
         {
-            int radius = player.m_Texture.getWidth() /2;
+            int radius = player.m_Texture.getHeight() /2;
             radius += 50.0f;
 
             float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
@@ -233,7 +233,14 @@ public class Enemy extends GameObject
                 enemies.get(i).m_PosX = enemies.get(i).m_oldPosX;
                 enemies.get(i).m_PosY = enemies.get(i).m_oldPosY;
 
-                enemies.get(i).m_IsPlayerCollision = true;
+                // 衝突位置を計算
+                float collisionX = (float) (enemyX - dx * (-0.5+radius / calc));
+                float collisionY = (float) (enemyY - dy * (-0.5+radius / calc));
+
+                //エフェクトを追加
+                collideEffect.collideEffect((int) collisionX, (int) collisionY,drawable,400,400,400);
+
+                m_IsPlayerCollision = true;
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
@@ -296,7 +303,7 @@ public class Enemy extends GameObject
             }
         }
     }
-    
+
     @Override
     //エネミーのoldPosを使っていく エネミーからプレイヤーにぶつかっていく
     public void collisionTest(Player player, ArrayList<Enemy> enemies)
@@ -306,84 +313,84 @@ public class Enemy extends GameObject
             for (int i = 0; i < enemies.size(); i++) {
                 //右判定
                 //プレイヤー左
-            if (enemies.get(i).m_PosX < player.m_PosX + player.m_Texture.getWidth()
-                    && player.m_PosY < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
-                    && enemies.get(i).m_PosY < player.m_PosY + player.m_Texture.getHeight()
-                    && player.m_PosX + player.m_Texture.getWidth() < enemies.get(i).m_oldPosX)
-            {
-                m_IsPlayerCollision = true;
-                enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
-                player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
-
-                float energy1 = player.m_Speed * player.m_Weight;
-                float energy2 = enemies.get(i).m_Speed * enemies.get(i).m_Weight;
-
-                float ex;
-                float ex2;
-
-                if (energy1 != 0.0f && energy2 != 0.0f) {
-                    ex = energy1 / energy2;
-                    ex2 = energy2 / energy1;
-                } else //Playerのスピードが0の時にも入る
+                if (enemies.get(i).m_PosX < player.m_PosX + player.m_Texture.getWidth()
+                        && player.m_PosY < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
+                        && enemies.get(i).m_PosY < player.m_PosY + player.m_Texture.getHeight()
+                        && player.m_PosX + player.m_Texture.getWidth() < enemies.get(i).m_oldPosX)
                 {
-                    ex = 1.0f;
-                    ex2 = 1.0f;
+                    m_IsPlayerCollision = true;
+                    enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+                    player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+
+                    float energy1 = player.m_Speed * player.m_Weight;
+                    float energy2 = enemies.get(i).m_Speed * enemies.get(i).m_Weight;
+
+                    float ex;
+                    float ex2;
+
+                    if (energy1 != 0.0f && energy2 != 0.0f) {
+                        ex = energy1 / energy2;
+                        ex2 = energy2 / energy1;
+                    } else //Playerのスピードが0の時にも入る
+                    {
+                        ex = 1.0f;
+                        ex2 = 1.0f;
+                    }
+
+                    float preserveMoveX = enemies.get(i).m_MoveX;
+                    float preserveMoveY = enemies.get(i).m_MoveY;
+
+                    if (!isNaN(player.m_MoveX * ex / 10))
+                        enemies.get(i).m_MoveX = player.m_MoveX * ex / 10;
+
+                    if (!isNaN(player.m_MoveY * ex / 10))
+                        enemies.get(i).m_MoveY = player.m_MoveY * ex / 10;
+
+                    if (!isNaN(ex2)) {
+                        player.m_MoveX = preserveMoveX * ex2 / 10;
+                        player.m_MoveY = preserveMoveY * ex2 / 10;
+                    }
                 }
-
-                float preserveMoveX = enemies.get(i).m_MoveX;
-                float preserveMoveY = enemies.get(i).m_MoveY;
-
-                if (!isNaN(player.m_MoveX * ex / 10))
-                    enemies.get(i).m_MoveX = player.m_MoveX * ex / 10;
-
-                if (!isNaN(player.m_MoveY * ex / 10))
-                    enemies.get(i).m_MoveY = player.m_MoveY * ex / 10;
-
-                if (!isNaN(ex2)) {
-                    player.m_MoveX = preserveMoveX * ex2 / 10;
-                    player.m_MoveY = preserveMoveY * ex2 / 10;
-                }
-            }
 
                 //プレイヤー右
-            if(player.m_PosX < enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth()
-                    && player.m_Texture.getY() < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
-                    && enemies.get(i).m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight()
-                    && enemies.get(i).m_oldPosX + enemies.get(i).m_Texture.getWidth() < player.m_PosX)
-            {
-                m_IsPlayerCollision = true;
-                enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
-                player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
-
-                float energy1 = player.m_Speed * player.m_Weight;
-                float energy2 = enemies.get(i).m_Speed * enemies.get(i).m_Weight;
-
-                float ex;
-                float ex2;
-
-                if (energy1 != 0.0f && energy2 != 0.0f) {
-                    ex = energy1 / energy2;
-                    ex2 = energy2 / energy1;
-                } else //Playerのスピードが0の時にも入る
+                if(player.m_PosX < enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth()
+                        && player.m_Texture.getY() < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
+                        && enemies.get(i).m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight()
+                        && enemies.get(i).m_oldPosX + enemies.get(i).m_Texture.getWidth() < player.m_PosX)
                 {
-                    ex = 1.0f;
-                    ex2 = 1.0f;
+                    m_IsPlayerCollision = true;
+                    enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+                    player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+
+                    float energy1 = player.m_Speed * player.m_Weight;
+                    float energy2 = enemies.get(i).m_Speed * enemies.get(i).m_Weight;
+
+                    float ex;
+                    float ex2;
+
+                    if (energy1 != 0.0f && energy2 != 0.0f) {
+                        ex = energy1 / energy2;
+                        ex2 = energy2 / energy1;
+                    } else //Playerのスピードが0の時にも入る
+                    {
+                        ex = 1.0f;
+                        ex2 = 1.0f;
+                    }
+
+                    float preserveMoveX = enemies.get(i).m_MoveX;
+                    float preserveMoveY = enemies.get(i).m_MoveY;
+
+                    if (!isNaN(player.m_MoveX * ex / 10))
+                        enemies.get(i).m_MoveX = player.m_MoveX * ex / 10;
+
+                    if (!isNaN(player.m_MoveY * ex / 10))
+                        enemies.get(i).m_MoveY = player.m_MoveY * ex / 10;
+
+                    if (!isNaN(ex2)) {
+                        player.m_MoveX = preserveMoveX * ex2 / 10;
+                        player.m_MoveY = preserveMoveY * ex2 / 10;
+                    }
                 }
-
-                float preserveMoveX = enemies.get(i).m_MoveX;
-                float preserveMoveY = enemies.get(i).m_MoveY;
-
-                if (!isNaN(player.m_MoveX * ex / 10))
-                    enemies.get(i).m_MoveX = player.m_MoveX * ex / 10;
-
-                if (!isNaN(player.m_MoveY * ex / 10))
-                    enemies.get(i).m_MoveY = player.m_MoveY * ex / 10;
-
-                if (!isNaN(ex2)) {
-                    player.m_MoveX = preserveMoveX * ex2 / 10;
-                    player.m_MoveY = preserveMoveY * ex2 / 10;
-                }
-            }
             /*
             //エネミー上
             if(player.m_PosY < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
