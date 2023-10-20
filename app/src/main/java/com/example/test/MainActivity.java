@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     private Handler handler = new Handler();
     private Drawable enemyeffect;
+    private Drawable chargeeffect1;
+    private Drawable chargeeffect2;
+    private Drawable chargeeffect3;
     private TapEffect tapEffect;
     private CollideEffect collideEffect;
     private ProgressBar levelBar;
@@ -124,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
         soundPlayer.setSEVolume(initialSEVolume);
 
         enemyeffect = ContextCompat.getDrawable(this,R.drawable.hiteffect2);
+        chargeeffect1 = ContextCompat.getDrawable(this, R.drawable.chargeeffect1);
+        chargeeffect2 = ContextCompat.getDrawable(this, R.drawable.chargeeffect2);
+        chargeeffect3 = ContextCompat.getDrawable(this, R.drawable.chargeeffect3);
 
         levelBar = findViewById(R.id.level);
         myLevelView = findViewById(R.id.myLevelView);
@@ -356,16 +362,20 @@ public class MainActivity extends AppCompatActivity {
         int r = 255;
         int g = 255;
         int b = 0;
+
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
+            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,300,300,40);
             player.m_Texture.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
             g -= 100;
+            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,300,300,40);
             player.m_Texture.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY);
         } else {
             // 長いタッチ：色を緑に変更
             g -= 200;
+            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,300,300,40);
             player.m_Texture.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY);
         }
     }
