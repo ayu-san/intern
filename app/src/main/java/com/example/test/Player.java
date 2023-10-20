@@ -12,7 +12,7 @@ public class Player extends GameObject
     float m_Speed = 0.0f;
     float m_Weight = 500.0f; //重さ
     float m_holdValue;
-    int m_ChargeLevel = 0;//チャージ速度
+    int m_ChargeLevel = 1000;//チャージ速度
 
     int m_EnemyKilledNumber = 0;
 

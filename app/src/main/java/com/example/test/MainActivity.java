@@ -354,10 +354,10 @@ public class MainActivity extends AppCompatActivity {
 
     //関数
     private void changeColorBasedOnTouchLength(double touchLength) {
-        if (touchLength < 1000) {
+        if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
             player.m_Texture.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-        } else if (touchLength < 2000) {
+        } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
             player.m_Texture.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
         } else {
@@ -367,10 +367,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private float calculateFlyDistance(long touchDuration) {
-        if (touchDuration < 1000) {
+        if (touchDuration < player.m_ChargeLevel) {
             // 短い長押し：飛距離1
             return 1.5f;
-        } else if (touchDuration < 2000) {
+        } else if (touchDuration < player.m_ChargeLevel*2) {
             // 中程度の長押し：飛距離2
             return 2.5f;
         } else {
@@ -794,6 +794,9 @@ public class MainActivity extends AppCompatActivity {
 
         // ImageButtonに画像を設定
         imageButton.setImageResource(resID);
+
+        // 画像のリソースIDをタグとして設定
+        imageButton.setTag(resID);
     }
 
     //レベルアップ画面表示関数
@@ -864,17 +867,17 @@ public class MainActivity extends AppCompatActivity {
 
         item1.setOnClickListener(view -> {
             // ImageButtonの現在の画像を取得
-            Drawable currentDrawable = item1.getDrawable();
+            int currentDrawableId = (int) item1.getTag();
 
             //画像によって処理を変える
-            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.speed).getConstantState())){
+            if(currentDrawableId == R.drawable.speed){
                 player.m_InitialSpeed *= 1.2f;
-            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {
-                player.m_Speed *= 1.5f;
-            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.energy).getConstantState())) {
+            } else if (currentDrawableId == R.drawable.power) {
 
-            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.heavy).getConstantState())) {
-                player.m_Weight *= 1.1;
+            }else if (currentDrawableId == R.drawable.energy) {
+                player.m_ChargeLevel *= 0.8f;
+            }else if (currentDrawableId == R.drawable.heavy) {
+                player.m_Weight *= 1.2f;
             }
             alertDialog.dismiss();
 
@@ -890,17 +893,17 @@ public class MainActivity extends AppCompatActivity {
 
         item2.setOnClickListener(view -> {
             // ImageButtonの現在の画像を取得
-            Drawable currentDrawable = item2.getDrawable();
+            int currentDrawableId = (int) item2.getTag();
 
             //画像によって処理を変える
-            if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.speed).getConstantState())){
+            if(currentDrawableId == R.drawable.speed){
                 player.m_InitialSpeed *= 1.2f;
-            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {                player.m_Speed *= 1.5f;
-                player.m_Speed *= 1.5f;
-            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.energy).getConstantState())) {
+            } else if (currentDrawableId == R.drawable.power) {
 
-            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.heavy).getConstantState())) {
-                player.m_Weight *= 1.1;
+            }else if (currentDrawableId == R.drawable.energy) {
+                player.m_ChargeLevel *= 0.8f;
+            }else if (currentDrawableId == R.drawable.heavy) {
+                player.m_Weight *= 1.2f;
             }
             alertDialog.dismiss();
 
