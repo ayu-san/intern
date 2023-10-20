@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private Drawable chargeeffect1;
     private Drawable chargeeffect2;
     private Drawable chargeeffect3;
+    private Drawable hiteffect;
     private TapEffect tapEffect;
     private CollideEffect collideEffect;
     private ProgressBar levelBar;
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         chargeeffect1 = ContextCompat.getDrawable(this, R.drawable.chargeeffect1);
         chargeeffect2 = ContextCompat.getDrawable(this, R.drawable.chargeeffect2);
         chargeeffect3 = ContextCompat.getDrawable(this, R.drawable.chargeeffect3);
+        hiteffect = ContextCompat.getDrawable(this, R.drawable.hiteffect);
 
         levelBar = findViewById(R.id.level);
         myLevelView = findViewById(R.id.myLevelView);
@@ -471,10 +473,10 @@ public class MainActivity extends AppCompatActivity {
 
 //                player.collisionTest(player, Enemies);
 //                Enemies.get(i).collisionTest(player, Enemies);
-                    player.CollisionCirclePlayer(player, Enemies);
+                    player.CollisionCirclePlayer(player, Enemies,collideEffect,hiteffect);
 
                     if (i <= upSize - 1) {
-                        Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+                        Enemies.get(i).CollisionCircleEnemy(player, Enemies,collideEffect,hiteffect);
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies)) {

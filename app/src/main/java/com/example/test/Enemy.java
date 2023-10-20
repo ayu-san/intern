@@ -204,7 +204,7 @@ public class Enemy extends GameObject
     {
         m_DisplayTimer = time;
     }
-    public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies)
+    public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies,CollideEffect collideEffect, Drawable drawable)
     {
         for (int i = 0; i < enemies.size(); i++)
         {
@@ -232,6 +232,13 @@ public class Enemy extends GameObject
                 //めり込まないように補正する
                 enemies.get(i).m_PosX = enemies.get(i).m_oldPosX;
                 enemies.get(i).m_PosY = enemies.get(i).m_oldPosY;
+
+                // 衝突位置を計算
+                float collisionX = (float) (enemyX - dx * (-0.5+radius / calc));
+                float collisionY = (float) (enemyY - dy * (-0.5+radius / calc));
+
+                //エフェクトを追加
+                collideEffect.collideEffect((int) collisionX, (int) collisionY,drawable,400,400,400);
 
                 m_IsPlayerCollision = true;
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける

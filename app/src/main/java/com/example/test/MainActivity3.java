@@ -467,12 +467,12 @@ public class MainActivity3 extends AppCompatActivity {
 
 //                player.collisionTest(player, Enemies);
 //                Enemies.get(i).collisionTest(player, Enemies);
-                    player.CollisionCirclePlayer(player, Enemies);
+                    //player.CollisionCirclePlayer(player, Enemies);
 //                    Drawable drawable = ContextCompat.getDrawable(this, R.drawable.hiteffect1);
 //                    boxes.get(0).CollisionwithPlayer(player,boxes,collideEffect,screenWidth);
 
                     if (i <= upSize - 1) {
-                        Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+                        //Enemies.get(i).CollisionCircleEnemy(player, Enemies);
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies)) {

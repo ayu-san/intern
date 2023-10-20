@@ -408,8 +408,8 @@ public class MainActivity2 extends AppCompatActivity {
                 Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
                 changePosPlayer();
 
-                player.CollisionCirclePlayer(player, Enemies);
-                Enemies.get(i).CollisionCircleEnemy(player, Enemies);
+                //player.CollisionCirclePlayer(player, Enemies);
+               // Enemies.get(i).CollisionCircleEnemy(player, Enemies);
 
                 if(gallLine.checkGall(gallLine, Enemies)){
                     stageName = "";

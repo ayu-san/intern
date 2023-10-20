@@ -4,6 +4,8 @@ import com.example.test.GameObject;
 import static java.lang.Double.TYPE;
 import static java.lang.Double.isNaN;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 
 public class Player extends GameObject
@@ -33,7 +35,7 @@ public class Player extends GameObject
 
 
 
-    public void CollisionCirclePlayer(Player player, ArrayList<Enemy> enemies)
+    public void CollisionCirclePlayer(Player player, ArrayList<Enemy> enemies, CollideEffect collideEffect, Drawable drawable)
     {
         for (int i = 0; i < enemies.size(); i++)
         {
@@ -61,6 +63,13 @@ public class Player extends GameObject
                 //めり込まないように補正する
                 player.m_PosX = player.m_oldPosX;
                 player.m_PosY = player.m_oldPosY;
+
+                // 衝突位置の座標を計算
+                float collisionX = (float) (playerX + dx * (-0.5+radius / calc));
+                float collisionY = (float) (playerY + dy * (-0.5+radius / calc));
+
+                //エフェクトを追加
+                collideEffect.collideEffect((int) collisionX, (int) collisionY,drawable,400,400,400);
 
                 enemies.get(i).SetPlayerCollision();
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
