@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FEC76A">
+    android:background="#F6E368">
 
     <TextView
         android:id="@+id/textView4"
@@ -13,7 +13,7 @@
         android:padding="16dp"
         android:text="レベルアップ！"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="42sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -119,7 +119,7 @@
         android:padding="16dp"
         android:text="どちらか選べ！"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,9 +133,10 @@
         android:layout_height="63dp"
         android:layout_gravity="center"
         android:layout_margin="12dp"
-        android:backgroundTint="#E6B461"
+        android:backgroundTint="#EFEB98"
         android:text="選ばない"
         android:textAlignment="center"
+        android:textColor="#CBFDFDEB"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
