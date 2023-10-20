@@ -880,11 +880,11 @@ public class MainActivity extends AppCompatActivity {
             if(currentDrawableId == R.drawable.speed){
                 player.m_InitialSpeed *= 1.2f;
             } else if (currentDrawableId == R.drawable.power) {
-
+                player.m_Weight *= 1.2f;
             }else if (currentDrawableId == R.drawable.energy) {
                 player.m_ChargeLevel *= 0.8f;
             }else if (currentDrawableId == R.drawable.heavy) {
-                player.m_Weight *= 1.2f;
+
             }
             alertDialog.dismiss();
 
@@ -906,11 +906,11 @@ public class MainActivity extends AppCompatActivity {
             if(currentDrawableId == R.drawable.speed){
                 player.m_InitialSpeed *= 1.2f;
             } else if (currentDrawableId == R.drawable.power) {
-
+                player.m_Weight *= 1.2f;
             }else if (currentDrawableId == R.drawable.energy) {
                 player.m_ChargeLevel *= 0.8f;
             }else if (currentDrawableId == R.drawable.heavy) {
-                player.m_Weight *= 1.2f;
+
             }
             alertDialog.dismiss();
 
@@ -996,7 +996,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 }
 
 
