@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     public int g_InitSize = 0;
     private boolean isDialogVisible = false;
-
+    private boolean isChangingActivity = false;
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
@@ -340,11 +340,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (!isDialogVisible) {
+        if (!isChangingActivity) {
             // ダイアログを表示
             showPauseDialog();
             isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
         }
+    }
+
+    // 別のアクティビティに移動する前に呼び出されるメソッド
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        isChangingActivity = true;
     }
 
     @Override
