@@ -5,12 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.core.content.ContextCompat;
-
-import com.example.test.GameObject;
-import com.example.test.MainActivity;
 import java.util.ArrayList;
-import com.example.test.Player;
 
 public class Enemy extends GameObject
 {
@@ -152,7 +147,7 @@ public class Enemy extends GameObject
     }
 
     //画面外判定
-    public void hitCheckEnemy(ArrayList<Enemy> enemies, Player player, int screenwidth,int screenheight,CollideEffect collideEffect, Drawable drawable) {
+    public boolean hitCheckEnemy(ArrayList<Enemy> enemies, Player player, int screenwidth, int screenheight, CollideEffect collideEffect, Drawable drawable) {
         long duration = 500;
         //右
         if(!enemies.isEmpty())//リストが空ではない
@@ -166,7 +161,7 @@ public class Enemy extends GameObject
                                 (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
-                        break;
+                        return true;
                     }
 
                     //左
@@ -176,7 +171,7 @@ public class Enemy extends GameObject
                                 (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
-                        break;
+                        return true;
                     }
 
                     //上
@@ -186,7 +181,7 @@ public class Enemy extends GameObject
                                 (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
-                        break;
+                        return true;
                     }
 
                     //下
@@ -196,11 +191,13 @@ public class Enemy extends GameObject
                                 (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,350,350,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
-                        break;
+                        return true;
                     }
+
                 }
             }
         }
+        return false;
     }
 
     public void SetTimer(int time)
@@ -444,10 +441,6 @@ public class Enemy extends GameObject
 
         }
     }
-
-
-
-
 
 
 }

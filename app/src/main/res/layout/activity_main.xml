@@ -77,7 +77,7 @@
         tools:layout_editor_absoluteY="110dp" />
 
     <TextView
-        android:id="@+id/enemy_collision_count"
+        android:id="@+id/myLevelView"
         android:layout_width="412dp"
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
@@ -102,14 +102,14 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="62dp"
-        android:max="100"
-        android:progress="50"
+        android:max="1"
+        android:progress="0"
         android:progressBackgroundTint="#020202"
         android:progressTint="#FFE500"
         android:scaleY="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemy_collision_count" />
+        app:layout_constraintTop_toBottomOf="@+id/myLevelView" />
 
     <ImageButton
         android:id="@+id/pauseButton"
@@ -145,6 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#050505"
+        android:visibility="visible"
         tools:ignore="MissingConstraints" />
 
     <TextView

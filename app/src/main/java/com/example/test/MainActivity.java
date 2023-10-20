@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -59,11 +60,15 @@ public class MainActivity extends AppCompatActivity {
     private Drawable enemyeffect;
     private TapEffect tapEffect;
     private CollideEffect collideEffect;
+    private ProgressBar levelBar;
+    private TextView myLevelView;
     private ArrowView arrowView;
     private String stageName;
     private String resultText;
     private  int screenWidth;
     private  int screenHeight;
+    private int experience;
+    private int nowlevel;
     private ImageButton pauseButton;
     private SoundPlayer soundPlayer;
     private boolean gameStarted = false;
@@ -121,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
 
         enemyeffect = ContextCompat.getDrawable(this,R.drawable.hiteffect2);
 
+        levelBar = findViewById(R.id.level);
+        myLevelView = findViewById(R.id.myLevelView);
+        nowlevel = 0;
+        experience = 0;
+
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
         collideEffect = new CollideEffect(this,tapEffectContainer);
@@ -151,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
 
         Enemies = new ArrayList<>();
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * 3,0.0f,7.0f, 700, 1));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 8 * 4,0.0f,7.0f, 1200,2));
         g_InitSize = Enemies.size();
 //        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
 //        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
@@ -197,8 +207,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-
-        TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
         player.m_Texture.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -220,11 +228,6 @@ public class MainActivity extends AppCompatActivity {
                     changeColorBasedOnTouchLength(touchDuration);
 
                     arrowView.setArrow(player.m_PosX+130,player.m_PosY+130, player.m_PosX+event.getX(), player.m_PosY+event.getY());
-
-                    if(checkCollisionWithEnemy()){
-                        // TextViewを更新
-                        enemyCollisionCountTextView.setText("レベル : " + enemyCollisionCount);
-                    }
 
                     break;
 
@@ -469,8 +472,15 @@ public class MainActivity extends AppCompatActivity {
                     //画面外
                     hitCheck(player);
                     if (i <= upSize - 1) {
-                        Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight,collideEffect,enemyeffect);
+                        if(Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight,collideEffect,enemyeffect)){
+                            experience++;
+                        }
+                        else{
+
+                        }
                     }
+
+                    updateLevelBar(experience);
 
                     changePos();
                 }
@@ -624,6 +634,20 @@ public class MainActivity extends AppCompatActivity {
         double length = calculateLength(x, y); //ベクトルの長さを計算
         gameobject.m_MoveVecX /= length;
         gameobject.m_MoveVecY /= length;
+    }
+
+    private void updateLevelBar(int value){
+        int maxExperience = levelBar.getMax();
+        if(value >= maxExperience){
+            experience = 0;
+            levelBar.setProgress(0);
+            nowlevel++;
+            myLevelView.setText("レベル : " + nowlevel);
+            showLevelUp();
+        }else {
+            levelBar.setProgress(value);
+        }
+
     }
 
     public void showPauseDialog() {
@@ -795,6 +819,11 @@ public class MainActivity extends AppCompatActivity {
         ImageButton item1 = dialogView.findViewById(R.id.item1);
         ImageButton item2 = dialogView.findViewById(R.id.item2);
         Button noselect = dialogView.findViewById(R.id.noSelect);
+        TextView oldLevel = dialogView.findViewById(R.id.oldLevel);
+        TextView newLevel = dialogView.findViewById(R.id.newLevel);
+
+        oldLevel.setText(String.valueOf(nowlevel - 1));
+        newLevel.setText(String.valueOf(nowlevel));
 
         item1.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
@@ -839,9 +868,13 @@ public class MainActivity extends AppCompatActivity {
 
             //画像によって処理を変える
             if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.speed).getConstantState())){
-
+                player.m_InitialSpeed *= 1.2f;
             } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {
+                player.m_Speed *= 1.5f;
+            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.energy).getConstantState())) {
 
+            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.heavy).getConstantState())) {
+                player.m_Weight *= 1.1;
             }
             alertDialog.dismiss();
 
@@ -861,9 +894,13 @@ public class MainActivity extends AppCompatActivity {
 
             //画像によって処理を変える
             if(currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.speed).getConstantState())){
+                player.m_InitialSpeed *= 1.2f;
+            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {                player.m_Speed *= 1.5f;
+                player.m_Speed *= 1.5f;
+            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.energy).getConstantState())) {
 
-            } else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.power).getConstantState())) {
-
+            }else if (currentDrawable.getConstantState().equals(getResources().getDrawable(R.drawable.heavy).getConstantState())) {
+                player.m_Weight *= 1.1;
             }
             alertDialog.dismiss();
 

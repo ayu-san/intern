@@ -89,7 +89,7 @@
         tools:layout_editor_absoluteY="110dp" />
 
     <TextView
-        android:id="@+id/enemy_collision_count"
+        android:id="@+id/myLevelView"
         android:layout_width="412dp"
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
@@ -120,7 +120,7 @@
         android:scaleY="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enemy_collision_count" />
+        app:layout_constraintTop_toBottomOf="@+id/myLevelView" />
 
     <ImageButton
         android:id="@+id/pauseButton"

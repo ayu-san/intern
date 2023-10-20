@@ -1,7 +1,5 @@
 package com.example.test;
 
-import static java.lang.Double.isNaN;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -171,7 +169,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
 
-        TextView enemyCollisionCountTextView = findViewById(R.id.enemy_collision_count);
+        TextView enemyCollisionCountTextView = findViewById(R.id.myLevelView);
         player.m_Texture.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
