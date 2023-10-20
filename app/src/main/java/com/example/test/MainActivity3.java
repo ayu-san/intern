@@ -151,7 +151,7 @@ public class MainActivity3 extends AppCompatActivity {
         Enemies = new ArrayList<>();
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,7.0f, 180, 0));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 700, 1));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 1200,2));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (2),0.0f,7.0f, 1200,2));
         g_InitSize = Enemies.size();
 
         boxes = new ArrayList<>();

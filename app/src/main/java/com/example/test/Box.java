@@ -36,11 +36,11 @@ public class Box extends GameObject
         long durations = 500;
         
         {
-            //ボックス上 下面
-            if (player.m_PosY < boxes.m_PosY + boxes.m_Texture.getHeight()
-                    && player.m_PosX < boxes.m_PosX + boxes.m_Texture.getWidth()
-                    && boxes.m_PosX < player.m_PosX + player.m_Texture.getWidth()
-                    && boxes.m_PosY + boxes.m_Texture.getHeight() < player.m_oldPosY)
+            // 下面
+            if (player.m_PosY + player.m_Texture.getHeight() /3  < boxes.m_PosY + boxes.m_Texture.getHeight()
+                    && player.m_PosX + player.m_Texture.getWidth()/3 < boxes.m_PosX + boxes.m_Texture.getWidth()
+                    && boxes.m_PosX < player.m_PosX + player.m_Texture.getWidth() - player.m_Texture.getWidth()/3
+                    && boxes.m_PosY + boxes.m_Texture.getHeight() < player.m_oldPosY + player.m_Texture.getHeight() /3)
             {
                 player.m_PosY = boxes.m_PosY + boxes.m_Texture.getHeight();
                 effect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth() / 2, (int) (boxes.m_PosY + boxes.m_Texture.getHeight()), drawable, 350, 350, durations);
@@ -52,8 +52,8 @@ public class Box extends GameObject
             // ボックスの上面との当たり判定
             if (player.m_PosY + player.m_Texture.getHeight() > boxes.m_PosY
                     && player.m_PosY + player.m_Texture.getHeight() <= boxes.m_PosY + boxes.m_Texture.getHeight()
-                    && player.m_PosX + player.m_Texture.getWidth() > boxes.m_PosX
-                    && player.m_PosX < boxes.m_PosX + boxes.m_Texture.getWidth()
+                    && player.m_PosX + player.m_Texture.getWidth()/3 < boxes.m_PosX + boxes.m_Texture.getWidth()
+                    && boxes.m_PosX < player.m_PosX + player.m_Texture.getWidth() - player.m_Texture.getWidth()/3
                     && player.m_oldPosY + player.m_Texture.getHeight() <= boxes.m_PosY)
             {
                 player.m_PosY = boxes.m_PosY - player.m_Texture.getHeight();
@@ -64,10 +64,10 @@ public class Box extends GameObject
             }
 
             //右面
-            if(player.m_PosX < boxes.m_PosX + boxes.m_Texture.getWidth()
+            if(player.m_PosX + player.m_Texture.getWidth() / 4  < boxes.m_PosX + boxes.m_Texture.getWidth()
                     && player.m_Texture.getY() < boxes.m_PosY + boxes.m_Texture.getHeight()
                     && boxes.m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight()
-                    && boxes.m_oldPosX + boxes.m_Texture.getWidth() < player.m_PosX)
+                    && boxes.m_PosX + boxes.m_Texture.getWidth() < player.m_oldPosX + player.m_Texture.getWidth() / 4)
             {
                 {
                     player.m_PosX = boxes.m_PosX + boxes.m_Texture.getWidth();
@@ -79,10 +79,10 @@ public class Box extends GameObject
             }
 
             //左面
-            if (player.m_PosX + player.m_Texture.getWidth() > boxes.m_PosX
+            if (boxes.m_PosX < player.m_PosX + player.m_Texture.getWidth() - player.m_Texture.getWidth() / 4
                     && player.m_Texture.getY() < boxes.m_PosY + boxes.m_Texture.getHeight()
                     && boxes.m_PosY < player.m_Texture.getY() + player.m_Texture.getHeight()
-                    && player.m_oldPosX + player.m_Texture.getWidth() < boxes.m_PosX)
+                    && player.m_oldPosX + player.m_Texture.getWidth() - player.m_Texture.getWidth() / 4 < boxes.m_PosX)
             {
                 player.m_PosX = boxes.m_PosX - player.m_Texture.getWidth();
                 effect.collideEffect((int) (boxes.m_PosX), (int) (player.m_PosY + player.m_Texture.getHeight() / 2), drawable, 350, 350, durations);

@@ -208,7 +208,7 @@ public class Enemy extends GameObject
     {
         for (int i = 0; i < enemies.size(); i++)
         {
-            int radius = player.m_Texture.getHeight() /2;
+            int radius = player.m_Texture.getWidth() /2;
             radius += 50.0f;
 
             float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
@@ -233,7 +233,7 @@ public class Enemy extends GameObject
                 enemies.get(i).m_PosX = enemies.get(i).m_oldPosX;
                 enemies.get(i).m_PosY = enemies.get(i).m_oldPosY;
 
-                m_IsPlayerCollision = true;
+                enemies.get(i).m_IsPlayerCollision = true;
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 

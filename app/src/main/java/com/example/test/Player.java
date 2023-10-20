@@ -37,7 +37,7 @@ public class Player extends GameObject
     {
         for (int i = 0; i < enemies.size(); i++)
         {
-            int radius = player.m_Texture.getHeight() /2;
+            int radius = player.m_Texture.getWidth() /2;
             radius += 50.0f;
 
             float oldplayerX = player.m_oldPosX + (float)player.m_Texture.getWidth()/2;
