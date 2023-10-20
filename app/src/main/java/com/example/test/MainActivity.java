@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     public int g_InitSize = 0;
     private boolean isDialogVisible = false;
-    private boolean isChangingActivity = false;
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
@@ -337,21 +336,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (!isChangingActivity) {
-            // ダイアログを表示
-            showPauseDialog();
-            isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
-        }
-    }
-
     // 別のアクティビティに移動する前に呼び出されるメソッド
+
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        isChangingActivity = true;
+    protected void onStop() {
+        super.onStop();
+        // ダイアログを表示
+        showPauseDialog();
+        isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
     }
 
     @Override
@@ -361,15 +353,20 @@ public class MainActivity extends AppCompatActivity {
 
     //関数
     private void changeColorBasedOnTouchLength(double touchLength) {
+        int r = 255;
+        int g = 255;
+        int b = 0;
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
-            player.m_Texture.setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+            player.m_Texture.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
-            player.m_Texture.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY);
+            g -= 100;
+            player.m_Texture.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY);
         } else {
             // 長いタッチ：色を緑に変更
-            player.m_Texture.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+            g -= 200;
+            player.m_Texture.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY);
         }
     }
 
@@ -658,6 +655,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showPauseDialog() {
+        // ダイアログを表示するコード
         // タイマーを停止
         timer.cancel();
         timer.purge(); // タイマーのキューをクリア
@@ -688,10 +686,12 @@ public class MainActivity extends AppCompatActivity {
                 MyApplication.setBGMVolume(bgmvolume);
                 soundPlayer.setBGMVolume(bgmvolume);
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
@@ -751,7 +751,7 @@ public class MainActivity extends AppCompatActivity {
         //戻る
         Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
         setupButtonTouchEffect(closeButton);
-        closeButton.setOnClickListener((View view)->{
+        closeButton.setOnClickListener((View view) -> {
             alertDialog.dismiss(); // ダイアログを閉じる
 
             timer = new Timer();// タイマーを再生成
@@ -764,7 +764,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        alertDialog.setOnDismissListener(dialog ->{
+        alertDialog.setOnDismissListener(dialog -> {
             isDialogVisible = false;
         });
 
