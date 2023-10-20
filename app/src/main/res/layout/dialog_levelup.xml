@@ -74,15 +74,15 @@
         android:id="@+id/item1"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="42dp"
         android:background="#00FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/or"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:srcCompat="@drawable/character_image" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="81dp"
         android:layout_height="69dp"
         android:layout_marginStart="16dp"
@@ -103,11 +103,10 @@
         android:id="@+id/item2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="42dp"
         android:background="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/or"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:srcCompat="@drawable/character_image" />
 
