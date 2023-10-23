@@ -1,23 +1,7 @@
-package com.example.test;
+package game.intern.test;
 
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import static java.lang.Double.isNaN;
-
-import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.widget.ImageView;
-
-import androidx.core.content.ContextCompat;
-
-import com.example.test.GameObject;
-import com.example.test.MainActivity;
-import java.util.ArrayList;
-import com.example.test.Player;
-
-import androidx.core.content.ContextCompat;
-
-import java.util.ArrayList;
 
 public class Box extends GameObject
 {

@@ -1,8 +1,10 @@
-package com.example.test;
+package game.intern.test;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
+
+import game.intern.test.R;
+
 public class SoundPlayer {
     private static MediaPlayer  sePlayer;
     private MediaPlayer  bgmPlayer;

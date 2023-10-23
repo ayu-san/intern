@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#04C4EF"
-    tools:context=".MainActivity">
+    tools:context="game.intern.test.MainActivity">
 
     <ImageView
         android:id="@+id/backgroundImageView"
@@ -218,7 +218,7 @@
 
     </FrameLayout>
 
-    <com.example.test.ArrowView
+    <game.intern.test.ArrowView
         android:id="@+id/arrow_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

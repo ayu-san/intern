@@ -1,4 +1,4 @@
-package com.example.test;
+package game.intern.test;
 import static java.lang.Double.isNaN;
 
 import android.graphics.drawable.Drawable;

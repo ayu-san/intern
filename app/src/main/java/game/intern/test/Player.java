@@ -1,7 +1,5 @@
-package com.example.test;
-import com.example.test.GameObject;
+package game.intern.test;
 
-import static java.lang.Double.TYPE;
 import static java.lang.Double.isNaN;
 
 import android.graphics.drawable.Drawable;

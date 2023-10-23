@@ -1,4 +1,4 @@
-package com.example.test;
+package game.intern.test;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,13 +8,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import game.intern.test.R;
 
 
 public class SelectActivity extends AppCompatActivity {

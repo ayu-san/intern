@@ -1,4 +1,4 @@
-package com.example.test;
+package game.intern.test;
 
 import android.widget.ImageView;
 

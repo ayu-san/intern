@@ -1,18 +1,6 @@
-package com.example.test;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AlertDialog;
-
-import com.example.test.GameObject;
+package game.intern.test;
 
 import java.util.ArrayList;
-import com.example.test.MainActivity;
 
 public class GallLine extends GameObject
 {

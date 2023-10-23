@@ -1,8 +1,6 @@
-package com.example.test;
+package game.intern.test;
 
 import android.widget.ImageView;
-
-import java.util.ArrayList;
 
 public class GameObject
 {

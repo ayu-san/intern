@@ -1,9 +1,6 @@
-package com.example.test;
-import static java.lang.Double.isNaN;
+package game.intern.test;
 
 import android.widget.ImageView;
-
-import com.example.test.Enemy;
 
 public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
 {

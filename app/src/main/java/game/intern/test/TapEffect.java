@@ -1,4 +1,4 @@
-package com.example.test;
+package game.intern.test;
 
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import game.intern.test.R;
 
 public class TapEffect{
     private final Context context;

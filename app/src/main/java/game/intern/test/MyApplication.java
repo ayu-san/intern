@@ -1,4 +1,4 @@
-package com.example.test;
+package game.intern.test;
 
 import android.app.Application;
 import android.content.Context;

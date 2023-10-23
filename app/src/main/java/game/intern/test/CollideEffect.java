@@ -1,6 +1,5 @@
-package com.example.test;
+package game.intern.test;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.animation.AlphaAnimation;

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.example.test.MyApplication"
+        android:name="game.intern.test.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,15 +14,15 @@
         android:theme="@style/Theme.Test"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="game.intern.test.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
         <activity
-            android:name=".SelectActivity"
+            android:name="game.intern.test.SelectActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
         <activity
-            android:name=".TitleActivity"
+            android:name="game.intern.test.TitleActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.test;
+package game.intern.test;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.SeekBar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import game.intern.test.R;
 
 public class TitleActivity extends AppCompatActivity {
 
