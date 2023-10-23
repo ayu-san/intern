@@ -15,26 +15,14 @@ import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import game.intern.test.R;
 
 
 public class SelectActivity extends AppCompatActivity {
-
-    private ImageButton normalbutton;
-    private ImageButton hardbutton;
-    private ImageButton hellbutton;
-    private ImageButton heavenbutton;
-
-    private boolean isConditionNormal = false;
-    private boolean isConditionHard = false;
-    private boolean isConditionHell = false;
-    private boolean isConditionHeaven = false;
 
     SharedPreferences sharedPreferences;
 
     private SoundPlayer soundPlayer;
     private TapEffect tapEffect;
-
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -46,16 +34,16 @@ public class SelectActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("isCondition", MODE_PRIVATE);
 
         //sharedPreferencesの設定
-        isConditionNormal = sharedPreferences.getBoolean("isConditionNormal",false);
-        isConditionHard = sharedPreferences.getBoolean("isConditionHard",false);
-        isConditionHell = sharedPreferences.getBoolean("isConditionHell",false);
-        isConditionHeaven = sharedPreferences.getBoolean("isConditionHeaven",false);
+        boolean isConditionNormal = sharedPreferences.getBoolean("isConditionNormal", false);
+        boolean isConditionHard = sharedPreferences.getBoolean("isConditionHard", false);
+        boolean isConditionHell = sharedPreferences.getBoolean("isConditionHell", false);
+        boolean isConditionHeaven = sharedPreferences.getBoolean("isConditionHeaven", false);
 
         ImageButton eazybutton = findViewById(R.id.eazy);
-        normalbutton = findViewById(R.id.normal);
-        hardbutton = findViewById(R.id.Hard);
-        hellbutton = findViewById(R.id.hell);
-        heavenbutton = findViewById(R.id.heaven);
+        ImageButton normalbutton = findViewById(R.id.normal);
+        ImageButton hardbutton = findViewById(R.id.Hard);
+        ImageButton hellbutton = findViewById(R.id.hell);
+        ImageButton heavenbutton = findViewById(R.id.heaven);
         ImageButton backbutton = findViewById(R.id.backbutton);
 
         ImageView logo = findViewById(R.id.selectlogo);
@@ -88,14 +76,11 @@ public class SelectActivity extends AppCompatActivity {
         ScrollView scrollView = findViewById(R.id.scroll);
         scrollView.setScrollbarFadingEnabled(false);
 
-        //最初はどちらも無効化しておく
-        normalbutton.setEnabled(false);
-        hardbutton.setEnabled(false);
-        hellbutton.setEnabled(false);
-        heavenbutton.setEnabled(false);
-
         // ボタンの初期状態を設定
-        initializeButtonState();
+        setButtonState(normalbutton, isConditionNormal);
+        setButtonState(hardbutton, isConditionHard);
+        setButtonState(hellbutton, isConditionHell);
+        setButtonState(heavenbutton, isConditionHeaven);
 
         soundPlayer = new SoundPlayer(this);
 
@@ -130,12 +115,9 @@ public class SelectActivity extends AppCompatActivity {
             heavenbutton.setBackgroundResource(R.drawable.stage5button);
         }
 
-
-
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
-            //setAndSaveCondition(normalbutton,"isConditionNormal",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -143,7 +125,6 @@ public class SelectActivity extends AppCompatActivity {
         normalbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            setAndSaveCondition(hardbutton,"isConditionHard",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -151,7 +132,6 @@ public class SelectActivity extends AppCompatActivity {
         hardbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            setAndSaveCondition(hellbutton,"isConditionHell",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -159,7 +139,6 @@ public class SelectActivity extends AppCompatActivity {
         hellbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            setAndSaveCondition(heavenbutton,"isConditionHeaven",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -186,21 +165,9 @@ public class SelectActivity extends AppCompatActivity {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
     }
 
-    // 条件が満たされた場合に呼び出すメソッド
-    private void setAndSaveCondition(ImageButton button, String conditionName, SharedPreferences sharedPreferencesd){
-        // SharedPreferencesに状態を保存
-        button.setEnabled(true);
-        SharedPreferences.Editor editor = sharedPreferencesd.edit();
-        editor.putBoolean(conditionName,true);
-        editor.apply();
-    }
-
-    // ボタンの初期状態を設定
-    private void initializeButtonState() {
-        normalbutton.setEnabled(isConditionNormal);
-        hardbutton.setEnabled(isConditionHard);
-        hellbutton.setEnabled(isConditionHell);
-        heavenbutton.setEnabled(isConditionHeaven);
+    // ボタンの有効/無効状態を設定
+    private void setButtonState(ImageButton button, boolean isEnabled) {
+        button.setEnabled(isEnabled);
     }
 
     @SuppressLint("ClickableViewAccessibility")

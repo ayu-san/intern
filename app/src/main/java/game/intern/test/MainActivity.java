@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedPreferences;
 
     // 画像リソースの名前のリスト
     private static final String[] imageResourceNames = {
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = getSharedPreferences("isCondition",MODE_PRIVATE);
 
         View touchView = findViewById(R.id.startText);
         View blackView = findViewById(R.id.blackview);
@@ -159,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 5,0.0f,7.0f, 30, 3,1200.0f,500.0f));
         //Enemies.add(new SideEnemy(findViewById(R.id.enemy3),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 240, 1, (float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 38, 4, 1200.0f,400.0f,(float)screenWidth 	/4, -7.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),-300.0f, (float)screenHeight /3, 0.0f, 5.0f, 38, 4, 1200.0f,400.0f,(float)screenWidth 	/4, 7.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy5),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 46, 5, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy6),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 54, 6, 1200.0f,400.0f,(float)screenWidth 	/4, -7.0f));
 
@@ -834,6 +838,10 @@ public class MainActivity extends AppCompatActivity {
     public void showResult(String stagename,String resulttext){
         timer.cancel();
         timer.purge(); // タイマーのキューをクリア
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isConditionNormal",true);
+        editor.apply();
 
         //設定ダイアログの読み込み
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_result,null);
