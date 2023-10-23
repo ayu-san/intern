@@ -77,6 +77,49 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
 
+    <ImageView
+        android:id="@+id/enemy3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+    <ImageView
+        android:id="@+id/enemy5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+    <ImageView
+        android:id="@+id/enemy6"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/kuma"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+
     <TextView
         android:id="@+id/myLevelView"
         android:layout_width="412dp"
@@ -146,7 +189,7 @@
         android:id="@+id/blackview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#050505"
+        android:background="#B4050505"
         android:visibility="visible"
         tools:ignore="MissingConstraints" />
 

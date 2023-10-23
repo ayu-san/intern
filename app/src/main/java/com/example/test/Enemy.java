@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class Enemy extends GameObject
 {
+    float m_DestinationX;
+    float m_DestinationSpeed;
     float m_InitialSpeed = 1200.0f;
     float m_Speed = 0.0f;
     float m_Weight = 500.0f; //重さ
@@ -245,7 +247,7 @@ public class Enemy extends GameObject
                 //エフェクトを追加
                 collideEffect.collideEffect((int) collisionX, (int) collisionY,drawable,400,400,400);
 
-                m_IsPlayerCollision = true;
+                enemies.get(i).m_IsPlayerCollision = true;
                 enemies.get(i).m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
 
