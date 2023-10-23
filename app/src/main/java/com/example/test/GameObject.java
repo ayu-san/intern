@@ -44,9 +44,11 @@ public class GameObject
                 }
         }
 
+/*
         //当たり判定関数
         public void collisionTest(Player player, ArrayList<Enemy> enemy)
         {
         }
+*/
 
 }

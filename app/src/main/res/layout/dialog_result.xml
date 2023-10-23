@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#80000000"
@@ -20,7 +20,8 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="58sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        tools:ignore="HardcodedText" />
 
     <View
         android:id="@+id/view7"
@@ -36,7 +37,8 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        tools:ignore="HardcodedText" />
 
     <View
         android:id="@+id/view8"
@@ -54,7 +56,8 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="34sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/result_selectstage"
@@ -67,7 +70,8 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="28sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/result_title"
@@ -80,7 +84,8 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="34sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <View
         android:id="@+id/view9"

@@ -8,7 +8,7 @@ import android.view.View;
 
 public class ArrowView extends View {
     private float startX, startY, endX, endY;
-    private Paint paint;
+    private final Paint paint;
 
     public ArrowView(Context context, AttributeSet attrs) {
         super(context, attrs);

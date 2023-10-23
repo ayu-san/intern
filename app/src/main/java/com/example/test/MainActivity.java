@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
-        collideEffect = new CollideEffect(this,tapEffectContainer);
+        collideEffect = new CollideEffect(tapEffectContainer);
         tapEffectContainer.setOnTouchListener((view, motionEvent) -> {
             if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                 tapEffect.show(motionEvent.getX(), motionEvent.getY());
@@ -488,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
                     //画面外
                     hitCheck(player);
                     if (i <= upSize - 1) {
-                        if(Enemies.get(i).hitCheckEnemy(Enemies, player, screenWidth, screenHeight,collideEffect,enemyeffect)){
+                        if(Enemies.get(i).hitCheckEnemy(Enemies, screenWidth, screenHeight,collideEffect,enemyeffect)){
                             experience++;
                         }
                         else{

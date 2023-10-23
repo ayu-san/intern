@@ -12,7 +12,7 @@ public class CollideEffect {
     private final FrameLayout container;
     private final Handler handler = new Handler();
 
-    public CollideEffect(Context context, FrameLayout container){
+    public CollideEffect(FrameLayout container){
         this.container = container;
     }
 

@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.272"
         app:srcCompat="@drawable/background_image"
-        android:contentDescription="TODO"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -35,7 +34,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.59"
         app:srcCompat="@drawable/character_image"
-        android:contentDescription="TODO"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -49,7 +47,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/titlelogo"
-        android:contentDescription="TODO"
         tools:ignore="ContentDescription" />
 
     <Button
@@ -75,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#A3DD52"
         app:strokeWidth="6dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <Button
         android:id="@+id/cregitbutton"
@@ -93,7 +90,7 @@
         app:iconSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <Button
         android:id="@+id/settingbutton"
@@ -118,7 +115,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#A5A5A5"
         app:strokeWidth="6dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <Button
         android:id="@+id/startbutton"
@@ -140,13 +137,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="#FF5722"
         app:strokeWidth="6dp"
-        tools:ignore="MissingConstraints,DuplicateClickableBoundsCheck" />
+        tools:ignore="DuplicateClickableBoundsCheck,HardcodedText,MissingConstraints" />
 
     <FrameLayout
         android:id="@+id/tap_effect"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="0dp"></FrameLayout>
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

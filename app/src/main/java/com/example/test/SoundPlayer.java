@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 public class SoundPlayer {
     private static MediaPlayer  sePlayer;
     private MediaPlayer  bgmPlayer;
-    private Context context;
+    private final Context context;
     private static int testSE;
     private static int testSE2;
     private static int testBGM;

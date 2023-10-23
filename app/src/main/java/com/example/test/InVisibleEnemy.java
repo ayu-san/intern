@@ -8,9 +8,7 @@ public class InVisibleEnemy extends Enemy //縦に落ちてくるだけの敵
     float m_Speed = 0.0f;
     float m_Weight = 1500.0f; //重さ
     private boolean isStopped = false;
-    private boolean isFadingOut = false;
     private long stopStartTime = 0;
-    private long stopDuration = 3000; // 停止時間（ミリ秒）
     private float currentAlpha = 1.0f; // 現在の透明度
 
     InVisibleEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index) {
@@ -21,6 +19,8 @@ public class InVisibleEnemy extends Enemy //縦に落ちてくるだけの敵
     public void MoveEnemy(Enemy enemy, GameObject target, int width) {
         if (enemy.m_CollisionTimer == 0) {
             if (isStopped) {
+                // 停止時間（ミリ秒）
+                long stopDuration = 3000;
                 if (System.currentTimeMillis() - stopStartTime >= stopDuration) {
                     isStopped = false;
                 }

@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.267"
-        app:srcCompat="@drawable/background_image" />
+        app:srcCompat="@drawable/background_image"
+        android:importantForAccessibility="no" />
 
 
     <ImageButton
@@ -31,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_media_previous"
-        tools:ignore="NotSibling" />
+        tools:ignore="HardcodedText,NotSibling" />
 
     <ImageView
         android:id="@+id/selectlogo"
@@ -41,7 +42,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tap_effect"
-        app:srcCompat="@drawable/selectstage" />
+        app:srcCompat="@drawable/selectstage"
+        android:importantForAccessibility="no" />
 
     <ScrollView
         android:id="@+id/scroll"
@@ -71,7 +73,8 @@
                 android:background="@drawable/stage1button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:importantForAccessibility="no" />
 
             <ImageButton
                 android:id="@+id/normal"
@@ -82,7 +85,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eazy" />
+                app:layout_constraintTop_toBottomOf="@+id/eazy"
+                android:importantForAccessibility="no" />
 
             <ImageButton
                 android:id="@+id/Hard"
@@ -93,7 +97,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/normal" />
+                app:layout_constraintTop_toBottomOf="@+id/normal"
+                android:importantForAccessibility="no" />
 
             <ImageButton
                 android:id="@+id/hell"
@@ -104,7 +109,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Hard" />
+                app:layout_constraintTop_toBottomOf="@+id/Hard"
+                android:importantForAccessibility="no" />
 
             <ImageButton
                 android:id="@+id/heaven"
@@ -115,7 +121,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hell" />
+                app:layout_constraintTop_toBottomOf="@+id/hell"
+                android:importantForAccessibility="no" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -17,7 +17,7 @@
         android:textSize="42sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
+        tools:ignore="HardcodedText,MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toStartOf="@+id/yajirusi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <ImageView
         android:id="@+id/yajirusi"
@@ -44,7 +44,8 @@
         app:layout_constraintStart_toEndOf="@+id/oldLevel"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:srcCompat="@drawable/yajirusi"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/newLevel"
@@ -59,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/yajirusi"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <View
         android:id="@+id/view"
@@ -79,7 +80,8 @@
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"
-        app:srcCompat="@drawable/character_image" />
+        app:srcCompat="@drawable/character_image"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/textView2"
@@ -97,7 +99,7 @@
         app:layout_constraintEnd_toStartOf="@+id/item2"
         app:layout_constraintStart_toEndOf="@+id/item1"
         app:layout_constraintTop_toBottomOf="@+id/view"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <ImageButton
         android:id="@+id/item2"
@@ -108,7 +110,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/view"
-        app:srcCompat="@drawable/character_image" />
+        app:srcCompat="@drawable/character_image"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/textView8"
@@ -124,7 +127,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item1"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints" />
 
     <Button
         android:id="@+id/noSelect"
@@ -141,7 +144,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        tools:ignore="HardcodedText" />
 
     <View
         android:id="@+id/view3"

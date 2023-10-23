@@ -134,7 +134,7 @@ public class SelectActivity extends AppCompatActivity {
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
-            setAndSaveCondition(normalbutton,"isConditionNormal",sharedPreferences);
+            //setAndSaveCondition(normalbutton,"isConditionNormal",sharedPreferences);
             startActivity(new Intent(this, MainActivity.class));
         });
 
@@ -143,7 +143,7 @@ public class SelectActivity extends AppCompatActivity {
             soundPlayer.setTestSE();
 
             setAndSaveCondition(hardbutton,"isConditionHard",sharedPreferences);
-            startActivity(new Intent(this, MainActivity2.class));
+            startActivity(new Intent(this, MainActivity.class));
         });
 
         //hardボタンを押したとき
@@ -173,7 +173,7 @@ public class SelectActivity extends AppCompatActivity {
         backbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE2();
 
-            //initData();
+            initData();
 
             startActivity(new Intent(this, TitleActivity.class));
         });
@@ -203,26 +203,6 @@ public class SelectActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setupButtonTouchEffect(Button button) {
-        button.setOnTouchListener((view, motionEvent) -> {
-            switch (motionEvent.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    // ボタンをタッチしたときの処理
-                    button.setScaleX(0.95f);
-                    button.setScaleY(0.95f);
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                case MotionEvent.ACTION_UP:
-                    // ボタンを離したときの処理
-                    button.setScaleX(1.0f);
-                    button.setScaleY(1.0f);
-                    break;
-            }
-            return false;
-        });
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
     private void setupButtonTouchEffect(ImageButton button) {
         button.setOnTouchListener((view, motionEvent) -> {
             switch (motionEvent.getAction()) {
@@ -241,7 +221,6 @@ public class SelectActivity extends AppCompatActivity {
             return false;
         });
     }
-
 
     //デバッグ用データ初期化
     private void initData(){

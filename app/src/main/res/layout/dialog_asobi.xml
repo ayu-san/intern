@@ -16,13 +16,15 @@
         android:textAlignment="center"
         android:textColor="#6DCF46"
         android:textSize="34sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="309dp"
-        app:srcCompat="@drawable/asobi1" />
+        app:srcCompat="@drawable/asobi1"
+        android:importantForAccessibility="no" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +46,8 @@
             android:textStyle="bold"
             android:visibility="invisible"
             app:strokeColor="#63D337"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="2dp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
         <View
             android:id="@+id/view4"
@@ -66,7 +69,8 @@
             android:textSize="11.5sp"
             android:textStyle="bold"
             app:strokeColor="#63D337"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="2dp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
         <View
             android:id="@+id/view5"
@@ -88,7 +92,8 @@
             android:textSize="11.5sp"
             android:textStyle="bold"
             app:strokeColor="#63D237"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="2dp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
     </LinearLayout>
 
     <Button
@@ -101,6 +106,7 @@
         android:text="戻る"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>
