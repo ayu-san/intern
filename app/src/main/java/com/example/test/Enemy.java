@@ -19,13 +19,13 @@ public class Enemy extends GameObject
 
     boolean m_IsPlayerCollision;
 
-    Enemy(ImageView texture,float posX, float moveX, float moveY, int delayTime, int index)
+    Enemy(ImageView texture,float posX, float moveX, float moveY, int delayTime, int index,float speed, float weight)
     {
         m_Texture = texture;
         m_IsPlayerCollision = false;
 
         m_PosX = posX;
-        m_PosY = -300.0f;
+        m_PosY = -500.0f;
 
         m_oldPosX = m_PosX;
         m_oldPosY = m_PosY;
@@ -39,7 +39,10 @@ public class Enemy extends GameObject
         m_ConstMoveX = m_MoveX;
         m_ConstMoveY = m_MoveY;
 
-        m_DisplayTimer = delayTime;
+        m_InitialSpeed = speed;
+        m_Weight = weight;
+
+        m_DisplayTimer = delayTime * 60;
 
         m_Index = index;
     }
@@ -162,7 +165,7 @@ public class Enemy extends GameObject
                     if (enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth() > screenwidth)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -172,7 +175,7 @@ public class Enemy extends GameObject
                     else if (enemies.get(i).m_PosX < 0)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -182,7 +185,7 @@ public class Enemy extends GameObject
                     else if (enemies.get(i).m_PosY < 0)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;
@@ -192,7 +195,7 @@ public class Enemy extends GameObject
                     else if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
                     {
                         collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,550,550,duration);
+                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
                         enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
                         enemies.remove(i);
                         return true;

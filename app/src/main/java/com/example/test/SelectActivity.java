@@ -173,7 +173,7 @@ public class SelectActivity extends AppCompatActivity {
         backbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE2();
 
-            initData();
+            //initData();
 
             startActivity(new Intent(this, TitleActivity.class));
         });

@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         //オブジェクト取得
         player = new Player();
         player.m_Texture = findViewById(R.id.character);
-        player.m_PosX = screenWidth /  2.0f - (float)player.m_Texture.getWidth()/2;
-        player.m_PosY = screenHeight / 1.5f;
+        player.m_PosX = screenWidth / 2.0f - 126.0f;
+        player.m_PosY = screenHeight / 2.0f;
         player.m_Texture.setX( player.m_PosX );
         player.m_Texture.setY(player.m_PosY);
         player.SetMove(0.0f,0.0f);
@@ -153,14 +153,21 @@ public class MainActivity extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy),-120.0f, (float)screenHeight /2, 0.0f, 5.0f, 10, 0, (float)screenWidth /2, 2.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy1),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 240, 1, (float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 640, 2, (float)screenWidth 	/4, -7.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy),-300.0f, (float)screenHeight /2, 0.0f, 5.0f, 2, 0, 1200.0f,400.0f,(float)screenWidth /2, 2.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy1),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 10, 1, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 18, 2,1200.0f,400.0f, (float)screenWidth 	/4, -7.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 5,0.0f,7.0f, 1200, 3));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy4),(float)screenWidth / 5 * 3,0.0f,7.0f, 1600, 4));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 4,0.0f,7.0f, 2200,5));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy6),-300.0f, (float)screenHeight /2, 0.0f, 5.0f, 2510, 6, (float)screenWidth /2, 7.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 5,0.0f,7.0f, 30, 3,1200.0f,500.0f));
+        //Enemies.add(new SideEnemy(findViewById(R.id.enemy3),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 240, 1, (float)screenWidth 	/3, -5.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 38, 4, 1200.0f,400.0f,(float)screenWidth 	/4, -7.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy5),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 46, 5, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy6),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 54, 6, 1200.0f,400.0f,(float)screenWidth 	/4, -7.0f));
+
+        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 5,0.0f,7.0f, 62, 7,1200.0f,500.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 5 * 3,0.0f,7.0f, 70, 8,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 4,0.0f,7.0f, 77,9,1300.0f,400.0f));
+
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy10),(float)screenWidth / 8 * 3,0.0f,9.0f, 87,10, 900.0f,2000.0f));//ボス
         g_InitSize = Enemies.size();
 //        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
 //        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));

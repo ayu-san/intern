@@ -8,9 +8,9 @@ public class SideEnemy extends Enemy //縦に落ちてくるだけの敵
     float m_Speed = 0.0f;
     float m_Weight = 800.0f; //重さ
 
-    SideEnemy(ImageView texture, float posX, float posY, float moveX, float moveY, int delayTime, int index, float destinationX, float destinationSpeed)
+    SideEnemy(ImageView texture, float posX, float posY, float moveX, float moveY, int delayTime, int index,float speed, float weight, float destinationX, float destinationSpeed)
     {
-        super(texture,posX,moveX,moveY,delayTime,index);//基底クラスのコンストラクタ呼び出し
+        super(texture,posX,moveX,moveY,delayTime,index, speed,weight);//基底クラスのコンストラクタ呼び出し
         m_PosY = posY;
         m_DestinationX = destinationX;//横の画面外から目的地のX軸まで横移動する
         m_DestinationSpeed = destinationSpeed;

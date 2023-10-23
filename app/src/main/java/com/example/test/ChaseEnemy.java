@@ -8,8 +8,8 @@ public class ChaseEnemy extends Enemy //縦に落ちてくるだけの敵
     float m_Speed = 0.0f;
     float m_Weight = 300.0f; //重さ
 
-    ChaseEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index) {
-        super(texture,posX,moveX,moveY,delayTime,index);//基底クラスのコンストラクタ呼び出し
+    ChaseEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index,float speed, float weight) {
+        super(texture,posX,moveX,moveY,delayTime,index, speed,weight);//基底クラスのコンストラクタ呼び出し
     }
 
     @Override

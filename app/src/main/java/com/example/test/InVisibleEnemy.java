@@ -11,8 +11,8 @@ public class InVisibleEnemy extends Enemy //縦に落ちてくるだけの敵
     private long stopStartTime = 0;
     private float currentAlpha = 1.0f; // 現在の透明度
 
-    InVisibleEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index) {
-        super(texture,posX,moveX,moveY,delayTime,index);//基底クラスのコンストラクタ呼び出し
+    InVisibleEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index,float speed, float weight) {
+        super(texture,posX,moveX,moveY,delayTime,index, speed,weight);//基底クラスのコンストラクタ呼び出し
     }
 
     @Override
