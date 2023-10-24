@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public int g_InitSize = 0;
     private boolean isDialogVisible = false;
+    private boolean isGameOver = false;
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
@@ -370,9 +371,17 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies)) {
-                        stageName = "";
-                        resultText = "ゲームオーバー";
-                        showResult(stageName, resultText);
+                        if(!isGameOver) {
+                            stopTimer();
+                            stageName = "";
+                            resultText = "ゲームオーバー";
+
+                            timer.cancel();
+                            timer.purge(); // タイマーのキューをクリア
+
+                            showResult(stageName, resultText);
+                            isGameOver = true;
+                        }
                     }
 
                     //画面外
