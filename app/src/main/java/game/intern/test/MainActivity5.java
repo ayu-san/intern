@@ -41,7 +41,7 @@ public class MainActivity5 extends AppCompatActivity {
     public int g_InitSize = 0;
     private boolean isDialogVisible = false;
     private boolean isGameOver = false;
-    private boolean isPauseDialog = false;
+    private boolean isPauseDialog = true;
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
@@ -82,16 +82,6 @@ public class MainActivity5 extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("isCondition",MODE_PRIVATE);
 
-        View touchView = findViewById(R.id.startText);
-        View blackView = findViewById(R.id.blackview);
-
-        touchView.setOnTouchListener((v, event) -> {
-            touchView.setVisibility(View.INVISIBLE);
-            blackView.setVisibility(View.INVISIBLE);
-            gameStarted = true;
-            return true;
-        });
-
         // ImageViewを取得
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
 
@@ -115,6 +105,20 @@ public class MainActivity5 extends AppCompatActivity {
         // SoundPlayer に初期音量を設定
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
+
+        View touchView = findViewById(R.id.startText);
+        View blackView = findViewById(R.id.blackview);
+
+        touchView.setOnTouchListener((v, event) -> {
+            isPauseDialog = false;
+            touchView.setVisibility(View.INVISIBLE);
+            blackView.setVisibility(View.INVISIBLE);
+            soundPlayer.setBGMVolume(initialBGMVolume);
+            soundPlayer.setTestBGM2();
+            gameStarted = true;
+            return true;
+        });
+
 
         enemyeffect = ContextCompat.getDrawable(this,R.drawable.hiteffect2);
         chargeeffect1 = ContextCompat.getDrawable(this, R.drawable.chargeeffect1);
@@ -192,6 +196,7 @@ public class MainActivity5 extends AppCompatActivity {
         pauseButton.setOnClickListener((View view)->{
             if (!isDialogVisible) {
                 // ダイアログを表示
+                soundPlayer.setTestSE();
                 showPauseDialog();
                 isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
             }
@@ -286,6 +291,39 @@ public class MainActivity5 extends AppCompatActivity {
             isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // BGMとSEの現在の音量を取得
+        float currentBGMVolume = soundPlayer.getBGMVolume();
+        float currentSEVolume = soundPlayer.getSEVolume();
+
+        // BGMとSEの現在の音量を保存
+        MyApplication.saveCurrentBGMVolume(currentBGMVolume);
+        MyApplication.saveCurrentSEVolume(currentSEVolume);
+
+        // BGMの一時停止
+        soundPlayer.pauseBGM();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // BGMの再生再開
+        soundPlayer.resumeBGM();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // アクティビティが破棄されるときに音声をリリース
+        soundPlayer.release();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -389,6 +427,7 @@ public class MainActivity5 extends AppCompatActivity {
                     hitCheck(player);
                     if (i <= upSize - 1) {
                         if(Enemies.get(i).hitCheckEnemy(Enemies, screenWidth, screenHeight,collideEffect,enemyeffect)){
+                            soundPlayer.setTestSE();
                             experience++;
                         }
                     }
@@ -485,6 +524,7 @@ public class MainActivity5 extends AppCompatActivity {
                 gameObject.m_MoveX *= -0.1;
                 player.m_MoveVecX *= -0.1;
             }
+            soundPlayer.setSEReflection();
         }
 
         //左
@@ -502,6 +542,7 @@ public class MainActivity5 extends AppCompatActivity {
                 gameObject.m_MoveX *= -0.1;
                 player.m_MoveVecX *= -0.1;
             }
+            soundPlayer.setSEReflection();
         }
 
         //上
@@ -518,6 +559,7 @@ public class MainActivity5 extends AppCompatActivity {
                 gameObject.m_MoveY *= -0.1;
                 player.m_MoveVecY *= -0.1;
             }
+            soundPlayer.setSEReflection();
         }
 
         //下
@@ -535,6 +577,7 @@ public class MainActivity5 extends AppCompatActivity {
                 gameObject.m_MoveY *= -0.1;
                 player.m_MoveVecY *= -0.1;
             }
+            soundPlayer.setSEReflection();
         }
 
     }
@@ -601,12 +644,12 @@ public class MainActivity5 extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                soundPlayer.setTestSE2();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                soundPlayer.setTestSE2();
             }
         });
 
@@ -621,12 +664,12 @@ public class MainActivity5 extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                soundPlayer.setTestSE2();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                soundPlayer.setTestSE2();
             }
         });
 
@@ -636,6 +679,7 @@ public class MainActivity5 extends AppCompatActivity {
         setupButtonTouchEffect(retry);
         retry.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
+            soundPlayer.setTestSE();
             startActivity(new Intent(this, MainActivity5.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -646,6 +690,7 @@ public class MainActivity5 extends AppCompatActivity {
         setupButtonTouchEffect(gotoStageSelect);
         gotoStageSelect.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
+            soundPlayer.setTestSE();
             startActivity(new Intent(this, SelectActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -656,6 +701,7 @@ public class MainActivity5 extends AppCompatActivity {
         setupButtonTouchEffect(gotoTitle);
         gotoTitle.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
+            soundPlayer.setTestSE();
             startActivity(new Intent(this, TitleActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -664,6 +710,7 @@ public class MainActivity5 extends AppCompatActivity {
         Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
         setupButtonTouchEffect(closeButton);
         closeButton.setOnClickListener((View view) -> {
+            soundPlayer.setTestSE();
             alertDialog.dismiss(); // ダイアログを閉じる
 
             timer = new Timer();// タイマーを再生成
@@ -786,6 +833,8 @@ public class MainActivity5 extends AppCompatActivity {
         setRandomImageForImageButton(item2);
 
         item1.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+
             // ImageButtonの現在の画像を取得
             int currentDrawableId = (int) item1.getTag();
 
@@ -810,6 +859,8 @@ public class MainActivity5 extends AppCompatActivity {
         });
 
         item2.setOnClickListener(view -> {
+            soundPlayer.setTestSE();
+
             // ImageButtonの現在の画像を取得
             int currentDrawableId = (int) item2.getTag();
 
@@ -834,6 +885,8 @@ public class MainActivity5 extends AppCompatActivity {
         });
 
         noselect.setOnClickListener(view -> {
+            soundPlayer.setTestSE2();
+
             alertDialog.dismiss();
 
             timer = new Timer();// タイマーを再生成
@@ -883,21 +936,21 @@ public class MainActivity5 extends AppCompatActivity {
 
         //リトライボタン
         retrybutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setTestSE2();
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, MainActivity5.class));
         });
 
         //ステージ選択ボタン
         selectbutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setTestSE2();
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, SelectActivity.class));
         });
 
         //タイトルボタン
         titlebutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setTestSE2();
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, TitleActivity.class));
         });

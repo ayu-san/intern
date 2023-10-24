@@ -1,5 +1,7 @@
 package game.intern.test;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.animation.AlphaAnimation;
@@ -33,9 +35,10 @@ public class CollideEffect {
         container.addView(imageView);
 
         // フェードアウトアニメーションを追加
-        AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(duration); // フェードアウトにかける時間
-        imageView.startAnimation(fadeOut);
+        imageView.setAlpha(1.0f);
+        ValueAnimator fadeOut = ObjectAnimator.ofFloat(imageView, "alpha", 1.0f, 0.0f);
+        fadeOut.setDuration(duration);
+        fadeOut.start();
 
         handler.postDelayed(()-> hideEffect(imageView),duration);
     }

@@ -47,7 +47,7 @@ public class TitleActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
-        soundPlayer.setTestBGM();
+        soundPlayer.setTestBGM2();
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -249,7 +249,25 @@ public class TitleActivity extends AppCompatActivity {
         // BGMとSEの現在の音量を保存
         MyApplication.saveCurrentBGMVolume(currentBGMVolume);
         MyApplication.saveCurrentSEVolume(currentSEVolume);
-        soundPlayer.release(); // アクティビティがバックグラウンドに移動するときに音楽を停止・解放
+
+        // BGMの一時停止
+        soundPlayer.pauseBGM();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // BGMの再生再開
+        soundPlayer.resumeBGM();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // アクティビティが破棄されるときに音声をリリース
+        soundPlayer.release();
     }
 
     @SuppressLint("ClickableViewAccessibility")

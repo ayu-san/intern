@@ -91,6 +91,7 @@ public class SelectActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
+        soundPlayer.setTestBGM2();
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -168,6 +169,38 @@ public class SelectActivity extends AppCompatActivity {
     // ボタンの有効/無効状態を設定
     private void setButtonState(ImageButton button, boolean isEnabled) {
         button.setEnabled(isEnabled);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // BGMとSEの現在の音量を取得
+        float currentBGMVolume = soundPlayer.getBGMVolume();
+        float currentSEVolume = soundPlayer.getSEVolume();
+
+        // BGMとSEの現在の音量を保存
+        MyApplication.saveCurrentBGMVolume(currentBGMVolume);
+        MyApplication.saveCurrentSEVolume(currentSEVolume);
+
+        // BGMの一時停止
+        soundPlayer.pauseBGM();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // BGMの再生再開
+        soundPlayer.resumeBGM();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // アクティビティが破棄されるときに音声をリリース
+        soundPlayer.release();
     }
 
     @SuppressLint("ClickableViewAccessibility")

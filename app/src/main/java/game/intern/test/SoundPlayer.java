@@ -11,7 +11,9 @@ public class SoundPlayer {
     private final Context context;
     private static int testSE;
     private static int testSE2;
+    private static int seReflection;
     private static int testBGM;
+    private static int testBGM2;
     private float seVolume = 0.8f; // SEの初期音量
     private float bgmVolume = 0.8f; // BGMの初期音量
 
@@ -27,7 +29,9 @@ public class SoundPlayer {
         //サウンドのロード
         testSE = R.raw.setest;
         testSE2 = R.raw.setest2;
+        seReflection = R.raw.se_reflection;
         testBGM = R.raw.bgmtest;
+        testBGM2 = R.raw.bgmtest2;
 
         // MediaPlayerにサウンドファイルを設定
         sePlayer = MediaPlayer.create(context, testSE);
@@ -43,6 +47,18 @@ public class SoundPlayer {
         if (bgmPlayer != null) {
             bgmPlayer.release();
             bgmPlayer = null;
+        }
+    }
+
+    public void pauseBGM() {
+        if (bgmPlayer != null && bgmPlayer.isPlaying()) {
+            bgmPlayer.pause();
+        }
+    }
+
+    public void resumeBGM() {
+        if (bgmPlayer != null && !bgmPlayer.isPlaying()) {
+            bgmPlayer.start();
         }
     }
 
@@ -64,26 +80,50 @@ public class SoundPlayer {
         bgmPlayer.setVolume(bgmVolume, bgmVolume);
     }
 
+    // MediaPlayer インスタンスを再利用するメソッドを作成
+    private void playMedia(MediaPlayer mediaPlayer, int soundResourceId, float volume) {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+            mediaPlayer = MediaPlayer.create(context, soundResourceId);
+            mediaPlayer.setVolume(volume, volume);
+            mediaPlayer.start();
+        }
+    }
+
     // サウンド再生関数
-// サウンド再生関数
     public void setTestSE() {
-        sePlayer = MediaPlayer.create(context, testSE);
-        sePlayer.setVolume(seVolume, seVolume);
-        sePlayer.start();
+        playMedia(sePlayer, testSE, seVolume);
     }
 
     public void setTestSE2() {
-        sePlayer = MediaPlayer.create(context, testSE2);
-        sePlayer.setVolume(seVolume, seVolume);
-        sePlayer.start();
+        playMedia(sePlayer, testSE2, seVolume);
+    }
+
+    public void setSEReflection() {
+        playMedia(sePlayer, seReflection, seVolume);
     }
 
     public void setTestBGM() {
-        bgmPlayer = MediaPlayer.create(context, testBGM);
-        bgmPlayer.setVolume(bgmVolume, bgmVolume);
-        bgmPlayer.setLooping(true); // BGMをループ再生
-        bgmPlayer.start();
+        if (bgmPlayer != null) {
+            bgmPlayer.stop();
+            bgmPlayer.reset();
+            bgmPlayer = MediaPlayer.create(context, testBGM);
+            bgmPlayer.setVolume(bgmVolume, bgmVolume);
+            bgmPlayer.setLooping(true);
+            bgmPlayer.start();
+        }
     }
 
+    public void setTestBGM2() {
+        if (bgmPlayer != null) {
+            bgmPlayer.stop();
+            bgmPlayer.reset();
+            bgmPlayer = MediaPlayer.create(context, testBGM2);
+            bgmPlayer.setVolume(bgmVolume, bgmVolume);
+            bgmPlayer.setLooping(true);
+            bgmPlayer.start();
+        }
+    }
 
 }
