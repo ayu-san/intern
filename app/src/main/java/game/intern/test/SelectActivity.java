@@ -132,21 +132,21 @@ public class SelectActivity extends AppCompatActivity {
         hardbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity3.class));
         });
 
         //hellボタンを押したとき
         hellbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity4.class));
         });
 
         //heavenボタンを押したとき
         heavenbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity5.class));
         });
 
         //戻るボタンを押したとき
