@@ -125,7 +125,7 @@ public class SelectActivity extends AppCompatActivity {
         normalbutton.setOnClickListener((View v)->{
             soundPlayer.setTestSE();
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity2.class));
         });
 
         //hardボタンを押したとき
