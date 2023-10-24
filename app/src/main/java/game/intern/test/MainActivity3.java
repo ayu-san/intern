@@ -40,6 +40,8 @@ public class MainActivity3 extends AppCompatActivity {
 
     public int g_InitSize = 0;
     private boolean isDialogVisible = false;
+    private boolean isGameOver = false;
+    private boolean isPauseDialog = false;
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
@@ -278,9 +280,11 @@ public class MainActivity3 extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        // ダイアログを表示
-        showPauseDialog();
-        isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
+        if(!isPauseDialog) {
+            // ダイアログを表示
+            showPauseDialog();
+            isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
+        }
     }
 
     @Override
@@ -370,9 +374,14 @@ public class MainActivity3 extends AppCompatActivity {
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies)) {
-                        stageName = "";
-                        resultText = "ゲームオーバー";
-                        showResult(stageName, resultText);
+                        if(!isGameOver) {
+                            stopTimer();
+                            stageName = "";
+                            resultText = "ゲームオーバー";
+
+                            showResult(stageName, resultText);
+                            isGameOver = true;
+                        }
                     }
 
                     //画面外
@@ -560,6 +569,7 @@ public class MainActivity3 extends AppCompatActivity {
     }
 
     public void showPauseDialog() {
+        isPauseDialog = true;
         // ダイアログを表示するコード
         // タイマーを停止
         timer.cancel();
@@ -669,7 +679,10 @@ public class MainActivity3 extends AppCompatActivity {
 
         });
 
-        alertDialog.setOnDismissListener(dialog -> isDialogVisible = false);
+        alertDialog.setOnDismissListener(dialog -> {
+            isDialogVisible = false;
+            isPauseDialog = false;
+        });
 
     }
 
@@ -839,6 +852,8 @@ public class MainActivity3 extends AppCompatActivity {
     }
 
     public void showResult(String stagename,String resulttext){
+        isPauseDialog = true;
+
         timer.cancel();
         timer.purge(); // タイマーのキューをクリア
 
@@ -890,7 +905,10 @@ public class MainActivity3 extends AppCompatActivity {
             startActivity(new Intent(this, TitleActivity.class));
         });
 
-        alertDialog.setOnDismissListener(dialog -> isDialogVisible = false);
+        alertDialog.setOnDismissListener(dialog -> {
+            isDialogVisible = false;
+            isPauseDialog = false;
+        });
 
     }
 }
