@@ -23,7 +23,7 @@ public class GallLine extends GameObject
 
                     collideEffect.collideEffect((int) (enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth()/2),
                             (int) (gall.m_PosY),
-                            drawable,350,350,5000);
+                            drawable,420,420,5000);
                     //ゴール処理
                     return true;
                 }
