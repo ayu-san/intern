@@ -45,6 +45,7 @@ public class MainActivity2 extends AppCompatActivity {
     private int dialogCount = 0;
     private  Player player;
     ArrayList<Enemy> Enemies;
+    ArrayList<Enemy> Boxes;
     private  GallLine gallLine;
     private float startX, startY;
     private long touchDownTime = 0;
@@ -163,24 +164,37 @@ public class MainActivity2 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 7,5.0f,5.0f, 0, 3,1200.0f,500.0f));
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy1),(float)screenWidth / 2,-5.0f,5.0f, 4, 3,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 2,5.0f,5.0f, 2, 0,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy1),(float)screenWidth / 7,-5.0f,5.0f, 6, 1,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy2),(float)screenWidth / 5 * 3,5.0f,5.0f, 10, 2,1200.0f,500.0f));
 
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /2, 0.0f, 5.0f, 18, 2,1200.0f,400.0f, (float)screenWidth 	/4, -7.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy3),-390.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 3, 1000.0f,200.0f,(float)screenWidth 	/5, 5.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 4, 1000.0f,200.0f,(float)screenWidth 	/9 * 5, -5.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 5,0.0f,7.0f, 30, 3,1200.0f,500.0f));
-        //Enemies.add(new SideEnemy(findViewById(R.id.enemy3),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 240, 1, (float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),-300.0f, (float)screenHeight /3, 0.0f, 5.0f, 38, 4, 1200.0f,400.0f,(float)screenWidth 	/4, 7.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy5),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 46, 5, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy6),screenWidth + 120.0f, (float)screenHeight /5, 0.0f, 5.0f, 54, 6, 1200.0f,400.0f,(float)screenWidth 	/5, -7.0f));
+        //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,5.0f, 34, 5,2200.0f,10.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,7.0f, 34,5,5000.0f,10.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 5,0.0f,7.0f, 62, 7,1200.0f,500.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 5 * 3,0.0f,7.0f, 70, 8,1300.0f,400.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 4,0.0f,7.0f, 77,9,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 42, 6,600.0f,400.0f));
 
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy10),(float)screenWidth / 8 * 3,0.0f,9.0f, 87,10, 900.0f,2000.0f));//ボス
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy7),(float)screenWidth / 2,-5.0f,5.0f, 43, 7,1200.0f,600.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy8),(float)screenWidth / 4,5.0f,5.0f, 43, 8,1200.0f,600.0f));
+
+        Enemies.add(new Enemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 3,0.0f,7.0f, 54,9,1100.0f,400.0f));
+
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy10),-390.0f, (float)screenHeight /2, 0.0f, 5.0f, 64, 10, 1000.0f,300.0f,(float)screenWidth 	/5, 5.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy11),(float)screenWidth / 5 * 3,5.0f,5.0f, 66, 11,1200.0f,500.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy12),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 68, 12, 1000.0f,300.0f,(float)screenWidth 	/9 * 5, -5.0f));
+
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy13),(float)screenWidth / 7,-5.0f,5.0f, 79, 13,1200.0f,600.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy14),(float)screenWidth / 2,5.0f,5.0f, 81, 14,1200.0f,600.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy15),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 82, 15, 900.0f,1800.0f,(float)screenWidth / 16 * 5, -5.0f));
+
 
         g_InitSize = Enemies.size();
+
+        //Boxes = new ArrayList<>();
+        //Boxes.add(Box(findViewById(R.id.box),));
+
 //        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
 //        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
 //        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
