@@ -275,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
                     player.m_Speed = player.m_InitialSpeed * (player.m_holdValue * 0.7f);//スピードに初速を代入＋長押し効果
                     player.m_MoveX = player.m_MoveVecX * (player.m_Speed / 100.0f) * player.m_holdValue;
                     player.m_MoveY = player.m_MoveVecY * (player.m_Speed / 100.0f) * player.m_holdValue;
+                    player.m_CollisionTimer = 0;
 
                 break;
             }
@@ -404,11 +405,10 @@ public class MainActivity extends AppCompatActivity {
                         changePosPlayer();
                     }
 
-                    if (i < 3)
-                    {
-                        player.CollisionCirclePlayer(player, Enemies,collideEffect,hiteffect);
-                    }
-
+//                    if (i < 3)
+//                    {
+//                        player.CollisionCirclePlayer(player, Enemies,collideEffect,hiteffect);
+//                    }
 
                     if (i <= upSize - 1) {
                         Enemies.get(i).CollisionCircleEnemy(player, Enemies,collideEffect,hiteffect);

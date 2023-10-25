@@ -51,7 +51,7 @@ public class Player extends GameObject
             float calc = (float) Math.sqrt(dx * dx + dy * dy);
             float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
 
-            if(radius < oldcalc && calc <= radius)
+            //if(radius < oldcalc && calc <= radius)
             //if(enemies.get(i).m_CollisionTimer == 0) {4
             {
                 if (calc <= radius) { //当たった
@@ -90,7 +90,7 @@ public class Player extends GameObject
                     float preserveMoveY = enemies.get(i).m_MoveY;
 
                     //正規化処理
-                    if (enemies.get(i).m_Speed < 500.0f) {
+                    if (enemies.get(i).m_Speed < 600.0f) {
                         float vecX = -(enemies.get(i).m_PosX - player.m_PosX);
                         float vecY = -(enemies.get(i).m_PosY - player.m_PosY);
 

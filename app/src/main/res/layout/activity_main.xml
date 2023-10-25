@@ -216,6 +216,20 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteY="212dp">
 
+        <TextView
+            android:id="@+id/startText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="1dp"
+            android:gravity="center"
+            android:text="タッチでスタート！"
+            android:textAlignment="center"
+            android:textColor="#FFFCFC"
+            android:textSize="34sp"
+            android:textStyle="bold|italic"
+            tools:ignore="HardcodedText,MissingConstraints" />
     </FrameLayout>
 
     <game.intern.test.ArrowView
@@ -233,24 +247,5 @@
         android:background="#B4050505"
         android:visibility="visible"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/startText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="1dp"
-        android:gravity="center"
-        android:text="タッチでスタート！"
-        android:textAlignment="center"
-        android:textColor="#FFFCFC"
-        android:textSize="34sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText,MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
