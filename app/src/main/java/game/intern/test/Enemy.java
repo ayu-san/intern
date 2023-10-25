@@ -221,13 +221,13 @@ public class Enemy extends GameObject
         for (int i = 0; i < enemies.size(); i++)
         {
             int radius = player.m_Texture.getWidth() /2;
-            radius += 50.0f;
+            radius += 70.0f;
 
             float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float oldenemyY = enemies.get(i).m_oldPosY + (float)enemies.get(i).m_Texture.getHeight()/2;
 
             float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 40.0f;
+            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2;
             float enemyX  = enemies.get(i).m_PosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float enemyY  = enemies.get(i).m_PosY + (float)enemies.get(i).m_Texture.getHeight()/2;
 
