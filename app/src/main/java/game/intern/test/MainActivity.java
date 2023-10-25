@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isDialogVisible = false;
     private boolean isGameOver = false;
     private boolean isPauseDialog = true;
+    private int dialogCount = 0;
     private  Player player;
     ArrayList<Enemy> Enemies;
     private  GallLine gallLine;
@@ -616,6 +617,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showPauseDialog() {
         isPauseDialog = true;
+        dialogCount++;
         // ダイアログを表示するコード
         // タイマーを停止
         timer.cancel();
@@ -719,19 +721,21 @@ public class MainActivity extends AppCompatActivity {
             soundPlayer.setTestSE();
             alertDialog.dismiss(); // ダイアログを閉じる
 
-            timer = new Timer();// タイマーを再生成
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(() -> Update());
-                }
-            }, 0, 16);
-
+            if(dialogCount == 1) {
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(() -> Update());
+                    }
+                }, 0, 16);
+            }
         });
 
         alertDialog.setOnDismissListener(dialog -> {
             isDialogVisible = false;
             isPauseDialog = false;
+            dialogCount--;
         });
 
     }
@@ -775,6 +779,7 @@ public class MainActivity extends AppCompatActivity {
     //レベルアップ画面表示関数
     @SuppressLint("ClickableViewAccessibility")
     public void showLevelUp(){
+        dialogCount++;
         // タイマーを停止
         timer.cancel();
         timer.purge(); // タイマーのキューをクリア
@@ -854,14 +859,15 @@ public class MainActivity extends AppCompatActivity {
             }
             alertDialog.dismiss();
 
-            timer = new Timer();// タイマーを再生成
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(() -> Update());
-                }
-            }, 0, 16);
-
+            if(dialogCount == 1) {
+                timer = new Timer();// タイマーを再生成
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(() -> Update());
+                    }
+                }, 0, 16);
+            }
         });
 
         item2.setOnClickListener(view -> {
@@ -880,13 +886,15 @@ public class MainActivity extends AppCompatActivity {
             }
             alertDialog.dismiss();
 
-            timer = new Timer();// タイマーを再生成
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(() -> Update());
-                }
-            }, 0, 16);
+            if(dialogCount == 1) {
+                timer = new Timer();// タイマーを再生成
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(() -> Update());
+                    }
+                }, 0, 16);
+            }
 
         });
 
@@ -895,20 +903,24 @@ public class MainActivity extends AppCompatActivity {
 
             alertDialog.dismiss();
 
-            timer = new Timer();// タイマーを再生成
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(MainActivity.this::Update);
-                }
-            }, 0, 16);
+            if(dialogCount == 1) {
+                timer = new Timer();// タイマーを再生成
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.post(() -> Update());
+                    }
+                }, 0, 16);
+            }
 
         });
 
+        alertDialog.setOnDismissListener(dialog -> dialogCount--);
     }
 
     public void showResult(String stagename,String resulttext){
         isPauseDialog = true;
+        dialogCount++;
 
         timer.cancel();
         timer.purge(); // タイマーのキューをクリア
@@ -964,6 +976,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setOnDismissListener(dialog -> {
             isDialogVisible = false;
             isPauseDialog = false;
+            dialogCount--;
         });
 
     }
