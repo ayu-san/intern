@@ -55,6 +55,7 @@ public class MainActivity4 extends AppCompatActivity {
     private Drawable chargeeffect2;
     private Drawable chargeeffect3;
     private Drawable hiteffect;
+    private Drawable goaleffect;
     private TapEffect tapEffect;
     private CollideEffect collideEffect;
     private ProgressBar levelBar;
@@ -125,6 +126,7 @@ public class MainActivity4 extends AppCompatActivity {
         chargeeffect2 = ContextCompat.getDrawable(this, R.drawable.chargeeffect2);
         chargeeffect3 = ContextCompat.getDrawable(this, R.drawable.chargeeffect3);
         hiteffect = ContextCompat.getDrawable(this, R.drawable.hiteffect);
+        goaleffect = ContextCompat.getDrawable(this, R.drawable.goaleffect);
 
         levelBar = findViewById(R.id.level);
         myLevelView = findViewById(R.id.myLevelView);
@@ -411,7 +413,7 @@ public class MainActivity4 extends AppCompatActivity {
                         Enemies.get(i).CollisionCircleEnemy(player, Enemies,collideEffect,hiteffect);
                     }
 
-                    if (gallLine.checkGall(gallLine, Enemies)) {
+                    if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
                         if(!isGameOver) {
                             stopTimer();
                             stageName = "";
