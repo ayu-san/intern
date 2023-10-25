@@ -160,7 +160,7 @@ public class MainActivity2 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy),(float)screenWidth / 5,0.0f,7.0f, 0, 3,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 5,5.0f,5.0f, 0, 3,1200.0f,500.0f));
 
         Enemies.add(new SideEnemy(findViewById(R.id.enemy1),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 10, 1, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /2, 0.0f, 5.0f, 18, 2,1200.0f,400.0f, (float)screenWidth 	/4, -7.0f));
@@ -176,7 +176,6 @@ public class MainActivity2 extends AppCompatActivity {
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 4,0.0f,7.0f, 77,9,1300.0f,400.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy10),(float)screenWidth / 8 * 3,0.0f,9.0f, 87,10, 900.0f,2000.0f));//ボス
-
 
         g_InitSize = Enemies.size();
 //        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
