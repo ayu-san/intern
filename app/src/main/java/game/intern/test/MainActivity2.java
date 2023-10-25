@@ -163,9 +163,9 @@ public class MainActivity2 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 5,5.0f,5.0f, 0, 3,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 7,5.0f,5.0f, 0, 3,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy1),(float)screenWidth / 2,-5.0f,5.0f, 4, 3,1200.0f,500.0f));
 
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy1),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 10, 1, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /2, 0.0f, 5.0f, 18, 2,1200.0f,400.0f, (float)screenWidth 	/4, -7.0f));
 
         Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 5,0.0f,7.0f, 30, 3,1200.0f,500.0f));

@@ -160,7 +160,6 @@
         tools:layout_editor_absoluteY="110dp" />
 
 
-
     <TextView
         android:id="@+id/myLevelView"
         android:layout_width="412dp"
@@ -170,6 +169,7 @@
         android:text="レベル : 0"
         android:textAlignment="center"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/enemy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

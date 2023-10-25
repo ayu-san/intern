@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 画像リソースの名前のリスト
     private static final String[] imageResourceNames = {
-           "energy",
+            "speed","power","energy","heavy"
     };
 
     public int g_InitSize = 0;
