@@ -7,13 +7,13 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
+public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
 {
     float m_InitialSpeed = 200.0f;
     float m_Speed = 0.0f;
     float m_Weight = 800.0f; //重さ
 
-    VerticalEnemy(ImageView texture,float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight) {
+    Stage1BossKuma(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight) {
         super(texture,posX,moveX,moveY,delayTime,index, speed,weight);//基底クラスのコンストラクタ呼び出し
     }
 
@@ -69,13 +69,13 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
         for (int i = 0; i < enemies.size(); i++)
         {
             int radius = player.m_Texture.getWidth() /2;
-            radius += 60.0f;
+            radius += 170.0f;
 
             float oldenemyX = enemies.get(i).m_oldPosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float oldenemyY = enemies.get(i).m_oldPosY + (float)enemies.get(i).m_Texture.getHeight()/2;
 
             float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 40.0f;
+            float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 20.0f;
             float enemyX  = enemies.get(i).m_PosX + (float)enemies.get(i).m_Texture.getWidth()/2;
             float enemyY  = enemies.get(i).m_PosY + (float)enemies.get(i).m_Texture.getHeight()/2;
 
