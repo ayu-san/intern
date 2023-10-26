@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import game.intern.test.R;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private int dialogCount = 0;
     private  Player player;
     ArrayList<Enemy> Enemies;
+    private final List<Integer> selectedImages = new ArrayList<>();
     private  GallLine gallLine;
     private float startX, startY;
     private long touchDownTime = 0;
@@ -243,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                     long touchDuration = currentTime - touchDownTime;
                     changeColorBasedOnTouchLength(touchDuration);
 
-                    arrowView.setArrow(player.m_PosX+130,player.m_PosY+130, player.m_PosX+event.getX(), player.m_PosY+event.getY());
+                    arrowView.setArrow(player.m_PosX+player.m_Texture.getWidth()/2,player.m_PosY+player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
 
                     break;
 
@@ -767,16 +769,18 @@ public class MainActivity extends AppCompatActivity {
     private void setRandomImageForImageButton(ImageButton imageButton) {
         // ランダムな画像を選択
         Random random = new Random();
-        int randomIndex = random.nextInt(imageResourceNames.length);
-        String randomImageResourceName = imageResourceNames[randomIndex];
+        int randomIndex;
 
-        // リソースIDを取得
+        do {
+            randomIndex = random.nextInt(imageResourceNames.length);
+        } while (selectedImages.contains(randomIndex)); // 既に選択済みの場合、再選択
+
+        selectedImages.add(randomIndex); // 選択済みリストに追加
+
+        String randomImageResourceName = imageResourceNames[randomIndex];
         @SuppressLint("DiscouragedApi") int resID = getResources().getIdentifier(randomImageResourceName, "drawable", getPackageName());
 
-        // ImageButtonに画像を設定
         imageButton.setImageResource(resID);
-
-        // 画像のリソースIDをタグとして設定
         imageButton.setTag(resID);
     }
 
@@ -930,7 +934,10 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        alertDialog.setOnDismissListener(dialog -> dialogCount--);
+        alertDialog.setOnDismissListener(dialog ->{
+            dialogCount--;
+            selectedImages.clear();
+        });
     }
 
     public void showResult(String stagename,String resulttext){
