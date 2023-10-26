@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 画像リソースの名前のリスト
     private static final String[] imageResourceNames = {
-            "speed","power","energy","heavy"
+            "speed","power","energy","size"
     };
 
     public int g_InitSize = 0;
@@ -337,17 +338,17 @@ public class MainActivity extends AppCompatActivity {
 
     //関数
     private void changeColorBasedOnTouchLength(double touchLength) {
-
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
-            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,350,350,10);
+            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
-            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,350,350,10);
+            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         } else {
             // 長いタッチ：色を緑に変更
-            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,350,350,10);
+            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         }
+
     }
 
     private float calculateFlyDistance(long touchDuration) {
@@ -846,6 +847,9 @@ public class MainActivity extends AppCompatActivity {
         setRandomImageForImageButton(item1);
         setRandomImageForImageButton(item2);
 
+        // 新しいサイズを設定
+        ViewGroup.LayoutParams params = player.m_Texture.getLayoutParams();
+
         item1.setOnClickListener(view -> {
             soundPlayer.setTestSE();
 
@@ -859,6 +863,10 @@ public class MainActivity extends AppCompatActivity {
                 player.m_Weight *= 1.2f;
             }else if (currentDrawableId == R.drawable.energy) {
                 player.m_ChargeLevel *= 0.8f;
+            }else if (currentDrawableId == R.drawable.size) {
+                params.width += 30.0f;
+                params.height += 30.0f;
+                player.m_Texture.setLayoutParams(params);
             }
             alertDialog.dismiss();
 
@@ -886,6 +894,10 @@ public class MainActivity extends AppCompatActivity {
                 player.m_Weight *= 1.2f;
             }else if (currentDrawableId == R.drawable.energy) {
                 player.m_ChargeLevel *= 0.8f;
+            }else if (currentDrawableId == R.drawable.size) {
+                params.width += 30.0f;
+                params.height += 30.0f;
+                player.m_Texture.setLayoutParams(params);
             }
             alertDialog.dismiss();
 

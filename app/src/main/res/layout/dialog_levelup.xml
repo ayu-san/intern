@@ -119,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:padding="16dp"
-        android:text="どちらか選べ！"
+        android:text="強化したい方を選べ！"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
