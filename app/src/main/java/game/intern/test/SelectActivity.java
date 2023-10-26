@@ -91,7 +91,7 @@ public class SelectActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
-        soundPlayer.setTestBGM2();
+        soundPlayer.setTestBGM2(R.raw.title);
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -152,7 +152,7 @@ public class SelectActivity extends AppCompatActivity {
 
         //戻るボタンを押したとき
         backbutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
 
             //initData();
 

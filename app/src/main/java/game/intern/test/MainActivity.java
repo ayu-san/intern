@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
-
     // 画像リソースの名前のリスト
     private static final String[] imageResourceNames = {
             "speed","power","energy","size"
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             blackView.setVisibility(View.INVISIBLE);
             gameStarted = true;
             soundPlayer.setBGMVolume(initialBGMVolume);
-            soundPlayer.setTestBGM2();
+            soundPlayer.setTestBGM2(R.raw.stage1);//setTestBGM2(R.raw.bgmtest2)
             return true;
         });
 
@@ -344,15 +343,17 @@ public class MainActivity extends AppCompatActivity {
     private void changeColorBasedOnTouchLength(double touchLength) {
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
-            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
+            soundPlayer.setTestSE2(R.raw.setest2);//
+            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
-            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
+            soundPlayer.setTestSE2(R.raw.setest2);
+            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         } else {
             // 長いタッチ：色を緑に変更
-            collideEffect.collideEffect((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
+            soundPlayer.setTestSE2(R.raw.setest2);
+            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         }
-
     }
 
     private float calculateFlyDistance(long touchDuration) {
@@ -422,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
                         if(!isGameOver) {
+                            soundPlayer.setTestBGM2(R.raw.gameover);
                             stopTimer();
                             stageName = "";
                             resultText = "ゲームオーバー";
@@ -447,6 +449,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 //ゲームクリア
+                soundPlayer.setTestBGM2(R.raw.gameclear);
                 stageName = "ステージ１";
                 resultText = "クリア！";
                 showResult(stageName, resultText);
@@ -485,6 +488,24 @@ public class MainActivity extends AppCompatActivity {
         if(player.m_oldPosY != player.m_PosY)
         {
             player.m_oldPosY = player.m_PosY;
+        }
+
+        //限界地設定
+        if(player.m_MoveX < -90.0f)
+        {
+            player.m_MoveX = -90.0f;
+        }
+        if(90.0f < player.m_MoveX)
+        {
+            player.m_MoveX = 90.0f;
+        }
+        if(player.m_MoveY < -90.0f)
+        {
+            player.m_MoveY = -90.0f;
+        }
+        if(90.0f < player.m_MoveY)
+        {
+            player.m_MoveY = 90.0f;
         }
 
         player.m_PosX += player.m_MoveX;
@@ -660,12 +681,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
         });
 
@@ -680,12 +701,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
         });
 
@@ -864,7 +885,7 @@ public class MainActivity extends AppCompatActivity {
 
             //画像によって処理を変える
             if(currentDrawableId == R.drawable.speed){
-                player.m_InitialSpeed *= 1.2f;
+                player.m_InitialSpeed *= 1.1f;
             } else if (currentDrawableId == R.drawable.power) {
                 player.m_Weight *= 1.2f;
             }else if (currentDrawableId == R.drawable.energy) {
@@ -895,7 +916,7 @@ public class MainActivity extends AppCompatActivity {
 
             //画像によって処理を変える
             if(currentDrawableId == R.drawable.speed){
-                player.m_InitialSpeed *= 1.2f;
+                player.m_InitialSpeed *= 1.1f;
             } else if (currentDrawableId == R.drawable.power) {
                 player.m_Weight *= 1.2f;
             }else if (currentDrawableId == R.drawable.energy) {
@@ -920,7 +941,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         noselect.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
 
             alertDialog.dismiss();
 
@@ -978,21 +999,21 @@ public class MainActivity extends AppCompatActivity {
 
         //リトライボタン
         retrybutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //ステージ選択ボタン
         selectbutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, SelectActivity.class));
         });
 
         //タイトルボタン
         titlebutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, TitleActivity.class));
         });

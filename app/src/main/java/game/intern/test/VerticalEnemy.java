@@ -46,6 +46,8 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
 
                 enemy.m_Speed = enemy.m_InitialSpeed;
             }
+        } else {
+            enemy.m_Speed = 0.0f;
         }
 
         if(0 < m_DisplayTimer)
@@ -66,8 +68,8 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
     @Override
     public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
-        int radius = player.m_Texture.getWidth() /2;
-        radius += 60.0f;
+        int radius = player.m_Texture.getHeight() /2;
+        radius += 50.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
@@ -151,10 +153,10 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
                     //ノックバック中
                     {
                         if (!isNaN(player.m_MoveX * ex / 8))
-                            enemy.m_MoveX = -player.m_MoveX * ex / 8;
+                            enemy.m_MoveX = -player.m_MoveX * ex / 2.5f;
 
                         if (!isNaN(player.m_MoveY * ex / 8))
-                            enemy.m_MoveY = -player.m_MoveY * ex / 8;
+                            enemy.m_MoveY = -player.m_MoveY * ex / 2.5f;
                     }
                     else
                     {
@@ -195,14 +197,13 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
                     if(enemy.m_CollisionTimer != 0)
                     //ノックバック中
                     {
-                        player.m_MoveX = -preserveMoveX * ex2 / 8;
-                        player.m_MoveY = -preserveMoveY * ex2 / 8;
+                        player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
+                        player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
                     }
                     else
                     {
                         player.m_MoveX = preserveMoveX * ex2 / 8;
                         player.m_MoveY = preserveMoveY * ex2 / 8;
-
                     }
                 }
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける

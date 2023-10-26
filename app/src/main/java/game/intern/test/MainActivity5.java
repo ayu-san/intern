@@ -119,7 +119,7 @@ public class MainActivity5 extends AppCompatActivity {
             touchView.setVisibility(View.INVISIBLE);
             blackView.setVisibility(View.INVISIBLE);
             soundPlayer.setBGMVolume(initialBGMVolume);
-            soundPlayer.setTestBGM2();
+            soundPlayer.setTestBGM2(R.raw.stage5);//setTestBGM2(R.raw.bgmtest2)
             gameStarted = true;
             return true;
         });
@@ -652,12 +652,12 @@ public class MainActivity5 extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
         });
 
@@ -672,12 +672,12 @@ public class MainActivity5 extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2();
+                soundPlayer.setTestSE2(R.raw.setest2);
             }
         });
 
@@ -914,7 +914,7 @@ public class MainActivity5 extends AppCompatActivity {
         });
 
         noselect.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
 
             alertDialog.dismiss();
 
@@ -972,21 +972,21 @@ public class MainActivity5 extends AppCompatActivity {
 
         //リトライボタン
         retrybutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, MainActivity5.class));
         });
 
         //ステージ選択ボタン
         selectbutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, SelectActivity.class));
         });
 
         //タイトルボタン
         titlebutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, TitleActivity.class));
         });

@@ -303,10 +303,10 @@ public class Enemy extends GameObject
                     //ノックバック中
                     {
                         if (!isNaN(player.m_MoveX * ex / 8))
-                            enemy.m_MoveX = -player.m_MoveX * ex / 8;
+                            enemy.m_MoveX = -player.m_MoveX * ex / 2.5f;
 
                         if (!isNaN(player.m_MoveY * ex / 8))
-                            enemy.m_MoveY = -player.m_MoveY * ex / 8;
+                            enemy.m_MoveY = -player.m_MoveY * ex / 2.5f;
                     }
                     else
                     {
@@ -347,8 +347,8 @@ public class Enemy extends GameObject
                     if(enemy.m_CollisionTimer != 0)
                     //ノックバック中
                     {
-                        player.m_MoveX = -preserveMoveX * ex2 / 8;
-                        player.m_MoveY = -preserveMoveY * ex2 / 8;
+                        player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
+                        player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
                     }
                     else
                     {

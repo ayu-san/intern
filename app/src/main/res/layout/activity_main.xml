@@ -80,10 +80,10 @@
     <ImageView
         android:id="@+id/enemy3"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="83dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/enemy"
+        android:src="@drawable/chase"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -111,20 +111,20 @@
     <ImageView
         android:id="@+id/enemy6"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="83dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/enemy"
+        android:src="@drawable/chase"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
     <ImageView
         android:id="@+id/enemy7"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="83dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/enemy"
+        android:src="@drawable/chase"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />

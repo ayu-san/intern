@@ -47,7 +47,7 @@ public class TitleActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
-        soundPlayer.setTestBGM2();
+        soundPlayer.setTestBGM2(R.raw.title);
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -204,7 +204,7 @@ public class TitleActivity extends AppCompatActivity {
         //クレジットボタンを押したとき
         cregitButton.setOnClickListener((View v)->{
 
-            soundPlayer.setTestSE2();
+            soundPlayer.setTestSE2(R.raw.setest2);
 
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_cregit,null);

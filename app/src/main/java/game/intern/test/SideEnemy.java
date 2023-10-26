@@ -47,6 +47,8 @@ public class SideEnemy extends Enemy //縦に落ちてくるだけの敵
 
                     enemy.m_Speed = enemy.m_InitialSpeed;
                 }
+            } else {
+                enemy.m_Speed = 0.0f;
             }
 
             if (0 < m_DisplayTimer) {
@@ -86,6 +88,8 @@ public class SideEnemy extends Enemy //縦に落ちてくるだけの敵
 
                     enemy.m_Speed = enemy.m_InitialSpeed;
                 }
+            } else {
+                enemy.m_Speed = 0.0f;
             }
 
             if (0 < m_DisplayTimer) {

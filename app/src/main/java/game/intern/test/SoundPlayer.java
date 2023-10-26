@@ -28,10 +28,8 @@ public class SoundPlayer {
 
         //サウンドのロード
         testSE = R.raw.setest;
-        testSE2 = R.raw.setest2;
         seReflection = R.raw.se_reflection;
         testBGM = R.raw.bgmtest;
-        testBGM2 = R.raw.bgmtest2;
 
         // MediaPlayerにサウンドファイルを設定
         sePlayer = MediaPlayer.create(context, testSE);
@@ -96,9 +94,9 @@ public class SoundPlayer {
         playMedia(sePlayer, testSE, seVolume);
     }
 
-    public void setTestSE2() {
-        playMedia(sePlayer, testSE2, seVolume);
-    }
+    public void setTestSE2(int se) {
+        playMedia(sePlayer, se, seVolume);
+    }//setTestSE2(R.raw.setest2)
 
     public void setSEReflection() {
         playMedia(sePlayer, seReflection, seVolume);
@@ -115,11 +113,12 @@ public class SoundPlayer {
         }
     }
 
-    public void setTestBGM2() {
+    public void setTestBGM2(int bgm)
+    {
         if (bgmPlayer != null) {
             bgmPlayer.stop();
             bgmPlayer.reset();
-            bgmPlayer = MediaPlayer.create(context, testBGM2);
+            bgmPlayer = MediaPlayer.create(context, bgm);
             bgmPlayer.setVolume(bgmVolume, bgmVolume);
             bgmPlayer.setLooping(true);
             bgmPlayer.start();
