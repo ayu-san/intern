@@ -165,7 +165,9 @@ public class DebugActivity extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new Stage1BossKuma(findViewById(R.id.enemy),(float)screenWidth / 2 - 75.0f,0.0f,7.0f, 0, 0,1300.0f,1000.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 7,-2.0f,5.0f, 0, 4,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 7,-2.0f,5.0f, 10, 4,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8 * 7,-2.0f,5.0f, 20, 4,1300.0f,400.0f));
 //        Enemies.add(new Enemy(findViewById(R.id.enemy1),(float)screenWidth / 5,0.0f,7.0f, 10, 1,1200.0f,500.0f));
 //        Enemies.add(new SideEnemy(findViewById(R.id.enemy2),-300.0f, (float)screenHeight /3, 0.0f, 5.0f, 20, 2, 1200.0f,400.0f,(float)screenWidth 	/4, 7.0f));
 
@@ -380,7 +382,7 @@ public class DebugActivity extends AppCompatActivity {
                         Enemies.get(i).PullCollisionTimer(Enemies.get(i));
                     }
 
-                    for (int k = 0; k < 3; k++)
+                    if (i < 3)
                     {
                         player.PullCollisionTimer(player);
                     }
@@ -389,10 +391,9 @@ public class DebugActivity extends AppCompatActivity {
                         Enemies.get(i).MoveEnemy(Enemies.get(i), player, screenWidth);
                     }
 
-                    while(playerFunctionCount < 3)
+                    if (i < 3)
                     {
                         changePosPlayer();
-                        Enemies.get(i).CollisionCircleEnemy(player, Enemies,collideEffect,hiteffect);
                         playerFunctionCount++;
                     }
 //                    for (int k = 0; k < 3; k++)
@@ -408,9 +409,9 @@ public class DebugActivity extends AppCompatActivity {
 //                        player.CollisionCirclePlayer(player, Enemies,collideEffect,hiteffect);
 //                    }
 
-//                    if (i <= upSize - 1) {
-//                        Enemies.get(i).CollisionCircleEnemy(player, Enemies,collideEffect,hiteffect);
-//                    }
+                    if (i <= upSize - 1) {
+                        Enemies.get(i).CollisionCircleEnemy(player, Enemies.get(i),collideEffect,hiteffect);
+                    }
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
                         if(!isGameOver) {

@@ -413,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 
                     if (i <= upSize - 1) {
-                        Enemies.get(i).CollisionCircleEnemy(player, Enemies,collideEffect,hiteffect);
+                        Enemies.get(i).CollisionCircleEnemy(player, Enemies.get(i),collideEffect,hiteffect);
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
