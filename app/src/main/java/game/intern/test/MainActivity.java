@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(0);
         soundPlayer.setSEVolume(initialSEVolume);
 
+        showAsobi();
+
         View touchView = findViewById(R.id.startText);
         View blackView = findViewById(R.id.blackview);
 
@@ -999,6 +1001,64 @@ public class MainActivity extends AppCompatActivity {
             isDialogVisible = false;
             isPauseDialog = false;
             dialogCount--;
+        });
+
+    }
+
+    public void showAsobi(){
+        isPauseDialog = true;
+        dialogCount++;
+
+        //設定ダイアログの読み込み
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_asobi,null);
+
+        //ダイアログビューの設定
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView)
+                .setCancelable(false);
+
+        //AlertDialogを表示
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(false); // ダイアログの外側をクリックしても閉じない
+        alertDialog.show();
+
+        ImageView practice = dialogView.findViewById(R.id.imageView2);
+        Button page1button = dialogView.findViewById(R.id.page1button);
+        Button page2button = dialogView.findViewById(R.id.page2button);
+        Button page3button = dialogView.findViewById(R.id.page3button);
+
+        page1button.setOnClickListener((View view) -> {
+            soundPlayer.setTestSE();
+            page1button.setVisibility(View.INVISIBLE);
+            page2button.setVisibility(View.VISIBLE);
+            page3button.setVisibility(View.VISIBLE);
+            practice.setImageResource(R.drawable.asobi1);
+        });
+
+        page2button.setOnClickListener((View view) -> {
+            soundPlayer.setTestSE();
+            page1button.setVisibility(View.VISIBLE);
+            page2button.setVisibility(View.INVISIBLE);
+            page3button.setVisibility(View.VISIBLE);
+            practice.setImageResource(R.drawable.asobi2);
+        });
+
+        page3button.setOnClickListener((View view) -> {
+            soundPlayer.setTestSE();
+            page1button.setVisibility(View.VISIBLE);
+            page2button.setVisibility(View.VISIBLE);
+            page3button.setVisibility(View.INVISIBLE);
+            practice.setImageResource(R.drawable.asobi3);
+        });
+
+
+        //戻る
+        Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
+        setupButtonTouchEffect(closeButton);
+        closeButton.setOnClickListener((View view)->{
+            soundPlayer.setTestSE();
+
+            alertDialog.dismiss(); // ダイアログを閉じる
         });
 
     }
