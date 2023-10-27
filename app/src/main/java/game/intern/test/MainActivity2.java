@@ -48,7 +48,6 @@ public class MainActivity2 extends AppCompatActivity {
     private int dialogCount = 0;
     private  Player player;
     ArrayList<Enemy> Enemies;
-    ArrayList<Enemy> Boxes;
     private final List<Integer> selectedImages = new ArrayList<>();
     private  GallLine gallLine;
     private float startX, startY;
@@ -195,13 +194,6 @@ public class MainActivity2 extends AppCompatActivity {
 
 
         g_InitSize = Enemies.size();
-
-        //Boxes = new ArrayList<>();
-        //Boxes.add(Box(findViewById(R.id.box),));
-
-//        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
-//        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
-//        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
 
         //ImageView texture,float posX, float moveX, float moveY, int delayTime
 
@@ -411,6 +403,7 @@ public class MainActivity2 extends AppCompatActivity {
                     int upSize = Enemies.size();
                     if (i <= upSize - 1) {
                         Enemies.get(i).PullCollisionTimer(Enemies.get(i));
+                        Enemies.get(i).PullInvincivleTime(Enemies.get(i));//無敵時間を減らしていく。
                     }
 
                     if (i < 3)

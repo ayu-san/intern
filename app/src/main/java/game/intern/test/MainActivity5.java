@@ -398,6 +398,7 @@ public class MainActivity5 extends AppCompatActivity {
                     int upSize = Enemies.size();
                     if (i <= upSize - 1) {
                         Enemies.get(i).PullCollisionTimer(Enemies.get(i));
+                        Enemies.get(i).PullInvincivleTime(Enemies.get(i));//無敵時間を減らしていく。
                     }
 
                     if (i < 3)
