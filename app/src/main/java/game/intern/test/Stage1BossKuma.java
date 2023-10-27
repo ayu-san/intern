@@ -91,7 +91,7 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
         {
             //if(radius < oldcalc && calc <= radius)
 
-            if (calc <= radius) { //当たった
+            if ((enemy.m_InvincivleTime == 0) && (calc <= radius)) { //当たった
                 //めり込まないように補正する
                 player.m_PosX = player.m_oldPosX;
                 player.m_PosY = player.m_oldPosY;
@@ -124,7 +124,7 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                 float preserveMoveY = enemy.m_MoveY;
 
                 //正規化処理 敵のノックバック処理
-                if (player.m_MoveX == 0.0f) {
+                if (player.m_MoveX == 0.0f && player.m_MoveY == 0.0f) {
                     float vecX = -(player.m_PosX - enemy.m_PosX);
                     float vecY = -(player.m_PosY - enemy.m_PosY);
 
@@ -149,27 +149,49 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                 }
                 else
                 {
-                    if(player.m_CollisionTimer != 0)
-                    //ノックバック中
+                    if(player.m_CollisionTimer == 0)
                     {
-                        if (!isNaN(player.m_MoveX * ex / 8))
-                            enemy.m_MoveX = -player.m_MoveX * ex / 2.5f;
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 4))
+                                enemy.m_MoveX = player.m_MoveX * ex / 4;
 
-                        if (!isNaN(player.m_MoveY * ex / 8))
-                            enemy.m_MoveY = -player.m_MoveY * ex / 2.5f;
+                            if (!isNaN(player.m_MoveY * ex / 4))
+                                enemy.m_MoveY = player.m_MoveY * ex / 4;
+                        }
+                        else
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 4))
+                                enemy.m_MoveX = player.m_MoveX * ex / 4;
+
+                            if (!isNaN(player.m_MoveY * ex / 4))
+                                enemy.m_MoveY = player.m_MoveY * ex / 4;
+                        }
                     }
+                    //ノックバック中
                     else
                     {
-                        if (!isNaN(player.m_MoveX * ex / 8))
-                            enemy.m_MoveX = player.m_MoveX * ex / 8;
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 8))
+                                enemy.m_MoveX = -player.m_MoveX * ex / 2.5f;
 
-                        if (!isNaN(player.m_MoveY * ex / 8))
-                            enemy.m_MoveY = player.m_MoveY * ex / 8;
+                            if (!isNaN(player.m_MoveY * ex / 8))
+                                enemy.m_MoveY = -player.m_MoveY * ex / 2.5f;
+                        }
+                        else
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 4))
+                                enemy.m_MoveX = player.m_MoveX * ex / 4;
+
+                            if (!isNaN(player.m_MoveY * ex / 4))
+                                enemy.m_MoveY = player.m_MoveY * ex / 4;
+                        }
                     }
                 }
 
                 //プレイヤーのノックバック処理
-                if (preserveMoveX == 0.0f)
+                if (preserveMoveX == 0.0f && preserveMoveY == 0.0f)
                 {
                     float vecX = -(enemy.m_PosX - player.m_PosX);
                     float vecY = -(enemy.m_PosY - player.m_PosY);
@@ -182,8 +204,8 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                         float normalizedY = vecY / vectorLength;
 
                         // ベクトルの反転を保持したまま正規化されたベクトルを使用
-                        player.m_MoveX = normalizedX * 3.0f;
-                        player.m_MoveY = normalizedY * 3.0f;
+                        player.m_MoveX = normalizedX * 7.0f;
+                        player.m_MoveY = normalizedY * 7.0f;
                     } else {
                         // ベクトルの長さが0の場合は正規化を行えません
                         // 長さが0の場合、ベクトルの方向は定義できません
@@ -194,22 +216,49 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                 }
                 else
                 {
-                    if(enemy.m_CollisionTimer != 0)
-                    //ノックバック中
+                    //プレイヤー
+                    if(player.m_CollisionTimer == 0)
                     {
-                        player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
-                        player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 8))
+                                player.m_MoveX = preserveMoveX * ex2 / 8;
+                            if (!isNaN(preserveMoveY * ex2 / 8))
+                                player.m_MoveY = preserveMoveY * ex2 / 8;
+                        }
+                        else
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 2.5f))
+                                player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
+
+                            if (!isNaN(preserveMoveY * ex2 / 2.5f))
+                                player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
+                        }
                     }
+                    //ノックバック中
                     else
                     {
-                        player.m_MoveX = preserveMoveX * ex2 / 8;
-                        player.m_MoveY = preserveMoveY * ex2 / 8;
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 8))
+                                player.m_MoveX = preserveMoveX * ex2 / 8;
+                            if (!isNaN(preserveMoveY * ex2 / 8))
+                                player.m_MoveY = preserveMoveY * ex2 / 8;
+                        }
+                        else
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 2.5f))
+                                player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
+
+                            if (!isNaN(preserveMoveY * ex2 / 2.5f))
+                                player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
+                        }
                     }
                 }
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-
+                enemy.m_InvincivleTime = 10;
             }
         }
     }
