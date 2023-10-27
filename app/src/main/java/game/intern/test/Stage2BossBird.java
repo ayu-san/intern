@@ -5,63 +5,103 @@ import static java.lang.Double.isNaN;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-
-public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
+public class Stage2BossBird extends Enemy //縦に落ちてくるだけの敵
 {
-    float m_InitialSpeed = 200.0f;
+    float m_InitialSpeed = 400.0f;
     float m_Speed = 0.0f;
     float m_Weight = 800.0f; //重さ
 
-    Stage1BossKuma(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight) {
+    Stage2BossBird(ImageView texture, float posX, float posY, float moveX, float moveY, int delayTime, int index, float speed, float weight, float destinationX, float destinationSpeed)
+    {
         super(texture,posX,moveX,moveY,delayTime,index, speed,weight);//基底クラスのコンストラクタ呼び出し
+        m_PosY = posY;
+        m_DestinationX = destinationX;//横の画面外から目的地のX軸まで横移動する
+        m_DestinationSpeed = destinationSpeed;
     }
 
     @Override
     public void MoveEnemy(Enemy enemy, GameObject target, int width)
     {
-        if(enemy.m_CollisionTimer == 0)
+        if((enemy.m_DestinationSpeed < 0 && enemy.m_PosX < enemy.m_DestinationX) || (0 < enemy.m_DestinationSpeed && enemy.m_DestinationX < enemy.m_PosX))
         {
-            enemy.m_MoveX = enemy.m_ConstMoveX;
-            enemy.m_MoveY = enemy.m_ConstMoveY;
+            if (enemy.m_CollisionTimer == 0) {
+                enemy.m_MoveX = enemy.m_ConstMoveX;
+                enemy.m_MoveY = enemy.m_ConstMoveY;
 
-            if(enemy.m_MoveX != 0.0f || enemy.m_MoveY != 0.0f)
-            {
-                normalizeVectorEnemy(enemy, enemy.m_MoveX,enemy.m_MoveY);
+                if (enemy.m_MoveX != 0.0f || enemy.m_MoveY != 0.0f) {
+                    normalizeVectorEnemy(enemy, enemy.m_MoveX, enemy.m_MoveY);
+                }
+                //ベクトルを正規化
+
+                //移動
+                if (0.0f < enemy.m_Speed) {
+                    enemy.m_Speed -= 10.0f;
+
+                    enemy.m_MoveX = enemy.m_MoveX * (enemy.m_Speed / 100.0f);
+                    enemy.m_MoveY = enemy.m_MoveY * (enemy.m_Speed / 100.0f);
+                } else {
+                    enemy.m_MoveX = 0.0f;
+                    enemy.m_MoveY = 0.0f;
+
+                    enemy.m_Speed = enemy.m_InitialSpeed;
+                }
+            } else {
+                enemy.m_Speed = 0.0f;
             }
-            //ベクトルを正規化
 
-            //移動
-            if(0.0f < enemy.m_Speed)
-            {
-                enemy.m_Speed -= 10.0f;
+            if (0 < m_DisplayTimer) {
+                m_DisplayTimer--;
+            } else {
+                m_DisplayTimer = 0;
+                //座標更新
+                enemy.m_oldPosX = enemy.m_PosX;
+                enemy.m_oldPosY = enemy.m_PosY;
 
-                enemy.m_MoveX = enemy.m_MoveX * (enemy.m_Speed / 100.0f);
-                enemy.m_MoveY = enemy.m_MoveY * (enemy.m_Speed / 100.0f);
+                enemy.m_PosX += enemy.m_MoveX;
+                enemy.m_PosY += enemy.m_MoveY;
             }
-            else
+        } else //目的地に達していない
+        {
+
+            if (enemy.m_CollisionTimer == 0)
             {
-                enemy.m_MoveX = 0.0f;
+                enemy.m_MoveX = m_DestinationSpeed;
                 enemy.m_MoveY = 0.0f;
 
-                enemy.m_Speed = enemy.m_InitialSpeed;
+                if (enemy.m_MoveX != 0.0f || enemy.m_MoveY != 0.0f)
+                {
+                    normalizeVectorEnemy(enemy, enemy.m_MoveX, 0.0f);
+                }
+                //ベクトルを正規化
+
+                //移動
+                if (0.0f < enemy.m_Speed) {
+                    enemy.m_Speed -= 10.0f;
+
+                    enemy.m_MoveX = enemy.m_MoveX * (enemy.m_Speed / 100.0f);
+                    enemy.m_MoveY = enemy.m_MoveY * (enemy.m_Speed / 100.0f);
+                } else {
+                    enemy.m_MoveX = 0.0f;
+                    enemy.m_MoveY = 0.0f;
+
+                    enemy.m_Speed = enemy.m_InitialSpeed;
+                }
+            } else {
+                enemy.m_Speed = 0.0f;
             }
-        } else {
-            enemy.m_Speed = 0.0f;
-        }
 
-        if(0 < m_DisplayTimer)
-        {
-            m_DisplayTimer--;
-        } else
-        {
-            m_DisplayTimer = 0;
-            //座標更新
-            enemy.m_oldPosX = enemy.m_PosX;
-            enemy.m_oldPosY = enemy.m_PosY;
+            if (0 < m_DisplayTimer) {
+                m_DisplayTimer--;
+            } else {
+                m_DisplayTimer = 0;
+                //座標更新
+                enemy.m_oldPosX = enemy.m_PosX;
+                enemy.m_oldPosY = enemy.m_PosY;
 
-            enemy.m_PosX += enemy.m_MoveX;
-            enemy.m_PosY += enemy.m_MoveY;
+                enemy.m_PosX += enemy.m_MoveX;
+                enemy.m_PosY += enemy.m_MoveY;
+            }
+
         }
     }
 
@@ -69,13 +109,13 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
     public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
-        radius += 170.0f;
+        radius += 160.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
 
         float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 20.0f;
+        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2;
         float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
         float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
 
@@ -262,6 +302,7 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
             }
         }
     }
+
 
 
 }

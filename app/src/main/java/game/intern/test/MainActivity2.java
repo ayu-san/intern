@@ -190,7 +190,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy13),(float)screenWidth / 7,-5.0f,5.0f, 79, 13,1200.0f,600.0f));
         Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy14),(float)screenWidth / 2,5.0f,5.0f, 81, 14,1200.0f,600.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy15),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 82, 15, 900.0f,1800.0f,(float)screenWidth / 16 * 5, -5.0f));
+        Enemies.add(new Stage2BossBird(findViewById(R.id.enemy15),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 82, 15, 900.0f,1800.0f,(float)screenWidth / 16 * 5, -5.0f));
 
 
         g_InitSize = Enemies.size();

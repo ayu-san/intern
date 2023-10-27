@@ -207,15 +207,15 @@ public class Enemy extends GameObject
                         return true;
                     }
 
-                    //下
-                    else if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
-                    {
-                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
-                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
-                        enemies.remove(i);
-                        return true;
-                    }
+//                    //下
+//                    else if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
+//                    {
+//                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
+//                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
+//                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
+//                        enemies.remove(i);
+//                        return true;
+//                    }
 
                 }
             }
@@ -368,8 +368,8 @@ public class Enemy extends GameObject
                         float normalizedY = vecY / vectorLength;
 
                         // ベクトルの反転を保持したまま正規化されたベクトルを使用
-                        player.m_MoveX = normalizedX * 7.0f;
-                        player.m_MoveY = normalizedY * 7.0f;
+                        player.m_MoveX = normalizedX * 3.0f;
+                        player.m_MoveY = normalizedY * 3.0f;
                     } else {
                         // ベクトルの長さが0の場合は正規化を行えません
                         // 長さが0の場合、ベクトルの方向は定義できません

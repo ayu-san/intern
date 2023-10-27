@@ -1,5 +1,8 @@
 package game.intern.test;
 
+import static java.lang.Double.isNaN;
+
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
@@ -53,4 +56,203 @@ public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
             enemy.m_PosY += enemy.m_MoveY;
         }
     }
+
+    @Override
+    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    {
+        int radius = player.m_Texture.getHeight() /2;
+        radius += 110.0f;
+
+        float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
+        float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
+
+        float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
+        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 10.0f;
+        float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
+        float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
+
+        float oldDX = oldenemyX - playerX;
+        float oldDY = oldenemyY - playerY;
+
+        float dx = enemyX - playerX;
+        float dy = enemyY - playerY;
+        float calc = (float) Math.sqrt(dx * dx + dy * dy);
+        float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
+
+        //if(player.m_CollisionTimer == 0) {
+        {
+            //if(radius < oldcalc && calc <= radius)
+
+            if ((enemy.m_InvincivleTime == 0) && (calc <= radius)) { //当たった
+                //めり込まないように補正する
+                player.m_PosX = player.m_oldPosX;
+                player.m_PosY = player.m_oldPosY;
+                enemy.m_PosX = enemy.m_oldPosX;
+                enemy.m_PosY = enemy.m_oldPosY;
+
+                // 衝突位置を計算
+                float collisionX = (float) (enemyX - dx * (-0.5 + radius / calc));
+                float collisionY = (float) (enemyY - dy * (-0.5 + radius / calc));
+
+                //エフェクトを追加
+                collideEffect.collideEffect((int) collisionX, (int) collisionY, drawable, 400, 400, 400);
+
+                float energy1 = player.m_Speed * player.m_Weight;
+                float energy2 = enemy.m_Speed * enemy.m_Weight;
+
+                float ex;
+                float ex2;
+
+                if (energy1 != 0.0f && energy2 != 0.0f) {
+                    ex = energy1 / energy2;
+                    ex2 = energy2 / energy1;
+                } else //Playerのスピードが0の時にも入る
+                {
+                    ex = 1.0f;
+                    ex2 = 5.0f;
+                }
+
+                float preserveMoveX = enemy.m_MoveX;
+                float preserveMoveY = enemy.m_MoveY;
+
+                //正規化処理 敵のノックバック処理
+                if (player.m_MoveX == 0.0f && player.m_MoveY == 0.0f) {
+                    float vecX = -(player.m_PosX - enemy.m_PosX);
+                    float vecY = -(player.m_PosY - enemy.m_PosY);
+
+                    float vectorLength = (float) Math.sqrt(vecX * vecX + vecY * vecY);
+
+                    if (vectorLength > 0.0f) {
+                        // ベクトルの長さが0でない場合に正規化を行う
+                        float normalizedX = vecX / vectorLength;
+                        float normalizedY = vecY / vectorLength;
+
+                        // ベクトルの反転を保持したまま正規化されたベクトルを使用
+                        enemy.m_MoveX = normalizedX * 3.0f;
+                        enemy.m_MoveY = normalizedY * 3.0f;
+                    } else
+                    {
+                        // ベクトルの長さが0の場合は正規化を行えません
+                        // 長さが0の場合、ベクトルの方向は定義できません
+                        // ここで適切なエラー処理を行うか、ベクトルのデフォルト値を設定します
+                        enemy.m_MoveX = 0.0f; // 例: デフォルト値を0に設定
+                        enemy.m_MoveY = 0.0f;
+                    }
+                }
+                else
+                {
+                    if(player.m_CollisionTimer == 0)
+                    {
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 4))
+                                enemy.m_MoveX = player.m_MoveX * ex / 4;
+
+                            if (!isNaN(player.m_MoveY * ex / 4))
+                                enemy.m_MoveY = player.m_MoveY * ex / 4;
+                        }
+                        else
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 4))
+                                enemy.m_MoveX = player.m_MoveX * ex / 4;
+
+                            if (!isNaN(player.m_MoveY * ex / 4))
+                                enemy.m_MoveY = player.m_MoveY * ex / 4;
+                        }
+                    }
+                    //ノックバック中
+                    else
+                    {
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 8))
+                                enemy.m_MoveX = -player.m_MoveX * ex / 2.5f;
+
+                            if (!isNaN(player.m_MoveY * ex / 8))
+                                enemy.m_MoveY = -player.m_MoveY * ex / 2.5f;
+                        }
+                        else
+                        {
+                            if (!isNaN(player.m_MoveX * ex / 4))
+                                enemy.m_MoveX = player.m_MoveX * ex / 4;
+
+                            if (!isNaN(player.m_MoveY * ex / 4))
+                                enemy.m_MoveY = player.m_MoveY * ex / 4;
+                        }
+                    }
+                }
+
+                //プレイヤーのノックバック処理
+                if (preserveMoveX == 0.0f && preserveMoveY == 0.0f)
+                {
+                    float vecX = -(enemy.m_PosX - player.m_PosX);
+                    float vecY = -(enemy.m_PosY - player.m_PosY);
+
+                    float vectorLength = (float) Math.sqrt(vecX * vecX + vecY * vecY);
+
+                    if (vectorLength > 0.0f) {
+                        // ベクトルの長さが0でない場合に正規化を行う
+                        float normalizedX = vecX / vectorLength;
+                        float normalizedY = vecY / vectorLength;
+
+                        // ベクトルの反転を保持したまま正規化されたベクトルを使用
+                        player.m_MoveX = normalizedX * 3.0f;
+                        player.m_MoveY = normalizedY * 3.0f;
+                    } else {
+                        // ベクトルの長さが0の場合は正規化を行えません
+                        // 長さが0の場合、ベクトルの方向は定義できません
+                        // ここで適切なエラー処理を行うか、ベクトルのデフォルト値を設定します
+                        player.m_MoveX = 0.0f; // 例: デフォルト値を0に設定
+                        player.m_MoveY = 0.0f;
+                    }
+                }
+                else
+                {
+                    //プレイヤー
+                    if(player.m_CollisionTimer == 0)
+                    {
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 8))
+                                player.m_MoveX = preserveMoveX * ex2 / 8;
+                            if (!isNaN(preserveMoveY * ex2 / 8))
+                                player.m_MoveY = preserveMoveY * ex2 / 8;
+                        }
+                        else
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 2.5f))
+                                player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
+
+                            if (!isNaN(preserveMoveY * ex2 / 2.5f))
+                                player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
+                        }
+                    }
+                    //ノックバック中
+                    else
+                    {
+                        if(enemy.m_CollisionTimer == 0)
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 8))
+                                player.m_MoveX = preserveMoveX * ex2 / 8;
+                            if (!isNaN(preserveMoveY * ex2 / 8))
+                                player.m_MoveY = preserveMoveY * ex2 / 8;
+                        }
+                        else
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 2.5f))
+                                player.m_MoveX = -preserveMoveX * ex2 / 2.5f;
+
+                            if (!isNaN(preserveMoveY * ex2 / 2.5f))
+                                player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
+                        }
+                    }
+                }
+                enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+                player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
+                enemy.m_IsPlayerCollision = true;
+                enemy.m_InvincivleTime = 10;
+            }
+        }
+    }
+
 }

@@ -204,8 +204,8 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
                         float normalizedY = vecY / vectorLength;
 
                         // ベクトルの反転を保持したまま正規化されたベクトルを使用
-                        player.m_MoveX = normalizedX * 7.0f;
-                        player.m_MoveY = normalizedY * 7.0f;
+                        player.m_MoveX = normalizedX * 3.0f;
+                        player.m_MoveY = normalizedY * 3.0f;
                     } else {
                         // ベクトルの長さが0の場合は正規化を行えません
                         // 長さが0の場合、ベクトルの方向は定義できません
