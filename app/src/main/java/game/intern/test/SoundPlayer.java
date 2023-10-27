@@ -92,9 +92,9 @@ public class SoundPlayer {
         playMedia(sePlayer, testSE, seVolume);
     }
 
-    public void setTestSE2(int se) {
+    public void setSE(int se) {
         playMedia(sePlayer, se, seVolume);
-    }//setTestSE2(R.raw.setest2)
+    }//setSE(R.raw.setest2)
 
     public void setSEReflection() {
         playMedia(sePlayer, seReflection, seVolume);
@@ -111,7 +111,7 @@ public class SoundPlayer {
         }
     }
 
-    public void setTestBGM2(int bgm)
+    public void setBGM(int bgm)
     {
         if (bgmPlayer != null) {
             bgmPlayer.stop();

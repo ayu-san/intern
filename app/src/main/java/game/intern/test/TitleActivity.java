@@ -47,7 +47,7 @@ public class TitleActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
-        soundPlayer.setTestBGM2(R.raw.title);
+        soundPlayer.setBGM(R.raw.title);
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -67,7 +67,7 @@ public class TitleActivity extends AppCompatActivity {
         //始めるボタンを押したとき
         startButton.setOnClickListener((View v)->{
 
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             startActivity(new Intent(this, SelectActivity.class));
         });
@@ -75,7 +75,7 @@ public class TitleActivity extends AppCompatActivity {
         //設定ボタンを押したとき
         settingButton.setOnClickListener((View v)->{
 
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_settings,null);
@@ -108,10 +108,12 @@ public class TitleActivity extends AppCompatActivity {
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
                     // シークバーの操作が開始されたときの処理
+                    soundPlayer.setSE(R.raw.decision1);
                 }
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     // シークバーの操作が終了したときの処理
+                    soundPlayer.setSE(R.raw.decision1);
                 }
             });
 
@@ -125,9 +127,11 @@ public class TitleActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onStartTrackingTouch(SeekBar seekBar) {
+                    soundPlayer.setSE(R.raw.decision1);
                 }
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    soundPlayer.setSE(R.raw.decision1);
                 }
             });
 
@@ -135,7 +139,7 @@ public class TitleActivity extends AppCompatActivity {
             Button closeButton = dialogView.findViewById(R.id.closeButtonSetting);
             setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
-                soundPlayer.setTestSE();
+                soundPlayer.setSE(R.raw.cancel1);
 
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
@@ -145,7 +149,7 @@ public class TitleActivity extends AppCompatActivity {
         //遊び方ボタンを押したとき
         asobiButton.setOnClickListener((View v)->{
 
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_asobi,null);
@@ -166,7 +170,7 @@ public class TitleActivity extends AppCompatActivity {
             Button page3button = dialogView.findViewById(R.id.page3button);
 
             page1button.setOnClickListener((View view) -> {
-                soundPlayer.setTestSE();
+                soundPlayer.setSE(R.raw.decision1);
                 page1button.setVisibility(View.INVISIBLE);
                 page2button.setVisibility(View.VISIBLE);
                 page3button.setVisibility(View.VISIBLE);
@@ -174,7 +178,7 @@ public class TitleActivity extends AppCompatActivity {
             });
 
            page2button.setOnClickListener((View view) -> {
-               soundPlayer.setTestSE();
+               soundPlayer.setSE(R.raw.decision1);
                page1button.setVisibility(View.VISIBLE);
                page2button.setVisibility(View.INVISIBLE);
                page3button.setVisibility(View.VISIBLE);
@@ -182,7 +186,7 @@ public class TitleActivity extends AppCompatActivity {
             });
 
            page3button.setOnClickListener((View view) -> {
-               soundPlayer.setTestSE();
+               soundPlayer.setSE(R.raw.decision1);
                page1button.setVisibility(View.VISIBLE);
                page2button.setVisibility(View.VISIBLE);
                page3button.setVisibility(View.INVISIBLE);
@@ -194,7 +198,7 @@ public class TitleActivity extends AppCompatActivity {
             Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
             setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
-                soundPlayer.setTestSE();
+                soundPlayer.setSE(R.raw.cancel1);
 
                 alertDialog.dismiss(); // ダイアログを閉じる
             });
@@ -204,7 +208,7 @@ public class TitleActivity extends AppCompatActivity {
         //クレジットボタンを押したとき
         cregitButton.setOnClickListener((View v)->{
 
-            soundPlayer.setTestSE2(R.raw.setest2);
+            soundPlayer.setSE(R.raw.decision1);
 
             //設定ダイアログの読み込み
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_cregit,null);
@@ -223,7 +227,7 @@ public class TitleActivity extends AppCompatActivity {
             Button closeButton = dialogView.findViewById(R.id.closeButtonCregit);
             setupButtonTouchEffect(closeButton);
             closeButton.setOnClickListener((View view)->{
-                soundPlayer.setTestSE();
+                soundPlayer.setSE(R.raw.cancel1);
 
                 alertDialog.dismiss(); // ダイアログを閉じる
             });

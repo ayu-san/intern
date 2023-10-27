@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public int g_InitSize = 0;
     private boolean isDialogVisible = false;
     private boolean isGameOver = false;
+    private boolean isGameclear = false;
     private boolean isPauseDialog = true;
     private int dialogCount = 0;
     private  Player player;
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             blackView.setVisibility(View.INVISIBLE);
             gameStarted = true;
             soundPlayer.setBGMVolume(initialBGMVolume);
-            soundPlayer.setTestBGM2(R.raw.stage1);//setTestBGM2(R.raw.bgmtest2)
+            soundPlayer.setBGM(R.raw.stage1);//setBGM(R.raw.bgmtest2)
             return true;
         });
 
@@ -174,13 +175,13 @@ public class MainActivity extends AppCompatActivity {
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 5,0.0f,5.0f, 12, 1,1300.0f,400.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8,0.0f,5.0f, 20, 2,1300.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,5.0f, 32, 3,1200.0f,300.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,5.0f, 32, 3,1200.0f,250.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy4),(float)screenWidth / 8 * 7,-2.0f,5.0f, 44, 4,1300.0f,400.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),-(float)screenWidth / 8,2.0f,5.0f, 44, 5,1300.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 58, 6,1200.0f,300.0f));
-        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 3,0.0f,5.0f, 64, 7,1200.0f,300.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 58, 6,1200.0f,250.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 3,0.0f,5.0f, 64, 7,1200.0f,250.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 8 * 5,0.0f,5.0f, 76, 8,1300.0f,400.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8,0.0f,5.0f, 78, 9,1300.0f,400.0f));
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         pauseButton.setOnClickListener((View view)->{
             if (!isDialogVisible) {
                 // ダイアログを表示
-                soundPlayer.setTestSE();
+                soundPlayer.setSE(R.raw.decision1);
                 showPauseDialog();
                 isDialogVisible = true; // ダイアログが表示中であることをフラグで示す
             }
@@ -251,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case MotionEvent.ACTION_UP:
+                    soundPlayer.setSE(R.raw.charge);
+
                     player.m_Texture.clearColorFilter();
                     // 長押しの時間を計算
                     long currentTime2 = System.currentTimeMillis();
@@ -342,16 +345,16 @@ public class MainActivity extends AppCompatActivity {
     private void changeColorBasedOnTouchLength(double touchLength) {
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
-            //soundPlayer.setTestSE2(R.raw.setest2);//
-            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
+            //soundPlayer.setSE(R.raw.setest2);//
+            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,250);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
-            //soundPlayer.setTestSE2(R.raw.setest2);
-            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
+            //soundPlayer.setSE(R.raw.setest2);
+            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,250);
         } else {
             // 長いタッチ：色を緑に変更
-            //soundPlayer.setTestSE2(R.raw.setest2);
-            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
+            //soundPlayer.setSE(R.raw.setest2);
+            collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,250);
         }
     }
 
@@ -422,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
                         if(!isGameOver) {
-                            soundPlayer.setTestBGM2(R.raw.gameover);
+                            soundPlayer.setBGM(R.raw.gameover);
                             stopTimer();
                             stageName = "";
                             resultText = "ゲームオーバー";
@@ -437,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
                     hitCheck(player);
                     if (i <= upSize - 1) {
                         if(Enemies.get(i).hitCheckEnemy(Enemies, screenWidth, screenHeight,collideEffect,enemyeffect)){
-                            soundPlayer.setTestSE();
+                            soundPlayer.setSE(R.raw.burst1);
                             experience++;
                         }
                     }
@@ -448,13 +451,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 //ゲームクリア
-                soundPlayer.setTestBGM2(R.raw.gameclear);
-                stageName = "ステージ１";
-                resultText = "クリア！";
-                showResult(stageName, resultText);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("isConditionNormal",true);
-                editor.apply();
+                if(!isGameclear) {
+                    soundPlayer.setBGM(R.raw.gameclear);
+                    stageName = "ステージ１";
+                    resultText = "クリア！";
+                    showResult(stageName, resultText);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("isConditionNormal", true);
+                    editor.apply();
+                    isGameclear = true;
+                }
             }
         }
     }
@@ -556,7 +562,7 @@ public class MainActivity extends AppCompatActivity {
                 gameObject.m_MoveX *= -0.1;
                 player.m_MoveVecX *= -0.1;
             }
-            soundPlayer.setSEReflection();
+            soundPlayer.setSE(R.raw.se_reflection);
 
         }
 
@@ -575,7 +581,7 @@ public class MainActivity extends AppCompatActivity {
                 gameObject.m_MoveX *= -0.1;
                 player.m_MoveVecX *= -0.1;
             }
-            soundPlayer.setSEReflection();
+            soundPlayer.setSE(R.raw.se_reflection);
         }
 
         //上
@@ -592,7 +598,7 @@ public class MainActivity extends AppCompatActivity {
                 gameObject.m_MoveY *= -0.1;
                 player.m_MoveVecY *= -0.1;
             }
-            soundPlayer.setSEReflection();
+            soundPlayer.setSE(R.raw.se_reflection);
 
         }
 
@@ -611,7 +617,7 @@ public class MainActivity extends AppCompatActivity {
                 gameObject.m_MoveY *= -0.1;
                 player.m_MoveVecY *= -0.1;
             }
-            soundPlayer.setSEReflection();
+            soundPlayer.setSE(R.raw.se_reflection);
 
         }
 
@@ -680,12 +686,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2(R.raw.setest2);
+                soundPlayer.setSE(R.raw.decision1);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2(R.raw.setest2);
+                soundPlayer.setSE(R.raw.decision1);
             }
         });
 
@@ -700,12 +706,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2(R.raw.setest2);
+                soundPlayer.setSE(R.raw.decision1);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                soundPlayer.setTestSE2(R.raw.setest2);
+                soundPlayer.setSE(R.raw.decision1);
             }
         });
 
@@ -715,7 +721,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtonTouchEffect(retry);
         retry.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             startActivity(new Intent(this, MainActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -726,7 +732,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtonTouchEffect(gotoStageSelect);
         gotoStageSelect.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             startActivity(new Intent(this, SelectActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -737,7 +743,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtonTouchEffect(gotoTitle);
         gotoTitle.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             startActivity(new Intent(this, TitleActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -746,7 +752,7 @@ public class MainActivity extends AppCompatActivity {
         Button closeButton = dialogView.findViewById(R.id.closeButtonPause);
         setupButtonTouchEffect(closeButton);
         closeButton.setOnClickListener((View view) -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.cancel1);
             alertDialog.dismiss(); // ダイアログを閉じる
 
             if(dialogCount == 1) {
@@ -877,7 +883,7 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params = player.m_Texture.getLayoutParams();
 
         item1.setOnClickListener(view -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             // ImageButtonの現在の画像を取得
             int currentDrawableId = (int) item1.getTag();
@@ -908,7 +914,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         item2.setOnClickListener(view -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             // ImageButtonの現在の画像を取得
             int currentDrawableId = (int) item2.getTag();
@@ -940,7 +946,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         noselect.setOnClickListener(view -> {
-            soundPlayer.setTestSE2(R.raw.setest2);
+            soundPlayer.setSE(R.raw.cancel1);
 
             alertDialog.dismiss();
 
@@ -998,21 +1004,21 @@ public class MainActivity extends AppCompatActivity {
 
         //リトライボタン
         retrybutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2(R.raw.setest2);
+            soundPlayer.setSE(R.raw.decision1);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //ステージ選択ボタン
         selectbutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2(R.raw.setest2);
+            soundPlayer.setSE(R.raw.decision1);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, SelectActivity.class));
         });
 
         //タイトルボタン
         titlebutton.setOnClickListener(view -> {
-            soundPlayer.setTestSE2(R.raw.setest2);
+            soundPlayer.setSE(R.raw.decision1);
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, TitleActivity.class));
         });
@@ -1047,7 +1053,7 @@ public class MainActivity extends AppCompatActivity {
         Button page3button = dialogView.findViewById(R.id.page3button);
 
         page1button.setOnClickListener((View view) -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             page1button.setVisibility(View.INVISIBLE);
             page2button.setVisibility(View.VISIBLE);
             page3button.setVisibility(View.VISIBLE);
@@ -1055,7 +1061,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         page2button.setOnClickListener((View view) -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             page1button.setVisibility(View.VISIBLE);
             page2button.setVisibility(View.INVISIBLE);
             page3button.setVisibility(View.VISIBLE);
@@ -1063,7 +1069,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         page3button.setOnClickListener((View view) -> {
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             page1button.setVisibility(View.VISIBLE);
             page2button.setVisibility(View.VISIBLE);
             page3button.setVisibility(View.INVISIBLE);
@@ -1075,7 +1081,7 @@ public class MainActivity extends AppCompatActivity {
         Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);
         setupButtonTouchEffect(closeButton);
         closeButton.setOnClickListener((View view)->{
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.cancel1);
 
             alertDialog.dismiss(); // ダイアログを閉じる
         });

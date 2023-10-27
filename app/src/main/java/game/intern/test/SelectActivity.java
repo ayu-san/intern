@@ -91,7 +91,7 @@ public class SelectActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(initialBGMVolume);
         soundPlayer.setSEVolume(initialSEVolume);
 
-        soundPlayer.setTestBGM2(R.raw.title);
+        soundPlayer.setBGM(R.raw.title);
 
         FrameLayout tapEffectContainer = findViewById(R.id.tap_effect);
         tapEffect = new TapEffect(this,tapEffectContainer);
@@ -118,41 +118,41 @@ public class SelectActivity extends AppCompatActivity {
 
         //easyボタンを押したとき
         eazybutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
             startActivity(new Intent(this, MainActivity.class));
         });
 
         //normalボタンを押したとき
         normalbutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             startActivity(new Intent(this, MainActivity2.class));
         });
 
         //hardボタンを押したとき
         hardbutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             startActivity(new Intent(this, MainActivity3.class));
         });
 
         //hellボタンを押したとき
         hellbutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             startActivity(new Intent(this, MainActivity4.class));
         });
 
         //heavenボタンを押したとき
         heavenbutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE();
+            soundPlayer.setSE(R.raw.decision1);
 
             startActivity(new Intent(this, MainActivity5.class));
         });
 
         //戻るボタンを押したとき
         backbutton.setOnClickListener((View v)->{
-            soundPlayer.setTestSE2(R.raw.setest2);
+            soundPlayer.setSE(R.raw.cancel1);
 
             //initData();
 
