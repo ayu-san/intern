@@ -174,13 +174,13 @@ public class MainActivity extends AppCompatActivity {
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 5,0.0f,5.0f, 12, 1,1300.0f,400.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8,0.0f,5.0f, 20, 2,1300.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,5.0f, 32, 3,1200.0f,500.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,5.0f, 32, 3,1200.0f,300.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy4),(float)screenWidth / 8 * 7,-2.0f,5.0f, 44, 4,1300.0f,400.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),-(float)screenWidth / 8,2.0f,5.0f, 44, 5,1300.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 58, 6,1200.0f,500.0f));
-        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 3,0.0f,5.0f, 64, 7,1200.0f,500.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 58, 6,1200.0f,300.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 3,0.0f,5.0f, 64, 7,1200.0f,300.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 8 * 5,0.0f,5.0f, 76, 8,1300.0f,400.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8,0.0f,5.0f, 78, 9,1300.0f,400.0f));
@@ -333,7 +333,6 @@ public class MainActivity extends AppCompatActivity {
         soundPlayer.release();
     }
 
-
     @Override
     public void onBackPressed() {
         // 戻るボタンのデフォルトの動作を無効化（何もしない）
@@ -343,15 +342,15 @@ public class MainActivity extends AppCompatActivity {
     private void changeColorBasedOnTouchLength(double touchLength) {
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
-            soundPlayer.setTestSE2(R.raw.setest2);//
+            //soundPlayer.setTestSE2(R.raw.setest2);//
             collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
-            soundPlayer.setTestSE2(R.raw.setest2);
+            //soundPlayer.setTestSE2(R.raw.setest2);
             collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         } else {
             // 長いタッチ：色を緑に変更
-            soundPlayer.setTestSE2(R.raw.setest2);
+            //soundPlayer.setTestSE2(R.raw.setest2);
             collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,10);
         }
     }
@@ -1028,7 +1027,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAsobi(){
         isPauseDialog = true;
-        dialogCount++;
 
         //設定ダイアログの読み込み
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_asobi,null);

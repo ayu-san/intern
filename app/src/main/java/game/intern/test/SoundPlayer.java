@@ -10,10 +10,8 @@ public class SoundPlayer {
     private MediaPlayer  bgmPlayer;
     private final Context context;
     private static int testSE;
-    private static int testSE2;
     private static int seReflection;
     private static int testBGM;
-    private static int testBGM2;
     private float seVolume = 0.8f; // SEの初期音量
     private float bgmVolume = 0.8f; // BGMの初期音量
 
