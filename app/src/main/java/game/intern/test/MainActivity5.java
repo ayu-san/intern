@@ -457,6 +457,7 @@ public class MainActivity5 extends AppCompatActivity {
                     stageName = "ステージ５";
                     resultText = "クリア！";
                     showResult(stageName, resultText);
+                    isGameclear = true;
                 }
             }
         }

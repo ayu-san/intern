@@ -459,6 +459,7 @@ public class MainActivity3 extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("isConditionHell", true);
                     editor.apply();
+                    isGameclear = true;
                 }
             }
 

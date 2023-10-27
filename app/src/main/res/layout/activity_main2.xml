@@ -83,7 +83,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/scorpion"
+        android:src="@drawable/side"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -94,7 +94,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/scorpion"
+        android:src="@drawable/side"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -104,7 +104,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/enemy"
+        android:src="@drawable/chase"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -144,7 +144,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/character_image"
+        android:src="@drawable/chase"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -155,7 +155,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/scorpion"
+        android:src="@drawable/side"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -178,7 +178,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/scorpion"
+        android:src="@drawable/side"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -211,7 +211,7 @@
         android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/kuma"
+        android:src="@drawable/stage2boss"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />

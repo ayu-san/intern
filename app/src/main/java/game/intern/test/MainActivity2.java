@@ -168,9 +168,9 @@ public class MainActivity2 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 2,5.0f,5.0f, 2, 0,1200.0f,500.0f));
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy1),(float)screenWidth / 7,-5.0f,5.0f, 6, 1,1200.0f,500.0f));
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy2),(float)screenWidth / 5 * 3,5.0f,5.0f, 10, 2,1200.0f,500.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy),(float)screenWidth / 2,5.0f,5.0f, 2, 0,1200.0f,400.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy1),(float)screenWidth / 7,-5.0f,5.0f, 6, 1,1200.0f,400.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy2),(float)screenWidth / 5 * 3,5.0f,5.0f, 10, 2,1200.0f,400.0f));
 
         Enemies.add(new SideEnemy(findViewById(R.id.enemy3),-390.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 3, 1000.0f,200.0f,(float)screenWidth 	/5, 5.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 4, 1000.0f,200.0f,(float)screenWidth 	/9 * 5, -5.0f));
