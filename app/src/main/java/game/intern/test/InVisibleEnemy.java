@@ -21,6 +21,9 @@ public class InVisibleEnemy extends Enemy //縦に落ちてくるだけの敵
     @Override
     public void MoveEnemy(Enemy enemy, GameObject target, int width) {
         if (enemy.m_CollisionTimer == 0) {
+            enemy.m_MoveX = m_ConstMoveX;
+            enemy.m_MoveY = m_ConstMoveY;
+
             if (isStopped) {
                 // 停止時間（ミリ秒）
                 long stopDuration = 3000;
@@ -39,13 +42,13 @@ public class InVisibleEnemy extends Enemy //縦に落ちてくるだけの敵
                 }
 
                 if (0.0f < enemy.m_Speed) {
-                    enemy.m_Speed -= 25.0f;
+                    enemy.m_Speed -= 20.0f;
 
                     enemy.m_MoveX = enemy.m_MoveX * (enemy.m_Speed / 100.0f);
                     enemy.m_MoveY = enemy.m_MoveY * (enemy.m_Speed / 100.0f);
                 } else {
-                    enemy.m_MoveX = m_ConstMoveX;
-                    enemy.m_MoveY = m_ConstMoveY;
+                    enemy.m_MoveX = 0.0f;
+                    enemy.m_MoveY = 0.0f;
 
                     enemy.m_Speed = enemy.m_InitialSpeed;
 

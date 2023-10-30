@@ -14,6 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences2;
 
     // 画像リソースの名前のリスト
     private static final String[] imageResourceNames = {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isGameOver = false;
     private boolean isGameclear = false;
     private boolean isPauseDialog = true;
+    private boolean isCheckBoxOn = false;
     private int dialogCount = 0;
     private  Player player;
     ArrayList<Enemy> Enemies;
@@ -90,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = getSharedPreferences("isCondition",MODE_PRIVATE);
+        sharedPreferences2 = getSharedPreferences("MuPrefs",MODE_PRIVATE);
+
+        isCheckBoxOn = sharedPreferences2.getBoolean("isChecked", false);
 
         // ImageViewを取得
         ImageView backgroundImageView = findViewById(R.id.backgroundImageView);
@@ -115,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
         soundPlayer.setBGMVolume(0);
         soundPlayer.setSEVolume(initialSEVolume);
 
-        showAsobi();
+        if(!isCheckBoxOn) {
+            showAsobi();
+        }
 
         View touchView = findViewById(R.id.startText);
         View blackView = findViewById(R.id.blackview);
@@ -734,6 +743,9 @@ public class MainActivity extends AppCompatActivity {
         gotoStageSelect.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
             soundPlayer.setSE(R.raw.decision1);
+            SharedPreferences.Editor editor = sharedPreferences2.edit();
+            editor.putBoolean("isChecked", false);
+            editor.apply();
             startActivity(new Intent(this, SelectActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -745,6 +757,9 @@ public class MainActivity extends AppCompatActivity {
         gotoTitle.setOnClickListener((View view) -> {
             // ボタンが押されたときの処理
             soundPlayer.setSE(R.raw.decision1);
+            SharedPreferences.Editor editor = sharedPreferences2.edit();
+            editor.putBoolean("isChecked", false);
+            editor.apply();
             startActivity(new Intent(this, TitleActivity.class));
             alertDialog.dismiss(); // ダイアログを閉じる
         });
@@ -1013,6 +1028,9 @@ public class MainActivity extends AppCompatActivity {
         //ステージ選択ボタン
         selectbutton.setOnClickListener(view -> {
             soundPlayer.setSE(R.raw.decision1);
+            SharedPreferences.Editor editor = sharedPreferences2.edit();
+            editor.putBoolean("isChecked", false);
+            editor.apply();
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, SelectActivity.class));
         });
@@ -1020,6 +1038,9 @@ public class MainActivity extends AppCompatActivity {
         //タイトルボタン
         titlebutton.setOnClickListener(view -> {
             soundPlayer.setSE(R.raw.decision1);
+            SharedPreferences.Editor editor = sharedPreferences2.edit();
+            editor.putBoolean("isChecked", false);
+            editor.apply();
             alertDialog.dismiss(); // ダイアログを閉じる
             startActivity(new Intent(this, TitleActivity.class));
         });
@@ -1052,6 +1073,9 @@ public class MainActivity extends AppCompatActivity {
         Button page1button = dialogView.findViewById(R.id.page1button);
         Button page2button = dialogView.findViewById(R.id.page2button);
         Button page3button = dialogView.findViewById(R.id.page3button);
+        CheckBox checkBox = dialogView.findViewById(R.id.checkBox);
+
+        checkBox.setChecked(isCheckBoxOn);
 
         page1button.setOnClickListener((View view) -> {
             soundPlayer.setSE(R.raw.decision1);
@@ -1077,6 +1101,11 @@ public class MainActivity extends AppCompatActivity {
             practice.setImageResource(R.drawable.asobi3);
         });
 
+        checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
+            SharedPreferences.Editor editor = sharedPreferences2.edit();
+            editor.putBoolean("isChecked", true);
+            editor.apply();
+        });
 
         //戻る
         Button closeButton = dialogView.findViewById(R.id.closeButtonAsobi);

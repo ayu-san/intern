@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center|left"
     android:background="#B3FF95"
     android:orientation="vertical">
 
@@ -23,8 +24,8 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="309dp"
-        app:srcCompat="@drawable/asobi1"
-        android:importantForAccessibility="no" />
+        android:importantForAccessibility="no"
+        app:srcCompat="@drawable/asobi1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -94,6 +95,37 @@
             app:strokeColor="#63D237"
             app:strokeWidth="2dp"
             tools:ignore="HardcodedText,RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="今後表示しない"
+            android:textAlignment="gravity"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <Button

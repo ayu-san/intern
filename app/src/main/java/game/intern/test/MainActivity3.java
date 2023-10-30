@@ -166,7 +166,7 @@ public class MainActivity3 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,7.0f, 0, 3,1200.0f,300.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,5.0f, 0, 3,1300.0f,200.0f));
 
         Enemies.add(new SideEnemy(findViewById(R.id.enemy1),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 10, 1, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /2, 0.0f, 5.0f, 18, 2,1200.0f,400.0f, (float)screenWidth 	/4, -7.0f));

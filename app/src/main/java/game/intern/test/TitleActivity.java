@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -168,6 +169,9 @@ public class TitleActivity extends AppCompatActivity {
             Button page1button = dialogView.findViewById(R.id.page1button);
             Button page2button = dialogView.findViewById(R.id.page2button);
             Button page3button = dialogView.findViewById(R.id.page3button);
+            CheckBox checkBox = dialogView.findViewById(R.id.checkBox);
+
+            checkBox.setVisibility(View.INVISIBLE);
 
             page1button.setOnClickListener((View view) -> {
                 soundPlayer.setSE(R.raw.decision1);
