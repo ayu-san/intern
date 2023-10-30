@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class Enemy extends GameObject
+public class FastEnemy extends Enemy
 {
     float m_DestinationX;
     float m_DestinationSpeed;
@@ -20,43 +20,17 @@ public class Enemy extends GameObject
     boolean m_IsPlayerCollision;
     int m_InvincivleTime;
 
-    Enemy(ImageView texture,float posX, float moveX, float moveY, int delayTime, int index,float speed, float weight)
+    FastEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight)
     {
-        m_Texture = texture;
-        m_IsPlayerCollision = false;
-        m_InvincivleTime = 0;
-
-        m_PosX = posX;
-        m_PosY = -500.0f;
-
-        m_oldPosX = m_PosX;
-        m_oldPosY = m_PosY;
-
-        m_Texture.setX(m_PosX);
-        m_Texture.setY(m_PosY);
-
-        m_MoveX = moveX;
-        m_MoveY = moveY;
-
-        m_ConstMoveX = m_MoveX;
-        m_ConstMoveY = m_MoveY;
-
-        m_InitialSpeed = speed;
-        m_Weight = weight;
-
-        m_DisplayTimer = delayTime * 60;
-
-        m_Index = index;
+        super(texture,posX,moveX,moveY,delayTime,index,speed,weight);
+        m_InitialSpeed = 5000.0f;
     }
-
-    int m_DisplayTimer; //出現Deray時間
-    int m_Index; //ArrayListのインデックス
 
     public void SetPlayerCollision()
     {
         m_IsPlayerCollision = true;
     }
-    public void PullInvincivleTime(Enemy enemy)
+    public void PullInvincivleTime(FastEnemy enemy)
     {
         if(enemy.m_InvincivleTime != 0)
         {
@@ -69,6 +43,7 @@ public class Enemy extends GameObject
         }
     }
 
+    @Override
     public void MoveEnemy(Enemy enemy, GameObject target, int width)
     {
         if (enemy.m_CollisionTimer == 0) {
@@ -230,7 +205,8 @@ public class Enemy extends GameObject
     }
 */
 
-    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    @Override
+    public void CollisionCircleEnemy(Player player, Enemy enemy, CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
         radius += 90.0f;
@@ -422,7 +398,7 @@ public class Enemy extends GameObject
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 20;
+                enemy.m_InvincivleTime = 2;
             }
         }
     }

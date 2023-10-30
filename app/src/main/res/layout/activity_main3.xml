@@ -45,7 +45,7 @@
     <ImageView
         android:id="@+id/enemy"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -79,7 +79,7 @@
     <ImageView
         android:id="@+id/enemy3"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -90,7 +90,7 @@
     <ImageView
         android:id="@+id/enemy4"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -101,7 +101,7 @@
     <ImageView
         android:id="@+id/enemy5"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="83dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/chase"
@@ -112,7 +112,7 @@
     <ImageView
         android:id="@+id/enemy6"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -123,7 +123,7 @@
     <ImageView
         android:id="@+id/enemy7"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -156,7 +156,7 @@
     <ImageView
         android:id="@+id/enemy10"
         android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_height="141dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/stage3boss"
@@ -178,7 +178,7 @@
     <ImageView
         android:id="@+id/enemy12"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -189,7 +189,7 @@
     <ImageView
         android:id="@+id/enemy13"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"
@@ -200,7 +200,7 @@
     <ImageView
         android:id="@+id/enemy14"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/invisible"

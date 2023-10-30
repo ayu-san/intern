@@ -175,7 +175,7 @@ public class MainActivity2 extends AppCompatActivity {
         Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 4, 1000.0f,200.0f,(float)screenWidth 	/9 * 5, -5.0f));
 
         //Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,5.0f, 34, 5,2200.0f,10.0f));
-        Enemies.add(new Enemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,7.0f, 34,5,5000.0f,10.0f));
+        Enemies.add(new FastEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,7.0f, 0,5,5000.0f,10.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 42, 6,600.0f,400.0f));
 
