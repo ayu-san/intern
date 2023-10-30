@@ -250,7 +250,7 @@ public class MainActivity5 extends AppCompatActivity {
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    soundPlayer.setSE(R.raw.charge);
+                    soundPlayer.setSE(R.raw.move);
 
                     player.m_Texture.clearColorFilter();
                     // 長押しの時間を計算

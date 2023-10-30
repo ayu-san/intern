@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#04C4EF"
     tools:context="game.intern.test.MainActivity">
 
     <ImageView
         android:id="@+id/backgroundImageView"
         android:layout_width="1283dp"
         android:layout_height="1005dp"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.267"
-        app:srcCompat="@drawable/background_image"
-        android:importantForAccessibility="no" />
+        app:srcCompat="@drawable/background_image" />
 
     <ImageView
         android:id="@+id/gall"
@@ -98,6 +97,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
+
     <ImageView
         android:id="@+id/enemy5"
         android:layout_width="105dp"
@@ -108,6 +108,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
+
     <ImageView
         android:id="@+id/enemy6"
         android:layout_width="100dp"
@@ -118,6 +119,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
+
     <ImageView
         android:id="@+id/enemy7"
         android:layout_width="105dp"
@@ -128,6 +130,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
+
     <ImageView
         android:id="@+id/enemy8"
         android:layout_width="105dp"
@@ -138,6 +141,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
+
     <ImageView
         android:id="@+id/enemy9"
         android:layout_width="100dp"
@@ -259,12 +263,12 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
         android:backgroundTint="#59555454"
+        android:importantForAccessibility="no"
         android:scaleX="1.2"
         android:scaleY="1.3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_pause"
-        android:importantForAccessibility="no" />
+        app:srcCompat="@android:drawable/ic_media_pause" />
 
     <FrameLayout
         android:id="@+id/tap_effect"

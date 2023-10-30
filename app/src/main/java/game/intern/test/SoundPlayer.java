@@ -9,9 +9,6 @@ public class SoundPlayer {
     private static MediaPlayer  sePlayer;
     private MediaPlayer  bgmPlayer;
     private final Context context;
-    private static int testSE;
-    private static int seReflection;
-    private static int testBGM;
     private float seVolume = 0.8f; // SEの初期音量
     private float bgmVolume = 0.8f; // BGMの初期音量
 
@@ -25,9 +22,8 @@ public class SoundPlayer {
         bgmPlayer = new MediaPlayer();
 
         //サウンドのロード
-        testSE = R.raw.setest;
-        seReflection = R.raw.se_reflection;
-        testBGM = R.raw.bgmtest;
+        int testSE = R.raw.se_reflection;
+        int testBGM = R.raw.stage1;
 
         // MediaPlayerにサウンドファイルを設定
         sePlayer = MediaPlayer.create(context, testSE);
@@ -87,29 +83,29 @@ public class SoundPlayer {
         }
     }
 
-    // サウンド再生関数
-    public void setTestSE() {
-        playMedia(sePlayer, testSE, seVolume);
+    // 新しいSEを再生
+    public void setSE2(int soundResourceId) {
+        if (sePlayer != null) {
+            if (sePlayer.isPlaying()) {
+                // 前のSE再生がまだ完了していない場合は待つ
+                sePlayer.setOnCompletionListener(mp -> {
+                    sePlayer.reset();
+                    sePlayer = MediaPlayer.create(context, soundResourceId);
+                    sePlayer.setVolume(seVolume, seVolume);
+                    sePlayer.start();
+                });
+            } else {
+                sePlayer.reset();
+                sePlayer = MediaPlayer.create(context, soundResourceId);
+                sePlayer.setVolume(seVolume, seVolume);
+                sePlayer.start();
+            }
+        }
     }
 
     public void setSE(int se) {
         playMedia(sePlayer, se, seVolume);
     }//setSE(R.raw.setest2)
-
-    public void setSEReflection() {
-        playMedia(sePlayer, seReflection, seVolume);
-    }
-
-    public void setTestBGM() {
-        if (bgmPlayer != null) {
-            bgmPlayer.stop();
-            bgmPlayer.reset();
-            bgmPlayer = MediaPlayer.create(context, testBGM);
-            bgmPlayer.setVolume(bgmVolume, bgmVolume);
-            bgmPlayer.setLooping(true);
-            bgmPlayer.start();
-        }
-    }
 
     public void setBGM(int bgm)
     {

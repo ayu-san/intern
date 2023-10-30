@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    soundPlayer.setSE(R.raw.charge);
+                    soundPlayer.setSE(R.raw.move);
 
                     player.m_Texture.clearColorFilter();
                     // 長押しの時間を計算
@@ -354,15 +354,12 @@ public class MainActivity extends AppCompatActivity {
     private void changeColorBasedOnTouchLength(double touchLength) {
         if (touchLength < player.m_ChargeLevel) {
             // 短いタッチ：色を赤に変更
-            //soundPlayer.setSE(R.raw.setest2);//
             collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect1,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,250);
         } else if (touchLength < player.m_ChargeLevel*2) {
             // 中程度のタッチ：色を青に変更
-            //soundPlayer.setSE(R.raw.setest2);
             collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect2,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,250);
         } else {
             // 長いタッチ：色を緑に変更
-            //soundPlayer.setSE(R.raw.setest2);
             collideEffect.collideEffectDelay((int) player.m_PosX + player.m_Texture.getWidth()/2, (int) player.m_PosY + player.m_Texture.getHeight()/2,chargeeffect3,player.m_Texture.getWidth()+80,player.m_Texture.getHeight()+80,250);
         }
     }
