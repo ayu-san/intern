@@ -70,7 +70,7 @@ public class ZigZagEnemy extends Enemy {
     public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getHeight() /2;
-        radius += 75.0f;
+        radius += 100.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
@@ -88,6 +88,8 @@ public class ZigZagEnemy extends Enemy {
         float calc = (float) Math.sqrt(dx * dx + dy * dy);
         float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
 
+        boolean isEnemyUp;
+
         //if(player.m_CollisionTimer == 0) {
         {
             //if(radius < oldcalc && calc <= radius)
@@ -98,6 +100,13 @@ public class ZigZagEnemy extends Enemy {
                 player.m_PosY = player.m_oldPosY;
                 enemy.m_PosX = enemy.m_oldPosX;
                 enemy.m_PosY = enemy.m_oldPosY;
+
+                if(enemy.m_PosY <= player.m_PosY)
+                {
+                    isEnemyUp = true;
+                } else {
+                    isEnemyUp = false;
+                }
 
                 // 衝突位置を計算
                 float collisionX = (float) (enemyX - dx * (-0.5 + radius / calc));
@@ -235,6 +244,15 @@ public class ZigZagEnemy extends Enemy {
                             if (!isNaN(preserveMoveY * ex2 / 2.5f))
                                 player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
                         }
+
+                        //応急処置
+                        if(enemy.getClass() != Enemy.class && enemy.getClass() != Stage4BossDragon.class && !isEnemyUp)//エネミーが下
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 8))
+                                player.m_MoveX = -preserveMoveX * ex2 / 8;
+                            if (!isNaN(preserveMoveY * ex2 / 8))
+                                player.m_MoveY = -preserveMoveY * ex2 / 8;
+                        }
                     }
                     //ノックバック中
                     else
@@ -259,7 +277,7 @@ public class ZigZagEnemy extends Enemy {
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 10;
+                enemy.m_InvincivleTime = 20;
             }
         }
     }

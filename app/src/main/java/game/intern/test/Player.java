@@ -15,19 +15,6 @@ public class Player extends GameObject
     int m_ChargeLevel = 1000;//チャージ速度
 
     int m_EnemyKilledNumber = 0;
-
-    public void SetSpeed(float sp)
-    {
-        m_Speed = sp;
-    }
-    public void AddEnemyKilled()
-    {
-        m_EnemyKilledNumber++;
-    }
-    public int GetEnemyKilledNumber()
-    {
-        return m_EnemyKilledNumber;
-    }
     public void CollisionCirclePlayer(Player player, ArrayList<Enemy> enemies, CollideEffect collideEffect, Drawable drawable)
     {
         for (int i = 0; i < enemies.size(); i++)

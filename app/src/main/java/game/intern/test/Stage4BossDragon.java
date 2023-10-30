@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class Enemy extends GameObject
+public class Stage4BossDragon extends Enemy
 {
     float m_DestinationX;
     float m_DestinationSpeed;
@@ -20,55 +20,17 @@ public class Enemy extends GameObject
     boolean m_IsPlayerCollision;
     int m_InvincivleTime;
 
-    Enemy(ImageView texture,float posX, float moveX, float moveY, int delayTime, int index,float speed, float weight)
+    Stage4BossDragon(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight)
     {
-        m_Texture = texture;
-        m_IsPlayerCollision = false;
-        m_InvincivleTime = 0;
-
-        m_PosX = posX;
-        m_PosY = -500.0f;
-
-        m_oldPosX = m_PosX;
-        m_oldPosY = m_PosY;
-
-        m_Texture.setX(m_PosX);
-        m_Texture.setY(m_PosY);
-
-        m_MoveX = moveX;
-        m_MoveY = moveY;
-
-        m_ConstMoveX = m_MoveX;
-        m_ConstMoveY = m_MoveY;
-
-        m_InitialSpeed = speed;
-        m_Weight = weight;
-
-        m_DisplayTimer = delayTime * 60;
-
-        m_Index = index;
+        super(texture,posX,moveX,moveY,delayTime,index,speed,weight);
     }
-
-    int m_DisplayTimer; //出現Deray時間
-    int m_Index; //ArrayListのインデックス
 
     public void SetPlayerCollision()
     {
         m_IsPlayerCollision = true;
     }
-    public void PullInvincivleTime(Enemy enemy)
-    {
-        if(enemy.m_InvincivleTime != 0)
-        {
-            enemy.m_InvincivleTime--;
-        }
 
-        if(enemy.m_InvincivleTime < 0)
-        {
-            enemy.m_InvincivleTime = 0;
-        }
-    }
-
+    @Override
     public void MoveEnemy(Enemy enemy, GameObject target, int width)
     {
         if (enemy.m_CollisionTimer == 0) {
@@ -117,39 +79,6 @@ public class Enemy extends GameObject
 
         //reflect(enemy , width);
     }
-
-/*
-    public boolean isCoinCideEnemy(Enemy enemy, GameObject target)
-    {
-        {
-            int radius = target.m_Texture.getHeight() /2;
-            radius += 20.0f;
-
-            float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
-            float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
-
-            float playerX = target.m_PosX + (float)target.m_Texture.getWidth()/2;
-            float playerY = target.m_PosY + (float)target.m_Texture.getHeight()/2 - 40.0f;
-            float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
-            float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
-
-            float oldDX = oldenemyX - playerX;
-            float oldDY = oldenemyY - playerY;
-
-            float dx = enemyX - playerX;
-            float dy = enemyY - playerY;
-            float calc = (float) Math.sqrt(dx * dx + dy * dy);
-            float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
-
-            if(radius < oldcalc && calc <= radius)
-            { //当たった
-                //補正
-                return true;
-            }
-        }
-        return false;
-    }
-*/
 
     private float calculateLength(float x, float y)
     {
@@ -230,10 +159,11 @@ public class Enemy extends GameObject
     }
 */
 
-    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    @Override
+    public void CollisionCircleEnemy(Player player, Enemy enemy, CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
-        radius += 70.0f;
+        radius += 170.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;

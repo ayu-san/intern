@@ -79,6 +79,7 @@ public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
         float calc = (float) Math.sqrt(dx * dx + dy * dy);
         float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
 
+        boolean isEnemyUp;
         //if(player.m_CollisionTimer == 0) {
         {
             //if(radius < oldcalc && calc <= radius)
@@ -89,6 +90,13 @@ public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
                 player.m_PosY = player.m_oldPosY;
                 enemy.m_PosX = enemy.m_oldPosX;
                 enemy.m_PosY = enemy.m_oldPosY;
+
+                if(enemy.m_PosY <= player.m_PosY)
+                {
+                    isEnemyUp = true;
+                } else {
+                    isEnemyUp = false;
+                }
 
                 // 衝突位置を計算
                 float collisionX = (float) (enemyX - dx * (-0.5 + radius / calc));
@@ -226,6 +234,15 @@ public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
                             if (!isNaN(preserveMoveY * ex2 / 2.5f))
                                 player.m_MoveY = -preserveMoveY * ex2 / 2.5f;
                         }
+
+                        //応急処置
+                        if(enemy.getClass() != Enemy.class && enemy.getClass() != Stage4BossDragon.class && !isEnemyUp)//エネミーが下
+                        {
+                            if (!isNaN(preserveMoveX * ex2 / 8))
+                                player.m_MoveX = -preserveMoveX * ex2 / 8;
+                            if (!isNaN(preserveMoveY * ex2 / 8))
+                                player.m_MoveY = -preserveMoveY * ex2 / 8;
+                        }
                     }
                     //ノックバック中
                     else
@@ -250,7 +267,7 @@ public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 10;
+                enemy.m_InvincivleTime = 20;
             }
         }
     }

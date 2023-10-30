@@ -5,15 +5,13 @@ import static java.lang.Double.isNaN;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-
-public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
+public class Stage5BossDaidaraBocchi extends Enemy //縦に落ちてくるだけの敵
 {
     float m_InitialSpeed = 200.0f;
     float m_Speed = 0.0f;
     float m_Weight = 800.0f; //重さ
 
-    Stage1BossKuma(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight) {
+    Stage5BossDaidaraBocchi(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight) {
         super(texture,posX,moveX,moveY,delayTime,index, speed,weight);//基底クラスのコンストラクタ呼び出し
     }
 
@@ -68,14 +66,14 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
     @Override
     public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
-        int radius = player.m_Texture.getWidth() /2;
-        radius += 170.0f;
+        int radius = player.m_Texture.getHeight() /2;
+        radius += 140.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
 
         float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 20.0f;
+        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 30.0f;
         float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
         float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
 
@@ -158,6 +156,7 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                 }
                 else
                 {
+                    //エネミーの衝突後
                     if(player.m_CollisionTimer == 0)
                     {
                         if(enemy.m_CollisionTimer == 0)
@@ -225,7 +224,7 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                 }
                 else
                 {
-                    //プレイヤー
+//                  //プレイヤー
                     if(player.m_CollisionTimer == 0)
                     {
                         if(enemy.m_CollisionTimer == 0)
