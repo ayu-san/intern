@@ -166,30 +166,34 @@ public class MainActivity3 extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,5.0f, 0, 3,1300.0f,200.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,5.0f, 1, 0,1420.0f,200.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 7,-1.5f,5.0f, 5, 1,1200.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),-(float)screenWidth / 8,1.5f,5.0f, 9, 2,1200.0f,300.0f));
 
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy1),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 10, 1, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy2),screenWidth + 120.0f, (float)screenHeight /2, 0.0f, 5.0f, 18, 2,1200.0f,400.0f, (float)screenWidth 	/4, -7.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 5,0.0f,5.0f, 23, 3,1420.0f,200.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy4),(float)screenWidth / 8,0.0f,5.0f, 23, 4,1420.0f,200.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 5,0.0f,7.0f, 30, 3,1200.0f,500.0f));
-        //Enemies.add(new SideEnemy(findViewById(R.id.enemy3),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 240, 1, (float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),-300.0f, (float)screenHeight /3, 0.0f, 5.0f, 38, 4, 1200.0f,400.0f,(float)screenWidth 	/4, 7.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy5),screenWidth + 120.0f, (float)screenHeight /3, 0.0f, 5.0f, 46, 5, 1200.0f,400.0f,(float)screenWidth 	/3, -5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy6),screenWidth + 120.0f, (float)screenHeight /5, 0.0f, 5.0f, 54, 6, 1200.0f,400.0f,(float)screenWidth 	/5, -7.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,5.0f, 29, 5,1200.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 5,0.0f,7.0f, 62, 7,1200.0f,500.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 5 * 3,0.0f,7.0f, 70, 8,1300.0f,400.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 4,0.0f,7.0f, 77,9,1300.0f,400.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy6),-(float)screenWidth / 9,1.2f,5.0f, 40, 6,1500.0f,200.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 7,-1.2f,5.0f, 44, 7,1500.0f,200.0f));
 
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy10),(float)screenWidth / 8 * 3,0.0f,9.0f, 87,10, 900.0f,2000.0f));//ボス
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 8 * 3,0.0f,5.0f, 50, 8,1200.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 5,0.0f,5.0f, 55, 9,1200.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy11),(float)screenWidth / 8,0.0f,5.0f, 60, 11,1200.0f,300.0f));
+
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy12),(float)screenWidth / 8 * 4.5f,0.0f,5.0f, 70, 12,1420.0f,200.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy13),(float)screenWidth / 8 * 1.5f,0.0f,5.0f, 70, 13,1420.0f,200.0f));
+
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,9.0f, 72,10, 1000.0f,2000.0f));//ボス
+
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy14),(float)screenWidth / 8 * 3,0.0f,5.0f, 75, 14,1420.0f,200.0f));
+
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy15),(float)screenWidth / 8 * 7,-1.5f,5.0f, 82, 15,1200.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy16),-(float)screenWidth / 8,1.5f,5.0f, 82, 16,1200.0f,300.0f));
 
 
         g_InitSize = Enemies.size();
-//        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
-//        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
-//        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),screenWidth / 5 * (4),0.0f,7.0f, 901200,2));
-
-        //ImageView texture,float posX, float moveX, float moveY, int delayTime
 
         timer.schedule(new TimerTask() {
             @Override

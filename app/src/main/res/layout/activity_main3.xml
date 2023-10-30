@@ -59,7 +59,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/invisible"
+        android:src="@drawable/enemy"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="278dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -71,7 +71,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/invisible"
+        android:src="@drawable/enemy"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -104,7 +104,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/invisible"
+        android:src="@drawable/chase"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -137,7 +137,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/invisible"
+        android:src="@drawable/enemy"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -148,7 +148,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/invisible"
+        android:src="@drawable/enemy"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -160,6 +160,72 @@
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/stage3boss"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy11"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy12"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy13"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy14"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy15"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy16"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/enemy"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -192,7 +258,7 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="62dp"
-        android:max="2"
+        android:max="3"
         android:progress="0"
         android:progressBackgroundTint="#020202"
         android:progressTint="#FFE500"

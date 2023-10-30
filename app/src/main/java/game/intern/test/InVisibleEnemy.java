@@ -61,18 +61,19 @@ public class InVisibleEnemy extends Enemy //縦に落ちてくるだけの敵
 
         if (m_DisplayTimer > 0) {
             m_DisplayTimer--;
-        }
+        }else {
 
-        if (!isStopped) {
-            enemy.m_oldPosX = enemy.m_PosX;
-            enemy.m_oldPosY = enemy.m_PosY;
-            enemy.m_PosX += enemy.m_MoveX;
-            enemy.m_PosY += enemy.m_MoveY;
-        } else {
-            // 敵が停止中は透明度を変化させる
-            if (currentAlpha > 0.1f) {
-                currentAlpha -= 0.01f; // 透明度を徐々に下げる
-                enemy.m_Texture.setAlpha(currentAlpha);
+            if (!isStopped) {
+                enemy.m_oldPosX = enemy.m_PosX;
+                enemy.m_oldPosY = enemy.m_PosY;
+                enemy.m_PosX += enemy.m_MoveX;
+                enemy.m_PosY += enemy.m_MoveY;
+            } else {
+                // 敵が停止中は透明度を変化させる
+                if (currentAlpha > 0.1f) {
+                    currentAlpha -= 0.01f; // 透明度を徐々に下げる
+                    enemy.m_Texture.setAlpha(currentAlpha);
+                }
             }
         }
     }
