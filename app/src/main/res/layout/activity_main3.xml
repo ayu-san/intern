@@ -154,17 +154,6 @@
         tools:layout_editor_absoluteY="110dp" />
 
     <ImageView
-        android:id="@+id/enemy10"
-        android:layout_width="150dp"
-        android:layout_height="141dp"
-        android:layout_centerInParent="true"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/stage3boss"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="110dp" />
-
-    <ImageView
         android:id="@+id/enemy11"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -230,6 +219,17 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
 
+
+    <ImageView
+        android:id="@+id/enemy10"
+        android:layout_width="150dp"
+        android:layout_height="141dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/stage3boss"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
 
     <TextView
         android:id="@+id/myLevelView"
