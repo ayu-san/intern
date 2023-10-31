@@ -10,7 +10,7 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF194"
+        android:background="#FEEB6F"
         android:padding="16dp"
         android:text="レベルアップ！"
         android:textAlignment="center"
