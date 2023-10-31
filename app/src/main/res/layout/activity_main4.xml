@@ -93,7 +93,7 @@
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/scorpion"
+        android:src="@drawable/side"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />
@@ -209,6 +209,39 @@
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
         android:src="@drawable/scorpion"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy16"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/chase"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy17"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/miller"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="110dp" />
+
+    <ImageView
+        android:id="@+id/enemy18"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/miller"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="110dp" />

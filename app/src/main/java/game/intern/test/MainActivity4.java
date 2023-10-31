@@ -170,31 +170,35 @@ public class MainActivity4 extends AppCompatActivity {
         Enemies = new ArrayList<>();
         Enemies.add(new MillerEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,7.0f, 0, 0,2400.0f,400.0f));
 
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 4.5f,0.0f,7.0f, 12, 1,2400.0f,400.0f));
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8 * 1.5f,0.0f,7.0f, 13, 2 ,2400.0f,400.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 10, 4, 1000.0f,200.0f,(float)screenWidth 	/5, -5.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,7.0f, 18, 3,1200.0f,200.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,7.0f, 12, 3,1200.0f,300.0f));
 
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy4),(float)screenWidth / 1.6f,5.0f,5.0f, 30, 4,1200.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 4.5f,0.0f,7.0f, 14, 1,2400.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8 * 1.5f,0.0f,7.0f, 15, 2 ,2400.0f,400.0f));
 
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 1.5f,0.0f,7.0f, 38, 5,2400.0f,400.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy6),-390.0f, (float)screenHeight / 4, 0.0f, 5.0f, 30, 6, 1000.0f,300.0f,(float)screenWidth 	/5, 5.0f));
+        Enemies.add(new SideEnemy(findViewById(R.id.enemy7),screenWidth + 126.0f, (float)screenHeight / 4, 0.0f, 5.0f, 30, 7, 1000.0f,300.0f,(float)screenWidth 	/9 * 5, -5.0f));
 
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy6),-390.0f, (float)screenHeight /2, 0.0f, 5.0f, 50, 6, 1000.0f,200.0f,(float)screenWidth 	/5, 5.0f));
-        Enemies.add(new SideEnemy(findViewById(R.id.enemy7),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 50, 7, 1000.0f,200.0f,(float)screenWidth 	/9 * 5, -5.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,7.0f, 32, 5,2400.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy8),-(float)screenWidth,0.0f,7.0f, 60, 8,1200.0f,200.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy8),-(float)screenWidth / 3,0.0f,7.0f, 35, 8,1200.0f,300.0f));
 
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 4.5f,0.0f,7.0f, 64, 9,2400.0f,400.0f));
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy11),(float)screenWidth / 8 * 1.5f,0.0f,7.0f, 67, 11,2400.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8 * 4.5f,0.0f,7.0f, 47, 9,2400.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy11),(float)screenWidth / 8 * 1.5f,0.0f,7.0f, 48, 11,2400.0f,400.0f));
 
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy12),(float)screenWidth / 8 * 7,-1.5f,7.0f, 79, 12,2400.0f,400.0f));
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy13),-(float)screenWidth / 8,1.5f,7.0f, 79, 13,2400.0f,400.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy16),(float)screenWidth / 8 * 3,0.0f,7.0f, 50, 16,1200.0f,200.0f));
 
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy14),(float)screenWidth / 2.6f,-5.0f,5.0f, 87, 14,1200.0f,600.0f));
-        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy15),(float)screenWidth / 2.6f,5.0f,5.0f, 87, 15,1200.0f,600.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy12),(float)screenWidth / 8 * 7,-1.5f,7.0f, 53, 12,2400.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy13),-(float)screenWidth / 8,1.5f,7.0f, 54, 13,2400.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,7.0f, 95, 10,800.0f,5000.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy14),(float)screenWidth / 2.6f,-5.0f,5.0f, 63, 14,1200.0f,600.0f));
+        Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy15),(float)screenWidth / 2.6f,5.0f,5.0f, 63, 15,1200.0f,600.0f));
 
+        Enemies.add(new Enemy(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,7.0f, 65, 10,1000.0f,5000.0f));
+
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy17),(float)screenWidth / 8 * 5,0.0f,7.0f, 67, 17,2400.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy18),(float)screenWidth / 8,0.0f,7.0f, 67, 18,2400.0f,400.0f));
 
         g_InitSize = Enemies.size();
 
