@@ -66,7 +66,7 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
     }
 
     @Override
-    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    public boolean CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
         radius += 170.0f;
@@ -276,8 +276,10 @@ public class Stage1BossKuma extends Enemy //縦に落ちてくるだけの敵
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 20;
+                enemy.m_InvincivleTime = 10;
+                return true;
             }
+            return false;
         }
     }
 

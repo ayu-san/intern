@@ -55,6 +55,8 @@ public class MainActivity5 extends AppCompatActivity {
     private Timer timer = new Timer();
     private final Handler handler = new Handler();
     private Drawable enemyeffect;
+
+    private Drawable screeneffect;
     private Drawable chargeeffect1;
     private Drawable chargeeffect2;
     private Drawable chargeeffect3;
@@ -125,7 +127,7 @@ public class MainActivity5 extends AppCompatActivity {
             return true;
         });
 
-
+        screeneffect = ContextCompat.getDrawable(this, R.drawable.hiteffect1);
         enemyeffect = ContextCompat.getDrawable(this,R.drawable.hiteffect2);
         chargeeffect1 = ContextCompat.getDrawable(this, R.drawable.chargeeffect1);
         chargeeffect2 = ContextCompat.getDrawable(this, R.drawable.chargeeffect2);
@@ -419,7 +421,11 @@ public class MainActivity5 extends AppCompatActivity {
 
 
                     if (i <= upSize - 1) {
-                        Enemies.get(i).CollisionCircleEnemy(player, Enemies.get(i),collideEffect,hiteffect);
+                        if(Enemies.get(i).CollisionCircleEnemy(player, Enemies.get(i),collideEffect,hiteffect))
+                        {
+                            //当たった
+                            soundPlayer.setSE(R.raw.hit1);
+                        }
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
@@ -491,6 +497,24 @@ public class MainActivity5 extends AppCompatActivity {
             player.m_oldPosY = player.m_PosY;
         }
 
+        //限界地設定
+        if(player.m_MoveX < -90.0f)
+        {
+            player.m_MoveX = -90.0f;
+        }
+        if(90.0f < player.m_MoveX)
+        {
+            player.m_MoveX = 90.0f;
+        }
+        if(player.m_MoveY < -90.0f)
+        {
+            player.m_MoveY = -90.0f;
+        }
+        if(90.0f < player.m_MoveY)
+        {
+            player.m_MoveY = 90.0f;
+        }
+
         player.m_PosX += player.m_MoveX;
         player.m_PosY += player.m_MoveY;
 
@@ -522,7 +546,6 @@ public class MainActivity5 extends AppCompatActivity {
     //画面外判定
     private void hitCheck(GameObject gameObject)
     {
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.hiteffect1);
         long durations = 500;
 
         //右
@@ -531,7 +554,7 @@ public class MainActivity5 extends AppCompatActivity {
             gameObject.m_PosX = screenWidth - gameObject.m_Texture.getWidth();
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect(screenWidth, (int) (player.m_PosY +130),drawable,350,350,durations);
+                collideEffect.collideEffect(screenWidth, (int) (player.m_PosY +130),screeneffect,350,350,durations);
                 gameObject.m_MoveX *= -1.0;
                 player.m_MoveVecX *= -1.0;
             }
@@ -549,7 +572,7 @@ public class MainActivity5 extends AppCompatActivity {
             gameObject.m_PosX = 0;
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect(0, (int) (player.m_PosY +130),drawable,350,350,durations);
+                collideEffect.collideEffect(0, (int) (player.m_PosY +130),screeneffect,350,350,durations);
                 gameObject.m_MoveX *= -1.0;
                 player.m_MoveVecX *= -1.0;
             }
@@ -566,7 +589,7 @@ public class MainActivity5 extends AppCompatActivity {
             gameObject.m_PosY = 0;
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect((int) (player.m_PosX +130), 0,drawable,350,350,durations);
+                collideEffect.collideEffect((int) (player.m_PosX +130), 0,screeneffect,350,350,durations);
                 gameObject.m_MoveY *= -1.0;
                 player.m_MoveVecY *= -1.0;
             }
@@ -584,7 +607,7 @@ public class MainActivity5 extends AppCompatActivity {
             gameObject.m_PosY = screenHeight - gameObject.m_Texture.getHeight();
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect((int) (player.m_PosX +130), screenHeight,drawable,350,350,durations);
+                collideEffect.collideEffect((int) (player.m_PosX +130), screenHeight,screeneffect,350,350,durations);
                 gameObject.m_MoveY *= -1.0;
                 player.m_MoveVecY *= -1.0;
             }

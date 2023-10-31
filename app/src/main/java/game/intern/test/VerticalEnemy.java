@@ -66,16 +66,16 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
     }
 
     @Override
-    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    public boolean CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getHeight() /2;
-        radius += 100.0f;
+        radius += 110.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
 
         float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 40.0f;
+        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 60.0f;
         float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
         float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
 
@@ -278,7 +278,9 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
                 enemy.m_InvincivleTime = 10;
+                return true;
             }
+            return false;
         }
     }
 

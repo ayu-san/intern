@@ -230,7 +230,7 @@ public class Enemy extends GameObject
     }
 */
 
-    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    public boolean CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
         radius += 90.0f;
@@ -423,7 +423,9 @@ public class Enemy extends GameObject
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
                 enemy.m_InvincivleTime = 20;
+                return true;
             }
+            return false;
         }
     }
 //public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies, CollideEffect collideEffect, Drawable drawable) {

@@ -23,7 +23,7 @@ public class FastEnemy extends Enemy
     FastEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight)
     {
         super(texture,posX,moveX,moveY,delayTime,index,speed,weight);
-        m_InitialSpeed = 5000.0f;
+        m_InitialSpeed = 3000.0f;
     }
 
     public void SetPlayerCollision()
@@ -206,7 +206,7 @@ public class FastEnemy extends Enemy
 */
 
     @Override
-    public void CollisionCircleEnemy(Player player, Enemy enemy, CollideEffect collideEffect, Drawable drawable)
+    public boolean CollisionCircleEnemy(Player player, Enemy enemy, CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
         radius += 90.0f;
@@ -398,8 +398,10 @@ public class FastEnemy extends Enemy
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 2;
+                enemy.m_InvincivleTime = 15;
+                return true;
             }
+            return false;
         }
     }
 //public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies, CollideEffect collideEffect, Drawable drawable) {

@@ -64,7 +64,7 @@ public class Stage5BossDaidaraBocchi extends Enemy //縦に落ちてくるだけ
     }
 
     @Override
-    public void CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
+    public boolean CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getHeight() /2;
         radius += 140.0f;
@@ -276,7 +276,9 @@ public class Stage5BossDaidaraBocchi extends Enemy //縦に落ちてくるだけ
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
                 enemy.m_InvincivleTime = 20;
+                return true;
             }
+            return false;
         }
     }
 

@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer = new Timer();
     private final Handler handler = new Handler();
     private Drawable enemyeffect;
+    private Drawable screeneffect;
     private Drawable chargeeffect1;
     private Drawable chargeeffect2;
     private Drawable chargeeffect3;
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        screeneffect = ContextCompat.getDrawable(this, R.drawable.hiteffect1);
         enemyeffect = ContextCompat.getDrawable(this,R.drawable.hiteffect2);
         chargeeffect1 = ContextCompat.getDrawable(this, R.drawable.chargeeffect1);
         chargeeffect2 = ContextCompat.getDrawable(this, R.drawable.chargeeffect2);
@@ -180,22 +182,23 @@ public class MainActivity extends AppCompatActivity {
         gallLine.m_Texture.setY(gallLine.m_PosY);
 
         Enemies = new ArrayList<>();
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,5.0f, 2, 0,1300.0f,400.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 5,0.0f,5.0f, 12, 1,1300.0f,400.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8,0.0f,5.0f, 20, 2,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy),(float)screenWidth / 8 * 3,0.0f,5.0f, 2, 0,1000.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),(float)screenWidth / 8 * 5,0.0f,5.0f, 12, 1,1000.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8,0.0f,5.0f, 20, 2,1000.0f,300.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,5.0f, 32, 3,1200.0f,250.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,5.0f, 32, 3,900.0f,200.0f));
 
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy4),(float)screenWidth / 8 * 7,-2.0f,5.0f, 44, 4,1300.0f,400.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),-(float)screenWidth / 8,2.0f,5.0f, 44, 5,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy4),(float)screenWidth / 8 * 7,-2.0f,5.0f, 44, 4,800.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy5),-(float)screenWidth / 8,2.0f,5.0f, 44, 5,800.0f,300.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 58, 6,1200.0f,250.0f));
-        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 3,0.0f,5.0f, 64, 7,1200.0f,250.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 58, 6,900.0f,200.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy7),(float)screenWidth / 8 * 3,0.0f,5.0f, 64, 7,900.0f,200.0f));
 
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 8 * 5,0.0f,5.0f, 76, 8,1300.0f,400.0f));
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8,0.0f,5.0f, 78, 9,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 8 * 5,0.0f,5.0f, 76, 8,1000.0f,300.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8,0.0f,5.0f, 78, 9,1000.0f,300.0f));
 
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,8.0f, 84,10, 900.0f,2000.0f));//ボス
+        Enemies.add(new Stage1BossKuma(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,8.0f, 84,10, 900.0f,1800.0f));//ボス
+
         g_InitSize = Enemies.size();
 //        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
 //        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy1),screenWidth / 5 * (1 * 3),0.0f,7.0f, 90700, 1));
@@ -426,8 +429,14 @@ public class MainActivity extends AppCompatActivity {
 //                        player.CollisionCirclePlayer(player, Enemies,collideEffect,hiteffect);
 //                    }
 
-                    if (i <= upSize - 1) {
-                        Enemies.get(i).CollisionCircleEnemy(player, Enemies.get(i),collideEffect,hiteffect);
+                    if (i <= upSize - 1)
+                    {
+                        if(Enemies.get(i).CollisionCircleEnemy(player, Enemies.get(i),collideEffect,hiteffect))
+                        {
+                            //当たった
+                            soundPlayer.setSE(R.raw.hit1);
+                        }
+
                     }
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {
@@ -551,7 +560,6 @@ public class MainActivity extends AppCompatActivity {
     //画面外判定
     private void hitCheck(GameObject gameObject)
     {
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.hiteffect1);
         long durations = 500;
 
         //右
@@ -560,7 +568,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosX = screenWidth - gameObject.m_Texture.getWidth();
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect(screenWidth, (int) (player.m_PosY +130),drawable,350,350,durations);
+                collideEffect.collideEffect(screenWidth, (int) (player.m_PosY +130),screeneffect,350,350,durations);
                 gameObject.m_MoveX *= -1.0;
                 player.m_MoveVecX *= -1.0;
             }
@@ -579,7 +587,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosX = 0;
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect(0, (int) (player.m_PosY +130),drawable,350,350,durations);
+                collideEffect.collideEffect(0, (int) (player.m_PosY +130),screeneffect,350,350,durations);
                 gameObject.m_MoveX *= -1.0;
                 player.m_MoveVecX *= -1.0;
             }
@@ -596,7 +604,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosY = 0;
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect((int) (player.m_PosX +130), 0,drawable,350,350,durations);
+                collideEffect.collideEffect((int) (player.m_PosX +130), 0,screeneffect,350,350,durations);
                 gameObject.m_MoveY *= -1.0;
                 player.m_MoveVecY *= -1.0;
             }
@@ -615,7 +623,7 @@ public class MainActivity extends AppCompatActivity {
             gameObject.m_PosY = screenHeight - gameObject.m_Texture.getHeight();
             if(0.0f < player.m_Speed)
             {//敵からぶつかってこられたとき
-                collideEffect.collideEffect((int) (player.m_PosX +130), screenHeight,drawable,350,350,durations);
+                collideEffect.collideEffect((int) (player.m_PosX +130), screenHeight,screeneffect,350,350,durations);
                 gameObject.m_MoveY *= -1.0;
                 player.m_MoveVecY *= -1.0;
             }
