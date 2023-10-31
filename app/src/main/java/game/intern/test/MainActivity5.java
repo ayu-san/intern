@@ -194,13 +194,13 @@ public class MainActivity5 extends AppCompatActivity {
 
         Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy12),(float)screenWidth / 3,5.0f,5.0f, 65, 12,1200.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy13),(float)screenWidth / 8 * 5,0.0f,7.0f, 68, 13,1200.0f,400.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy13),(float)screenWidth / 8 * 5,0.0f,7.0f, 67, 13,1200.0f,400.0f));
 
-        Enemies.add(new MillerEnemy(findViewById(R.id.enemy14),(float)screenWidth / 8,0.0f,7.0f, 70, 14,2400.0f,400.0f));
+        Enemies.add(new MillerEnemy(findViewById(R.id.enemy14),(float)screenWidth / 8,0.0f,7.0f, 69, 14,2400.0f,400.0f));
 
-        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy15),(float)screenWidth / 8 * 3,0.0f,5.0f, 70, 15,1420.0f,200.0f));
+        Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy15),(float)screenWidth / 8 * 3,0.0f,5.0f, 69, 15,1420.0f,200.0f));
 
-        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy16),-(float)screenWidth * 1.2f,5.5f,7.0f, 78, 16,1300.0f,400.0f));
+        Enemies.add(new VerticalEnemy(findViewById(R.id.enemy16),-(float)screenWidth * 1.2f,5.5f,7.0f, 75, 16,1300.0f,400.0f));
 
 
         g_InitSize = Enemies.size();

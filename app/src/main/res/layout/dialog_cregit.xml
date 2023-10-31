@@ -10,22 +10,13 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F8F7F6"
         android:padding="8dp"
         android:text="クレジット"
         android:textAlignment="center"
         android:textColor="#919191"
         android:textSize="34sp"
         android:textStyle="bold"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="敬称略　　"
-        android:textAlignment="textEnd"
-        android:textColor="#919191"
-        android:textSize="20sp"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -64,7 +55,7 @@
     <View
         android:id="@+id/view11"
         android:layout_width="match_parent"
-        android:layout_height="29dp" />
+        android:layout_height="25dp" />
 
     <TextView
         android:id="@+id/textView9"
@@ -91,7 +82,7 @@
     <View
         android:id="@+id/view12"
         android:layout_width="match_parent"
-        android:layout_height="29dp" />
+        android:layout_height="25dp" />
 
     <TextView
         android:id="@+id/textView11"
