@@ -83,26 +83,6 @@ public class SoundPlayer {
         }
     }
 
-    // 新しいSEを再生
-    public void setSE2(int soundResourceId) {
-        if (sePlayer != null) {
-            if (sePlayer.isPlaying()) {
-                // 前のSE再生がまだ完了していない場合は待つ
-                sePlayer.setOnCompletionListener(mp -> {
-                    sePlayer.reset();
-                    sePlayer = MediaPlayer.create(context, soundResourceId);
-                    sePlayer.setVolume(seVolume, seVolume);
-                    sePlayer.start();
-                });
-            } else {
-                sePlayer.reset();
-                sePlayer = MediaPlayer.create(context, soundResourceId);
-                sePlayer.setVolume(seVolume, seVolume);
-                sePlayer.start();
-            }
-        }
-    }
-
     public void setSE(int se) {
         playMedia(sePlayer, se, seVolume);
     }//setSE(R.raw.setest2)

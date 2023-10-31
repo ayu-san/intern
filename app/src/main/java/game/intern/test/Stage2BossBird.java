@@ -316,7 +316,7 @@ public class Stage2BossBird extends Enemy //縦に落ちてくるだけの敵
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 20;
+                enemy.m_InvincivleTime = 10;
                 return true;
             }
             return false;

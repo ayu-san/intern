@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy8),(float)screenWidth / 8 * 5,0.0f,5.0f, 76, 8,1000.0f,300.0f));
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy9),(float)screenWidth / 8,0.0f,5.0f, 78, 9,1000.0f,300.0f));
 
-        Enemies.add(new Stage1BossKuma(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,8.0f, 84,10, 900.0f,1800.0f));//ボス
+        Enemies.add(new Stage1BossKuma(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,8.0f, 84,10, 1400.0f,1800.0f));//ボス
 
         g_InitSize = Enemies.size();
 //        Enemies.add(new Enemy(findViewById(R.id.enemy),screenWidth / 5,0.0f,0.0f, 90, 0));
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                     long touchDuration = currentTime - touchDownTime;
                     changeColorBasedOnTouchLength(touchDuration);
 
-                    arrowView.setArrow(player.m_PosX+player.m_Texture.getWidth()/2,player.m_PosY+player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
+                    arrowView.setArrow(player.m_PosX+(float)player.m_Texture.getWidth()/2,player.m_PosY+(float)player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
 
                     break;
 
@@ -1107,6 +1107,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
+            soundPlayer.setSE(R.raw.decision1);
             SharedPreferences.Editor editor = sharedPreferences2.edit();
             editor.putBoolean("isChecked", true);
             editor.apply();

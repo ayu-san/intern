@@ -154,8 +154,6 @@ public class SelectActivity extends AppCompatActivity {
         backbutton.setOnClickListener((View v)->{
             soundPlayer.setSE(R.raw.cancel1);
 
-            //initData();
-
             startActivity(new Intent(this, TitleActivity.class));
         });
 
@@ -221,14 +219,6 @@ public class SelectActivity extends AppCompatActivity {
             }
             return false;
         });
-    }
-
-    //デバッグ用データ初期化
-    private void initData(){
-        SharedPreferences preferences1 = getSharedPreferences("isCondition", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences1.edit();
-        editor.clear();
-        editor.apply();
     }
 
 }

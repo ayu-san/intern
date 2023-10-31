@@ -89,6 +89,7 @@ public class ZigZagEnemy extends Enemy {
         float oldcalc = (float) Math.sqrt(oldDX * oldDX + oldDY * oldDY);
 
         boolean isEnemyUp;
+        boolean isEnemyRight;
 
         //if(player.m_CollisionTimer == 0) {
         {
@@ -107,6 +108,14 @@ public class ZigZagEnemy extends Enemy {
                 } else {
                     isEnemyUp = false;
                 }
+
+                if(player.m_PosX <= enemy.m_PosX)
+                {
+                    isEnemyRight = true;
+                } else {
+                    isEnemyRight = false;
+                }
+
 
                 // 衝突位置を計算
                 float collisionX = (float) (enemyX - dx * (-0.5 + radius / calc));
@@ -253,6 +262,7 @@ public class ZigZagEnemy extends Enemy {
                             if (!isNaN(preserveMoveY * ex2 / 8))
                                 player.m_MoveY = -preserveMoveY * ex2 / 8;
                         }
+
                     }
                     //ノックバック中
                     else

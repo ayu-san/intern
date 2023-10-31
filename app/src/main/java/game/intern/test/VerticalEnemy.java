@@ -69,7 +69,7 @@ public class VerticalEnemy extends Enemy //縦に落ちてくるだけの敵
     public boolean CollisionCircleEnemy(Player player, Enemy enemy,CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getHeight() /2;
-        radius += 110.0f;
+        radius += 80.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;

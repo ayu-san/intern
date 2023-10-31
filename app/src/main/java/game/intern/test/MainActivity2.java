@@ -48,7 +48,6 @@ public class MainActivity2 extends AppCompatActivity {
     private int dialogCount = 0;
     private  Player player;
     ArrayList<Enemy> Enemies;
-    ArrayList<Box> boxes;
     private final List<Integer> selectedImages = new ArrayList<>();
     private  GallLine gallLine;
     private float startX, startY;
@@ -177,7 +176,7 @@ public class MainActivity2 extends AppCompatActivity {
         Enemies.add(new SideEnemy(findViewById(R.id.enemy3),-390.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 3, 1000.0f,200.0f,(float)screenWidth 	/5, 5.0f));
         Enemies.add(new SideEnemy(findViewById(R.id.enemy4),screenWidth + 126.0f, (float)screenHeight /2, 0.0f, 5.0f, 22, 4, 1000.0f,200.0f,(float)screenWidth 	/9 * 5, -5.0f));
 
-        Enemies.add(new FastEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,7.0f, 34,5,5000.0f,10.0f));
+        Enemies.add(new FastEnemy(findViewById(R.id.enemy5),(float)screenWidth / 8 * 3,0.0f,7.0f, 34,5,5000.0f,1.0f));
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy6),(float)screenWidth / 8 * 3,0.0f,5.0f, 42, 6,600.0f,400.0f));
 
@@ -253,7 +252,7 @@ public class MainActivity2 extends AppCompatActivity {
                     long touchDuration = currentTime - touchDownTime;
                     changeColorBasedOnTouchLength(touchDuration);
 
-                    arrowView.setArrow(player.m_PosX+player.m_Texture.getWidth()/2,player.m_PosY+player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
+                    arrowView.setArrow(player.m_PosX+(float)player.m_Texture.getWidth()/2,player.m_PosY+(float)player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
 
                     break;
 
@@ -420,14 +419,6 @@ public class MainActivity2 extends AppCompatActivity {
                     {
                         changePosPlayer();
                     }
-
-//                    for(int k = 0; k < boxes.size(); k++)
-//                    {
-//                        {
-//                            Drawable drawable = ContextCompat.getDrawable(this, R.drawable.hiteffect1);
-//                            boxes.get(0).CollisionwithPlayer(player,boxes.get(k),collideEffect,drawable);
-//                        }
-//                    }
 
                     if (i < 3)
                     {

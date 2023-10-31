@@ -175,7 +175,7 @@ public class MainActivity5 extends AppCompatActivity {
 
         Enemies.add(new VerticalEnemy(findViewById(R.id.enemy2),(float)screenWidth / 8 * 5,0.0f,7.0f, 16, 2,1300.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,7.0f, 23, 3,1200.0f,400.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy3),(float)screenWidth / 8 * 3,0.0f,7.0f, 23, 3,1100.0f,400.0f));
 
         Enemies.add(new MillerEnemy(findViewById(R.id.enemy4),(float)screenWidth / 5,0.0f,7.0f, 27, 4,2400.0f,400.0f));
 
@@ -194,7 +194,7 @@ public class MainActivity5 extends AppCompatActivity {
 
         Enemies.add(new ZigZagEnemy(findViewById(R.id.enemy12),(float)screenWidth / 3,5.0f,5.0f, 65, 12,1200.0f,400.0f));
 
-        Enemies.add(new Enemy(findViewById(R.id.enemy13),(float)screenWidth / 8 * 5,0.0f,7.0f, 67, 13,1200.0f,400.0f));
+        Enemies.add(new Enemy(findViewById(R.id.enemy13),(float)screenWidth / 8 * 5,0.0f,7.0f, 67, 13,1100.0f,400.0f));
 
         Enemies.add(new MillerEnemy(findViewById(R.id.enemy14),(float)screenWidth / 8,0.0f,7.0f, 69, 14,2400.0f,400.0f));
 
@@ -261,7 +261,7 @@ public class MainActivity5 extends AppCompatActivity {
                     long touchDuration = currentTime - touchDownTime;
                     changeColorBasedOnTouchLength(touchDuration);
 
-                    arrowView.setArrow(player.m_PosX+player.m_Texture.getWidth()/2,player.m_PosY+player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
+                    arrowView.setArrow(player.m_PosX+(float)player.m_Texture.getWidth()/2,player.m_PosY+(float)player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
 
                     break;
 
@@ -442,7 +442,10 @@ public class MainActivity5 extends AppCompatActivity {
                         }
                     }
 
-                    Boxes.get(0).CollisionwithPlayer(player,Boxes.get(0),collideEffect,screeneffect);
+                    if(Boxes.get(0).CollisionwithPlayer(player,Boxes.get(0),collideEffect,screeneffect))
+                    {
+                        soundPlayer.setSE(R.raw.se_reflection);
+                    }
 
 
                     if (gallLine.checkGall(gallLine, Enemies,collideEffect,goaleffect)) {

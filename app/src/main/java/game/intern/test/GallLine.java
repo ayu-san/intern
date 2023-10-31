@@ -17,7 +17,7 @@ public class GallLine extends GameObject
         if(!enemies.isEmpty())//リストが空ではない
         {
             for (int i = 0; i < enemies.size(); i++) {
-                if (gall.m_PosY + gall.m_Texture.getHeight()/2 < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
+                if (gall.m_PosY + (float)gall.m_Texture.getHeight()/2 < enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight()
                         && gall.m_PosX < enemies.get(i).m_PosX + enemies.get(i).m_Texture.getWidth()
                         && enemies.get(i).m_PosX < gall.m_PosX + gall.m_Texture.getWidth()) {
 

@@ -188,7 +188,7 @@ public class MainActivity3 extends AppCompatActivity {
         Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy12),(float)screenWidth / 8 * 4.5f,0.0f,5.0f, 70, 12,1420.0f,200.0f));
         Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy13),(float)screenWidth / 8 * 1.5f,0.0f,5.0f, 70, 13,1420.0f,200.0f));
 
-        Enemies.add(new Stage3BossGhost(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,9.0f, 72,10, 1000.0f,2000.0f));//ボス
+        Enemies.add(new Stage3BossGhost(findViewById(R.id.enemy10),(float)screenWidth / 16 * 5,0.0f,9.0f, 72,10, 1000.0f,3000.0f));//ボス
 
         Enemies.add(new InVisibleEnemy(findViewById(R.id.enemy14),(float)screenWidth / 8 * 3,0.0f,5.0f, 75, 14,1420.0f,200.0f));
 
@@ -251,7 +251,7 @@ public class MainActivity3 extends AppCompatActivity {
                     long touchDuration = currentTime - touchDownTime;
                     changeColorBasedOnTouchLength(touchDuration);
 
-                    arrowView.setArrow(player.m_PosX+player.m_Texture.getWidth()/2,player.m_PosY+player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
+                    arrowView.setArrow(player.m_PosX+(float)player.m_Texture.getWidth()/2,player.m_PosY+(float)player.m_Texture.getHeight()/2, player.m_PosX+event.getX(), player.m_PosY+event.getY());
 
                     break;
 

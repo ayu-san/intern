@@ -23,14 +23,14 @@ public class FastEnemy extends Enemy
     FastEnemy(ImageView texture, float posX, float moveX, float moveY, int delayTime, int index, float speed, float weight)
     {
         super(texture,posX,moveX,moveY,delayTime,index,speed,weight);
-        m_InitialSpeed = 3000.0f;
+        m_InitialSpeed = 2000.0f;
     }
 
     public void SetPlayerCollision()
     {
         m_IsPlayerCollision = true;
     }
-    public void PullInvincivleTime(FastEnemy enemy)
+    public void PullInvincivleTime(Enemy enemy)
     {
         if(enemy.m_InvincivleTime != 0)
         {
@@ -398,7 +398,7 @@ public class FastEnemy extends Enemy
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 15;
+                enemy.m_InvincivleTime = 10;
                 return true;
             }
             return false;

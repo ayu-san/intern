@@ -70,7 +70,7 @@ public class MillerEnemy extends Enemy //縦に落ちてくるだけの敵
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
 
         float playerX = player.m_PosX + (float)player.m_Texture.getWidth()/2;
-        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2 - 10.0f;
+        float playerY = player.m_PosY + (float)player.m_Texture.getHeight()/2;
         float enemyX  = enemy.m_PosX + (float)enemy.m_Texture.getWidth()/2;
         float enemyY  = enemy.m_PosY + (float)enemy.m_Texture.getHeight()/2;
 

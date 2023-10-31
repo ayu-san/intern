@@ -53,8 +53,6 @@ public class Stage4BossDragon extends Enemy
 
                 enemy.m_Speed = enemy.m_InitialSpeed;
             }
-            //enemy.m_MoveX = 3.0f;
-            //enemy.m_MoveY = 0.0f;
         } else {
             enemy.m_Speed = 0.0f;
         }
@@ -91,14 +89,7 @@ public class Stage4BossDragon extends Enemy
         gameobject.m_MoveX /= length;
         gameobject.m_MoveY /= length;
     }
-/*
-    public void SetConstValue(float x, float y)
-    {
-        m_ConstMoveX = x;
-        m_ConstMoveY = y;
-    }
-*/
-    //画面外判定
+//画面外判定
     public boolean hitCheckEnemy(ArrayList<Enemy> enemies, int screenwidth, int screenheight, CollideEffect collideEffect, Drawable drawable) {
         long duration = 500;
         //右
@@ -136,34 +127,17 @@ public class Stage4BossDragon extends Enemy
                         return true;
                     }
 
-//                    //下
-//                    else if (enemies.get(i).m_PosY + enemies.get(i).m_Texture.getHeight() > screenheight)
-//                    {
-//                        collideEffect.collideEffect((int)enemies.get(i).m_PosX+enemies.get(i).m_Texture.getWidth()/2,
-//                                (int)enemies.get(i).m_PosY+enemies.get(i).m_Texture.getHeight()/2,drawable,500,500,duration);
-//                        enemies.get(i).m_Texture.setVisibility(View.INVISIBLE);
-//                        enemies.remove(i);
-//                        return true;
-//                    }
-
                 }
             }
         }
         return false;
     }
 
-/*
-    public void SetTimer(int time)
-    {
-        m_DisplayTimer = time;
-    }
-*/
-
     @Override
     public boolean CollisionCircleEnemy(Player player, Enemy enemy, CollideEffect collideEffect, Drawable drawable)
     {
         int radius = player.m_Texture.getWidth() /2;
-        radius += 170.0f;
+        radius += 190.0f;
 
         float oldenemyX = enemy.m_oldPosX + (float)enemy.m_Texture.getWidth()/2;
         float oldenemyY = enemy.m_oldPosY + (float)enemy.m_Texture.getHeight()/2;
@@ -352,160 +326,10 @@ public class Stage4BossDragon extends Enemy
                 enemy.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 player.m_CollisionTimer = 60;//約一秒間はプレイヤーとぶつかったらノックバックを受ける
                 enemy.m_IsPlayerCollision = true;
-                enemy.m_InvincivleTime = 20;
+                enemy.m_InvincivleTime = 10;
                 return true;
             }
             return false;
         }
     }
-//public void CollisionCircleEnemy(Player player, ArrayList<Enemy> enemies, CollideEffect collideEffect, Drawable drawable) {
-//    for (int i = 0; i < enemies.size(); i++) {
-//        int radius = player.m_Texture.getWidth() / 2;
-//        radius += 50.0f;
-//
-//        float playerX = player.m_PosX + (float) player.m_Texture.getWidth() / 2;
-//        float playerY = player.m_PosY + (float) player.m_Texture.getHeight() / 2 - 40.0f;
-//        float enemyX = enemies.get(i).m_PosX + (float) enemies.get(i).m_Texture.getWidth() / 2;
-//        float enemyY = enemies.get(i).m_PosY + (float) enemies.get(i).m_Texture.getHeight() / 2;
-//
-//        float dx = enemyX - playerX;
-//        float dy = enemyY - playerY;
-//        float calc = (float) Math.sqrt(dx * dx + dy * dy);
-//
-//        if (calc <= radius) { //当たった
-//            if (!player.m_IsColliding && !enemies.get(i).m_IsColliding) {
-//                //補完
-//                player.m_PosX = player.m_oldPosX;
-//                player.m_PosY = player.m_oldPosY;
-//                enemies.get(i).m_PosX = enemies.get(i).m_oldPosX;
-//                enemies.get(i).m_PosY = enemies.get(i).m_oldPosY;
-//
-//                player.m_IsColliding = true;
-//                enemies.get(i).m_IsColliding = true;
-//
-//                // 衝突位置を計算
-//                float collisionX = (float) (enemyX - dx * (-0.5 + radius / calc));
-//                float collisionY = (float) (enemyY - dy * (-0.5 + radius / calc));
-//
-//                // エフェクトを追加
-//                collideEffect.collideEffect((int) collisionX, (int) collisionY, drawable, 400, 400, 400);
-//
-//                // 衝突後の速度ベクトルを調整
-//                // ここで速度ベクトルの調整を行う
-//                float energy1 = player.m_Speed * player.m_Weight;
-//                float energy2 = enemies.get(i).m_Speed * enemies.get(i).m_Weight;
-//
-//                float ex;
-//                float ex2;
-//
-//                if (energy1 != 0.0f && energy2 != 0.0f) {
-//                    ex = energy1 / energy2;
-//                    ex2 = energy2 / energy1;
-//                } else //Playerのスピードが0の時にも入る
-//                {
-//                    ex = 1.0f;
-//                    ex2 = 5.0f;
-//                }
-//
-//                float preserveMoveX = enemies.get(i).m_MoveX;
-//                float preserveMoveY = enemies.get(i).m_MoveY;
-//
-//                //正規化処理 敵のノックバック処理
-//                if (player.m_MoveX == 0.0f) {
-//                    float vecX = -(player.m_PosX - enemies.get(i).m_PosX);
-//                    float vecY = -(player.m_PosY - enemies.get(i).m_PosY);
-//
-//                    float vectorLength = (float) Math.sqrt(vecX * vecX + vecY * vecY);
-//
-//                    if (vectorLength > 0.0f) {
-//                        // ベクトルの長さが0でない場合に正規化を行う
-//                        float normalizedX = vecX / vectorLength;
-//                        float normalizedY = vecY / vectorLength;
-//
-//                        // ベクトルの反転を保持したまま正規化されたベクトルを使用
-//                        enemies.get(i).m_MoveX = normalizedX * 3.0f;
-//                        enemies.get(i).m_MoveY = normalizedY * 3.0f;
-//                    } else
-//                    {
-//                        // ベクトルの長さが0の場合は正規化を行えません
-//                        // 長さが0の場合、ベクトルの方向は定義できません
-//                        // ここで適切なエラー処理を行うか、ベクトルのデフォルト値を設定します
-//                        enemies.get(i).m_MoveX = 0.0f; // 例: デフォルト値を0に設定
-//                        enemies.get(i).m_MoveY = 0.0f;
-//                    }
-//                } else
-//                {
-//                    if(player.m_CollisionTimer != 0)
-//                    //ノックバック中
-//                    {
-//                        if (!isNaN(player.m_MoveX * ex / 8))
-//                            enemies.get(i).m_MoveX = -player.m_MoveX * ex / 8;
-//
-//                        if (!isNaN(player.m_MoveY * ex / 8))
-//                            enemies.get(i).m_MoveY = -player.m_MoveY * ex / 8;
-//                    }
-//                    else
-//                    {
-//                        if (!isNaN(player.m_MoveX * ex / 8))
-//                            enemies.get(i).m_MoveX = player.m_MoveX * ex / 8;
-//
-//                        if (!isNaN(player.m_MoveY * ex / 8))
-//                            enemies.get(i).m_MoveY = player.m_MoveY * ex / 8;
-//                    }
-//                }
-//
-//                //プレイヤーのノックバック処理
-//                if (preserveMoveX == 0.0f)
-//                {
-//                    float vecX = -(enemies.get(i).m_PosX - player.m_PosX);
-//                    float vecY = -(enemies.get(i).m_PosY - player.m_PosY);
-//
-//                    float vectorLength = (float) Math.sqrt(vecX * vecX + vecY * vecY);
-//
-//                    if (vectorLength > 0.0f) {
-//                        // ベクトルの長さが0でない場合に正規化を行う
-//                        float normalizedX = vecX / vectorLength;
-//                        float normalizedY = vecY / vectorLength;
-//
-//                        // ベクトルの反転を保持したまま正規化されたベクトルを使用
-//                        player.m_MoveX = normalizedX * 3.0f;
-//                        player.m_MoveY = normalizedY * 3.0f;
-//                    } else {
-//                        // ベクトルの長さが0の場合は正規化を行えません
-//                        // 長さが0の場合、ベクトルの方向は定義できません
-//                        // ここで適切なエラー処理を行うか、ベクトルのデフォルト値を設定します
-//                        player.m_MoveX = 0.0f; // 例: デフォルト値を0に設定
-//                        player.m_MoveY = 0.0f;
-//                    }
-//                }
-//                else
-//                {
-//                    if(!isNaN(ex2))
-//                    {
-//                        if(enemies.get(i).m_CollisionTimer != 0)
-//                        //ノックバック中
-//                        {
-//                            player.m_MoveX = -preserveMoveX * ex2 / 8;
-//                            player.m_MoveY = -preserveMoveY * ex2 / 8;
-//                        }
-//                        else
-//                        {
-//                            player.m_MoveX = preserveMoveX * ex2 / 8;
-//                            player.m_MoveY = preserveMoveY * ex2 / 8;
-//
-//                        }
-//                    }
-//                }
-//
-//                player.m_CollisionTimer = 60;
-//                enemies.get(i).m_CollisionTimer = 60;
-//                enemies.get(i).m_IsPlayerCollision = true;
-//
-//            }
-//        } else {
-//            player.m_IsColliding = false;
-//            enemies.get(i).m_IsColliding = false;
-//        }
-//    }
-//}
 }

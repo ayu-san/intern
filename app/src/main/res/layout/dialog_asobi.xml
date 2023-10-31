@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center|left"
     android:background="#B3FF95"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="RtlHardcoded">
 
     <TextView
         android:id="@+id/textView"
@@ -119,7 +120,8 @@
             android:text="今後表示しない"
             android:textAlignment="gravity"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <View
             android:id="@+id/view2"
