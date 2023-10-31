@@ -36,7 +36,6 @@
         android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/todo"
-        android:src="@drawable/gallline"
         app:srcCompat="@drawable/goal"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
